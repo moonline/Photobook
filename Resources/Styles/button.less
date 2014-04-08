@@ -1,0 +1,109 @@
+input[type="button"], .button, button {
+	display: inline-block;
+	border: 0.1em solid gray; border-radius: 0.5em;
+	.background-linear-gradient(white,silver);
+	color: black; font-weight: bold;
+	padding: (@elementPadding / 2) 1em;
+	.box-shadow(0 0 0.5em gray);
+
+	span { display: inline; }
+
+	&:hover {
+		color: white;
+		.background-linear-gradient(silver,gray);
+		border-color: silver;
+	}
+
+	&:active {
+		color: black;
+		.background-linear-gradient(gray,silver);
+		border-color: silver;
+	}
+
+	&.error, &.red {
+		.background-linear-gradient(red,maroon);
+		border-color: maroon;
+
+		&:hover {
+			.background-linear-gradient(brown, rgb(100,0,0));
+		}
+	}
+
+	&.blue {
+		.background-linear-gradient(deepskyblue,rgb(0,75,120));
+		border-color: midnightblue;
+
+		&:hover {
+			.background-linear-gradient(rgb(0,170,240),rgb(0,60,100));
+		}
+	}
+
+	&.green, &.success {
+		.background-linear-gradient(mediumseagreen, darkgreen);
+		border-color: rgb(0,50,0);
+
+		&:hover {
+			.background-linear-gradient(rgb(45,165,100), rgb(0,85,0));
+		}
+
+		&:active {
+			.background-linear-gradient(rgb(20,115,60), rgb(0,75,0));
+		}
+	}
+}
+
+input[type="button"][disable="disable"], .button[disable="disable"], button[disable="disable"] {
+	background: white; color: gray;
+	.background-linear-gradient(white,silver);
+	border-color: gray; .box-shadow(none);
+}
+
+input[type="button"].error, .button.error, button.error {
+	background: red;
+	.background-linear-gradient(red,maroon);
+}
+
+a.button { text-decoration: none; }
+
+
+/* dropdowns */
+.dropDown {
+	display: inline-block;
+
+	.dropDownContent {
+		display: none;
+		position: absolute;
+		background: silver; border: none;
+		.box-shadow(0 0.25em 0.25em gray);
+		border-top-right-radius: 0.25em;
+
+		&:hover {
+			display: block;
+		}
+
+		li {
+			padding: @elementPadding;
+			.listElement;
+
+			&:hover { cursor: pointer;
+				.background-linear-gradient(gainsboro,silver);
+			}
+		}
+	}
+	.dropDownIcon:hover {
+		border: 0.1em solid white; border-radius: 0.5em;
+		.background-linear-gradient(white,silver);
+		color: black; font-weight: bold;
+	}
+	.dropDownIcon:hover + .dropDownContent {
+		display: block;
+	}
+
+	&:hover {
+		.dropDownContent { display: block; }
+		.dropDownIcon {
+			border-bottom-left-radius: 0; border-bottom-right-radius: 0;
+			border-bottom-color: silver;
+		}
+	}
+}
