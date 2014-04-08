@@ -1,6 +1,6 @@
 # ignore js files in model -> will be generated from ts files
 Model/*.js
-
+Application/*.js
 
 # temporary files
 *~
@@ -33,6 +33,7 @@ Model/*.js
 # linux trash
 *.lock
 *.bak
+.directory
 
 # ide trash
 /.idea/

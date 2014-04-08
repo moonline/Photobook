@@ -12,6 +12,10 @@ class Page {
 	public addImage(image: Image) {
 		this.images.push(image);
 	}
+
+	public addImageFromPath(path: string) {
+		this.images.push(new Image(path));
+	}
 }
 
 export = Page;

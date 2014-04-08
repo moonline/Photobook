@@ -7,7 +7,10 @@
 				<figcaption>{{image.caption}}</figcaption>
 			</figure>
 		</div>
-
+		<div class="controls pageControls">
+			<button class="button green" data-ng-click="addImage(page)">(+) Add Image</button>
+			<select ng-model="page.numberOfLines" ng-options="l for l in linesPerPageAvailable"></select>
+		</div>
 	</div>
 
 	<footer class="operationPanel">

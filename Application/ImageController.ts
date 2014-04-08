@@ -9,14 +9,26 @@ class ImageController{
 
 		this.$scope.title = "Image Manager";
 		this.$scope.pages = [];
+		this.$scope.linesPerPageAvailable = [1,2,3,4]; //[{n:1, v:1},{n:2, v:2},{n:3, v:3},{n:4, v:4}];
+
 		this.addDummyData();
 
-		$scope.addPage = function() {
-			var page = new Page(2);
-			page.addImage(new Image('file:///home/tobias/Live/Fotos/1204 Israel/P4100235.JPG'));
-			page.addImage(new Image('file:///home/tobias/Live/Fotos/1204 Israel/P4100235.JPG'));
+		$scope.addPage = function () {
+			var numberOfLines = Number(prompt("Number of lines")) || 2;
+			var page = new Page(numberOfLines);
 			$scope.pages.push(page);
-		}
+		};
+
+		$scope.addFile = function(s:Object) {
+			console.log(s);
+		};
+
+		$scope.addImage = function(page: Page, imagePath: string = null) {
+			var imagePath = imagePath || prompt("Image Path");
+			if(imagePath) {
+				page.addImage(new Image(imagePath));
+			}
+		};
 	}
 
 	private addDummyData() {
