@@ -8,6 +8,10 @@ class Page {
 		this.numberOfLines = numberOfLines;
 		this.images = [];
 	}
+
+	public addImage(image: Image) {
+		this.images.push(image);
+	}
 }
 
 export = Page;

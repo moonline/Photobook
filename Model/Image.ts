@@ -9,7 +9,7 @@ class Image {
 		this.caption = null;
 	}
 
-	public setCaptionn(caption) {
+	public setCaption(caption: string) {
 		this.caption = caption;
 	}
 		

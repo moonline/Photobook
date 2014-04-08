@@ -1,0 +1,40 @@
+* { box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;
+	margin: 0; padding: 0; text-indent: 0; color: black;
+	font: Ubuntu, Arial, Helvetica, sans-serif;
+}
+body { background: silver; }
+
+.page { background: white; box-shadow: 0 0 0.5cm gray; width: 29.7cm; height: 21cm; padding: 1cm; margin: 0.5cm; overflow: hidden; }
+.page > .content { width: 100%; height: 100%; background: rgb(245, 245, 245);
+	display: flex; flex-direction: row; flex-wrap: wrap; justify-content: space-between;
+	align-content: space-between;
+}
+
+.content .imageContainer { display: inline-flex; background-position: center center;
+	-webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover;
+}
+.content .imageContainer.wide { width: 27.7cm; }
+
+figure.imageContainer { display: flex; flex-direction: column; justify-content: flex-end; }
+figure.imageContainer figcaption { padding: 0.1cm; color: white; text-align: center; text-shadow: 0 0 0.25cm black; font-weight: bold;
+	/*background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB94EBgkjJc53tkoAAAAZdEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIEdJTVBXgQ4XAAAADUlEQVQI12NgYGCoBwAAhACAxkwJbwAAAABJRU5ErkJggg==');
+	background-color: rgba(0,0,0,0.5);*/
+}
+
+.content.layout2line .imageContainer { height: 9.4cm; }
+.content.layout2line .imageContainer.horizontal { width: 13.75cm; }
+.content.layout2line .imageContainer.vertical { width: 6.775cm; }
+
+.content.layout3line .imageContainer { height: 6.2cm; }
+.content.layout3line .imageContainer.horizontal { width: 9.1cm; }
+.content.layout3line .imageContainer.vertical { width: 4.45cm; }
+.content.layout3line .imageContainer.double { width: 18.4cm; }
+
+.content.layout1line .imageContainer { height: 19cm; }
+.content.layout1line .imageContainer.horizontal { width: 27.9cm; }
+.content.layout1line .imageContainer.vertical { width: 13.75cm; }
+
+@media print {
+	.page { padding: 0; width: 27.7cm; height: 19cm;  margin: 0; box-shadow: none; }
+	.page > .content { background-color: none; }
+}

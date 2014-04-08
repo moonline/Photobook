@@ -14,51 +14,6 @@
 }
 
 
-/* container */
-span { display: inline-block; }
-html, body {
-	width: 100%; height: 100%; overflow: hidden;
-	font-family: Ubuntu, Arial, Helvetica, sans-serif; font-size: 1em; color: black;
-}
-
-/* page */
-.page {
-	.flex; .flex-flow(column); .justify-content(space-between); .align-items(stretch);
-	width: 100%;
-	height: 100%;
-
-	.content {
-		height: 100%;
-		overflow-y: scroll;
-	}
-
-	footer {
-		.background-linear-gradient(rgb(40,40,40), black);
-		border-top: 0.2em solid teal;
-		padding: @elementPadding;
-	}
-
-	header {
-		.background-linear-gradient(rgb(40,40,40), black);
-		border-bottom: 0.2em solid teal;
-		padding: @elementPadding;
-
-		h2 {
-			float: right;
-			padding: 0.25em;
-			color: white; font-size: 1em; font-weight: bold;
-		}
-	}
-}
 
 
-.userImage { margin-right: 0.5em;
-	span {
-		height: 3em; width: 3em; display: inline-block; vertical-align: middle;
-		background-size:cover; background-position: center center; background-repeat: no-repeat;
-	}
-}
-
-.verticalDivider { width: 0.05em; margin: 0 0.5em;
-	background: black; background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,1) 50%,rgba(0,0,0,0) 100%);
-}
+h1 { padding: 0.5cm; width: 100%; background: black; color: white; }

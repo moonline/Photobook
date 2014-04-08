@@ -1,5 +1,15 @@
 <div class="view" id="imageView">
-	<h2>lala</h2>
+	<h1>{{title}}</h1>
+
+	<div class="page" data-pages="{{pages.length}}" data-ng-repeat="page in pages">
+		<div class="content layout{{page.numberOfLines}}line" data-images="{{page.images.length}}">
+			<figure data-ng-repeat="image in page.images" class="imageContainer horizontal" style="background-image: url('{{image.path}}')">
+				<figcaption>{{image.caption}}</figcaption>
+			</figure>
+		</div>
+
+	</div>
+
 	<footer class="operationPanel">
 		<button class="button green" data-ng-click="addPage()">(+) Add page</button>
 	</footer>
