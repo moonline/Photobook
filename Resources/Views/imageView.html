@@ -1,5 +1,8 @@
 <div class="view" id="imageView">
-	<h1>{{title}}</h1>
+	<div class="controls toolBar">
+		<h1>{{title}}</h1>
+		<button class="button green" data-ng-click="save()">Save</button>
+	</div>
 
 	<div class="page" data-pages="{{pages.length}}" data-ng-repeat="page in pages">
 		<div class="content layout{{page.numberOfLines}}line" data-images="{{page.images.length}}">

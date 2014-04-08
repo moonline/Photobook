@@ -1,6 +1,8 @@
 import Page = require("Model/Page");
 import Image = require("Model/Image");
 
+declare function saveAs(blobb, name: string):void;
+
 class ImageController{
 	$scope: any;
 
@@ -29,6 +31,11 @@ class ImageController{
 				page.addImage(new Image(imagePath));
 			}
 		};
+
+		$scope.save = function() {
+			var blob = new Blob([JSON.stringify($scope.pages)], {type: 'text/json'});
+			var fileSaver = saveAs(blob,"fotobook.json");
+		}
 	}
 
 	private addDummyData() {
