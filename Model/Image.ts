@@ -5,7 +5,7 @@ class Image {
 
 	constructor(path) {
 		this.path = path;
-		this.properties = [];
+		this.properties = ["horizontal"];
 		this.caption = null;
 	}
 

@@ -12,7 +12,8 @@ class ImageController{
 
 		this.$scope.title = "Image Manager";
 		this.$scope.pages = [];
-		this.$scope.linesPerPageAvailable = [1,2,3,4]; //[{n:1, v:1},{n:2, v:2},{n:3, v:3},{n:4, v:4}];
+		this.$scope.linesPerPageAvailable = [1,2,3,4];
+		this.$scope.imagePropertiesAvailable = ["horizontal", "vertical", "wide", "double"];
 
 		this.addDummyData();
 
