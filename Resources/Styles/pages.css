@@ -14,6 +14,16 @@ body { background: silver; }
 .content .imageContainer { display: inline-flex; background-position: center center;
 	-webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover;
 }
+.imageContainer.topLeft { background-position: top left; }
+.imageContainer.topCenter { background-position: top center; }
+.imageContainer.topRight { background-position: top right; }
+.imageContainer.middleLeft { background-position: center left; }
+.imageContainer.middleCenter { background-position: center center; }
+.imageContainer.middleRight { background-position: center right; }
+.imageContainer.bottomLeft { background-position: bottom left; }
+.imageContainer.bottomCenter { background-position: bottom center; }
+.imageContainer.bottomRight { background-position: bottom right; }
+
 .content .imageContainer.wide { width: 27.7cm; }
 
 figure.imageContainer { display: flex; flex-direction: column; justify-content: space-between; }

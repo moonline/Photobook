@@ -8,10 +8,12 @@
 
 	<div class="page" data-pages="{{pages.length}}" data-ng-repeat="page in pages">
 		<div class="content layout{{page.numberOfLines}}line" data-images="{{page.images.length}}">
-			<figure data-ng-repeat="image in page.images" class="imageContainer {{image.properties.join(' ')}}" style="background-image: url('{{image.path}}')">
+			<figure data-ng-repeat="image in page.images" class="imageContainer {{image.properties['display']}} {{image.properties['position']}}" style="background-image: url('{{image.path}}')">
 				<div class="controls imageControls">
-					<label>Image properties:</label>
-					<select ng-model="image.properties.display" ng-options="p for p in setings.displayAvailable"></select>
+					<label>display:</label>
+					<select ng-model="image.properties['display']" ng-options="p for p in settings.displayAvailable"></select>
+					<label>position:</label>
+					<select ng-model="image.properties['position']" ng-options="p for p in settings.positionAvailable"></select>
 				</div>
 				<figcaption contenteditable="true" ng-model="image.caption">{{image.caption}}</figcaption>
 			</figure>

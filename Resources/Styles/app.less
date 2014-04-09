@@ -21,27 +21,17 @@ body { padding-top: 2cm; }
 .toolBar { position: fixed; top: 0; left: 0; padding: 0.5cm; width: 100%; background: black; background: linear-gradient(rgb(50,50,50),black);
 	color: black; box-shadow: 0 0 0.5cm gray; }
 
-figcaption:before {
-	content: "✎";
-	color: white;
-	margin-right: 0.25cm;
-	font-weight: bold;
-	font-size: 0.6cm;
-	background: green; background: linear-gradient(green,teal);
-	border-radius: 0.5cm;
-	width: 0.6cm;
-	height: 0.6cm;
-	display: inline-block;
-	text-align: center;
-	vertical-align: middle;
-	padding: 0.1cm;
+figcaption:before { content: "✎"; color: white; margin-right: 0.25cm; font-weight: bold; font-size: 0.6cm;
+	background: green; background: linear-gradient(green,teal); border-radius: 0.5cm;
+	width: 0.6cm; height: 0.6cm; display: inline-block; text-align: center;
+	vertical-align: middle; padding: 0.1cm;
 }
 
 .imageControls {
 	display: inline-flex; background: rgba(255,255,255,0.5);
-	label, select { margin: 0.1cm; }
-	select { border: none; background: white;
-		option { padding: 0.05cm; }
+	label { padding: 0.1cm; }
+	select { border: none; background: white; margin: 0.05cm;
+		option { padding: 0.1cm; }
 	}
 
 }
