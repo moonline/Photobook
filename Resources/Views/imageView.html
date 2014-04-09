@@ -9,7 +9,7 @@
 	<div class="page" data-pages="{{pages.length}}" data-ng-repeat="page in pages">
 		<div class="content layout{{page.numberOfLines}}line" data-images="{{page.images.length}}">
 			<figure data-ng-repeat="image in page.images" class="imageContainer horizontal" style="background-image: url('{{image.path}}')">
-				<figcaption>{{image.caption}}</figcaption>
+				<figcaption contenteditable="true" ng-model="image.caption">{{image.caption}}</figcaption>
 			</figure>
 		</div>
 		<div class="controls pageControls">
