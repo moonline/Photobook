@@ -16,7 +16,7 @@ body { background: silver; }
 }
 .content .imageContainer.wide { width: 27.7cm; }
 
-figure.imageContainer { display: flex; flex-direction: column; justify-content: flex-end; }
+figure.imageContainer { display: flex; flex-direction: column; justify-content: space-between; }
 figure.imageContainer figcaption { padding: 0.1cm; color: white; text-align: center; text-shadow: 0 0 0.25cm black; font-weight: bold;
 	/*background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB94EBgkjJc53tkoAAAAZdEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIEdJTVBXgQ4XAAAADUlEQVQI12NgYGCoBwAAhACAxkwJbwAAAABJRU5ErkJggg==');
 	background-color: rgba(0,0,0,0.5);*/

@@ -1,11 +1,11 @@
 class Image {
 	path: string;
-	properties: string[];
+	properties: Object;
 	caption: string;
 
 	constructor(path) {
 		this.path = path;
-		this.properties = ["horizontal"];
+		this.properties = { display: "horizontal" };
 		this.caption = null;
 	}
 

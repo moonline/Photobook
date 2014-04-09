@@ -10,7 +10,8 @@
 		<div class="content layout{{page.numberOfLines}}line" data-images="{{page.images.length}}">
 			<figure data-ng-repeat="image in page.images" class="imageContainer {{image.properties.join(' ')}}" style="background-image: url('{{image.path}}')">
 				<div class="controls imageControls">
-					<select ng-model="image.properties" multiple ng-options="p for p in imagePropertiesAvailable"></select>
+					<label>Image properties:</label>
+					<select ng-model="image.properties.display" ng-options="p for p in setings.displayAvailable"></select>
 				</div>
 				<figcaption contenteditable="true" ng-model="image.caption">{{image.caption}}</figcaption>
 			</figure>
@@ -18,7 +19,7 @@
 		<div class="controls pageControls">
 			<button class="button green" data-ng-click="addImage(page)">(+) Add Image</button>
 			<!--<input type="text" data-ng-change="addImage(page, this.attribute(value))" />-->
-			<select ng-model="page.numberOfLines" ng-options="l for l in linesPerPageAvailable"></select>
+			<select ng-model="page.numberOfLines" ng-options="l for l in settings.linesPerPageAvailable"></select>
 		</div>
 	</div>
 
