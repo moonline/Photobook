@@ -1,5 +1,6 @@
 import Page = require("Model/Page");
 import Image = require("Model/Image");
+import FileService = require("Service/FileService");
 
 declare function saveAs(blobb, name: string):void;
 
@@ -33,16 +34,25 @@ class ImageController{
 		};
 
 		$scope.save = function() {
-			var blob = new Blob([JSON.stringify($scope.pages)], {type: 'text/json'});
-			var fileSaver = saveAs(blob,"fotobook.json");
-		}
+			var blob = new Blob([JSON.stringify({pages: $scope.pages})], {type: 'application/json'});
+			var fileSaver = saveAs(blob,"photobook.json");
+		};
+
+		$scope.loadFile = function(files) {
+			FileService.readFile(files[0], function(fileContent) {
+				var data = JSON.parse(fileContent);
+				console.log(data);
+				$scope.pages = data['pages'];
+				$scope.$apply();
+			});
+		};
 	}
 
 	private addDummyData() {
-		var page = new Page(1);
-		var image = new Image('file:///home/tobias/Live/Fotos/1204 Israel/P4100235.JPG');
-		image.setCaption("Rotes Meer");
-		page.addImage(image);
+		var page = new Page(2);
+		//var image = new Image('file:///home/tobias/Live/Fotos/1204 Israel/P4100235.JPG');
+		//image.setCaption("Rotes Meer");
+		//page.addImage(image);
 		this.$scope.pages.push(page);
 
 	}

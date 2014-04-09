@@ -1,6 +1,7 @@
 # ignore js files in model -> will be generated from ts files
 Model/*.js
 Application/*.js
+Service/*.js
 
 # temporary files
 *~

@@ -5,6 +5,8 @@
 	.box-sizing(border-box);
 }
 
+body { padding-top: 2cm; }
+
 /* templates */
 .listElement {
 	padding: @elementPadding;
@@ -16,4 +18,5 @@
 
 
 
-.toolBar { padding: 0.5cm; width: 100%; background: gray; color: black; }
+.toolBar { position: fixed; top: 0; left: 0; padding: 0.5cm; width: 100%; background: black; background: linear-gradient(rgb(50,50,50),black);
+	color: black; box-shadow: 0 0 0.5cm gray; }

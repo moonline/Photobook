@@ -1,7 +1,9 @@
 <div class="view" id="imageView">
 	<div class="controls toolBar">
-		<h1>{{title}}</h1>
+		<!--<h1>{{title}}</h1>-->
 		<button class="button green" data-ng-click="save()">Save</button>
+		<input type="file" accept="application/json" name="loadFile" value="Open File"
+			   onchange="angular.element(this).scope().loadFile(this.files)" />
 	</div>
 
 	<div class="page" data-pages="{{pages.length}}" data-ng-repeat="page in pages">
