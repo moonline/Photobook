@@ -12,6 +12,12 @@ class Image {
 		this.caption = null;
 	}
 
+	public importFromObject(image: any):void {
+		this.path = image.path;
+		this.properties = image.properties;
+		this.caption = image.caption;
+	}
+
 	public setCaption(caption: string) {
 		this.caption = caption;
 	}

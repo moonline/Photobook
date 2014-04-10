@@ -9,12 +9,28 @@ class Page {
 		this.images = [];
 	}
 
-	public addImage(image: Image) {
+	public importFromObject(page: any) {
+		this.numberOfLines = page.numberOfLines;
+		for(var i in page.images) {
+			var newImage:Image = new Image(page.images[i].path);
+			newImage.importFromObject(page.images[i]);
+			this.images.push(newImage);
+		}
+	}
+
+	public addImage(image: Image):void {
 		this.images.push(image);
 	}
 
-	public addImageFromPath(path: string) {
+	public addImageFromPath(path: string):void {
 		this.images.push(new Image(path));
+	}
+
+	public removeImage(image: Image):void {
+		var position:number = this.images.indexOf(image);
+		if(position >= 0) {
+			this.images.splice(position,1);
+		}
 	}
 }
 

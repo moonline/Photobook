@@ -46,19 +46,32 @@ class ImageController{
 		$scope.loadFile = function(files) {
 			FileService.readFile(files[0], function(fileContent) {
 				var data = JSON.parse(fileContent);
-				console.log(data);
-				$scope.pages = data['pages'];
+				$scope.pages = [];
+				var pages = data['pages'];
+
+				for(var i in pages) {
+					var newPage:Page = new Page(pages[i].numberOfLines);
+					newPage.importFromObject(pages[i]);
+					$scope.pages.push(newPage);
+				}
 				$scope.$apply();
 			});
 		};
+
+		$scope.removePage = function(page:Page) {
+			var position:number = $scope.pages.indexOf(page);
+			if(position >= 0) {
+				$scope.pages.splice(position,1);
+			}
+		}
 	}
 
 	private addDummyData() {
-		var page = new Page(2);
+		//var page = new Page(2);
 		//var image = new Image('file:///home/tobias/Live/Fotos/1204 Israel/P4100235.JPG');
 		//image.setCaption("Rotes Meer");
 		//page.addImage(image);
-		this.$scope.pages.push(page);
+		//this.$scope.pages.push(page);
 
 	}
 }

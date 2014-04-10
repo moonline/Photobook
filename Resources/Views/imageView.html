@@ -14,18 +14,20 @@
 					<select ng-model="image.properties['display']" ng-options="p for p in settings.displayAvailable"></select>
 					<label>position:</label>
 					<select ng-model="image.properties['position']" ng-options="p for p in settings.positionAvailable"></select>
+					<button class="button red" data-ng-click="page.removeImage(image)">X</button>
 				</div>
 				<figcaption contenteditable="true" ng-model="image.caption">{{image.caption}}</figcaption>
 			</figure>
 		</div>
 		<div class="controls pageControls">
-			<button class="button green" data-ng-click="addImage(page)">(+) Add Image</button>
+			<button class="button green" data-ng-click="addImage(page)">+ Add image</button>
 			<!--<input type="text" data-ng-change="addImage(page, this.attribute(value))" />-->
 			<select ng-model="page.numberOfLines" ng-options="l for l in settings.linesPerPageAvailable"></select>
+			<button class="button red" data-ng-click="removePage(page)">X</button>
 		</div>
 	</div>
 
 	<footer class="operationPanel">
-		<button class="button green" data-ng-click="addPage()">(+) Add page</button>
+		<button class="button green" data-ng-click="addPage()">+ Add page</button>
 	</footer>
 </div>
