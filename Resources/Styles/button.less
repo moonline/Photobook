@@ -1,28 +1,21 @@
-input[type="button"], .button, button {
-	display: inline-block;
-	border: 0.1em solid gray; border-radius: 0.5em;
-	.background-linear-gradient(white,silver);
-	color: black; font-weight: bold;
-	padding: (@elementPadding / 2) 1em;
-	.box-shadow(0 0 0.5em gray);
+input[type="button"], .button, button, select {
+	display: inline-block; border-radius: 0.5em; color: black; font-weight: bold; padding: 0.25em 0.5em;
+	.background-linear-gradient(white,silver); .box-shadow(0 0 0.5em gray); border: none;
 
-	span { display: inline; }
+	span { display: inline; margin: 0; font-size: 1.2em; }
 
 	&:hover {
 		color: white;
 		.background-linear-gradient(silver,gray);
-		border-color: silver;
 	}
 
 	&:active {
 		color: black;
 		.background-linear-gradient(gray,silver);
-		border-color: silver;
 	}
 
 	&.error, &.red {
 		.background-linear-gradient(red,maroon);
-		border-color: maroon;
 
 		&:hover {
 			.background-linear-gradient(brown, rgb(100,0,0));
@@ -52,7 +45,20 @@ input[type="button"], .button, button {
 	}
 }
 
-input[type="button"][disable="disable"], .button[disable="disable"], button[disable="disable"] {
+select {
+	padding: 0.25em;
+	
+	option {
+		border: none;
+		:last-child { border-bottom-right-radius: 0.25em; border-bottom-left-radius: 0.25em; };
+	}
+}
+
+label {
+	padding: 0.25em;
+}
+
+input[type="button"][disable="disable"], .button[disable="disable"], button[disable="disable"], select[disable="disable"] {
 	background: white; color: gray;
 	.background-linear-gradient(white,silver);
 	border-color: gray; .box-shadow(none);
@@ -64,46 +70,3 @@ input[type="button"].error, .button.error, button.error {
 }
 
 a.button { text-decoration: none; }
-
-
-/* dropdowns */
-.dropDown {
-	display: inline-block;
-
-	.dropDownContent {
-		display: none;
-		position: absolute;
-		background: silver; border: none;
-		.box-shadow(0 0.25em 0.25em gray);
-		border-top-right-radius: 0.25em;
-
-		&:hover {
-			display: block;
-		}
-
-		li {
-			padding: @elementPadding;
-			.listElement;
-
-			&:hover { cursor: pointer;
-				.background-linear-gradient(gainsboro,silver);
-			}
-		}
-	}
-	.dropDownIcon:hover {
-		border: 0.1em solid white; border-radius: 0.5em;
-		.background-linear-gradient(white,silver);
-		color: black; font-weight: bold;
-	}
-	.dropDownIcon:hover + .dropDownContent {
-		display: block;
-	}
-
-	&:hover {
-		.dropDownContent { display: block; }
-		.dropDownIcon {
-			border-bottom-left-radius: 0; border-bottom-right-radius: 0;
-			border-bottom-color: silver;
-		}
-	}
-}

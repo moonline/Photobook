@@ -28,12 +28,17 @@ figcaption:before { content: "✎"; color: white; margin-right: 0.25cm; font-wei
 }
 
 .imageControls {
-	display: inline-flex; background: rgba(255,255,255,0.5);
-	label { padding: 0.1cm; }
-	select { border: none; background: white; margin: 0.05cm;
-		option { padding: 0.1cm; }
-	}
+	display: flex; flex-wrap: wrap; background: rgba(255,255,255,0.5); padding: 0.1cm;
+	justify-content: flex-start; align-content: flex-start;
 
+	* { margin: 0 0.1cm; }
+
+	.controlsBlock {
+		display: flex; margin-bottom: 0.1cm;
+		.control { text-align: center; }
+	}
+	.controlsBlock:last-child { margin-bottom: 0; }
 }
+
 
 .pageControls { padding: 0 0.5cm; }

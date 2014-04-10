@@ -1,0 +1,15 @@
+.font-face(@family, @path, @weight: normal, @style: normal){
+	@font-face{
+		font-family: @family;
+		src:url('../Font/@{path}.woff');
+		src:url('../Font/@{path}.eot?#iefix') format('embedded-opentype'),
+		url('../Font/@{path}.woff') format('woff'),
+		url('../Font/@{path}.ttf') format('truetype'),
+		url('../Font/@{path}.svg#icon') format('svg');
+		font-weight: @weight;
+		font-style: @style;
+	}
+}
+
+.font-face(Ligature, "ligature/LigatureSymbols-2.11");
+.icon-liga { font-family: "Ligature"; font-weight: normal; }
