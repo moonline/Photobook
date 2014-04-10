@@ -22,7 +22,7 @@ class Page {
 		this.images.push(image);
 	}
 
-	public addImageFromPath(path: string):void {
+	public createImage(path: string = prompt('Image path')):void {
 		this.images.push(new Image(path));
 	}
 
@@ -31,6 +31,15 @@ class Page {
 		if(position >= 0) {
 			this.images.splice(position,1);
 		}
+	}
+
+	public moveImage(image: Image, amount:number = 1) {
+		var from:number = this.images.indexOf(image);
+		var to:number = from+amount;
+		if(from >= 0 && to >= 0 && to < this.images.length) {
+			this.images.splice(to, 0, this.images.splice(from, 1)[0]);
+		}
+
 	}
 }
 
