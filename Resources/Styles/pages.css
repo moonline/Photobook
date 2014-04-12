@@ -45,7 +45,12 @@ figure.imageContainer figcaption { padding: 0.1cm; color: white; text-align: cen
 .content.layout1line .imageContainer.horizontal { width: 27.9cm; }
 .content.layout1line .imageContainer.vertical { width: 13.75cm; }
 
+
 @media print {
+	body { padding: none; }
+	.controls { display: none; }
 	.page { padding: 0; width: 27.7cm; height: 19cm;  margin: 0; box-shadow: none; }
 	.page > .content { background-color: none; }
+	figure.imageContainer { justify-content: flex-end; }
+	figcaption:before { content: ""; margin: 0; padding: 0; width: 0; height: 0; display: auto;	}
 }

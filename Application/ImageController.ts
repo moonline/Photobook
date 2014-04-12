@@ -17,13 +17,32 @@ class ImageController{
 
 		this.$scope.settings = {
 			displayAvailable: ["horizontal", "vertical", "wide", "double"],
+				/*[
+				{ item: "horizontal", label: "&#xe053; horizontal" },
+				{ item: "vertical", label: "&#xe053; vertical" },
+				{ item: "wide", label: "&#xe053; wide" },
+				{ item: "double", label: "&#xe053; double" }
+			],*/
 			linesPerPageAvailable: [1,2,3,4],
-			positionAvailable: ["topLeft", "topCenter", "topRight", "middleLeft", "middleCenter", "middleRight", "bottomLeft", "bottomCenter", "bottomRight"]
+			positionAvailable: ["topLeft", "topCenter", "topRight", "middleLeft", "middleCenter", "middleRight", "bottomLeft", "bottomCenter", "bottomRight"],
+			titleSizesAvailable: ["small","normal", "large", "extraLarge", "big", "extraBig"],
+			titleTypesAvailable: ["standard", "ocean", "desert", "winter", "dark"]
+		};
+
+		$scope.getNumberList = function(start:number = 0, end:number = 10, step:number = 1) {
+			var numbers:number[] = [];
+			for(var i:number = start; i<=end ;i+=step) {
+				numbers.push(i);
+			}
+			return numbers;
 		};
 
 		this.addDummyData();
 
 		$scope.save = function() {
+			while(!$scope.photoBook.title || $scope.photoBook.title == "") {
+				$scope.photoBook.title = prompt("Please enter the title of your photobook");
+			}
 			var blob = new Blob([JSON.stringify($scope.photoBook)], {type: 'application/json'});
 			var fileSaver = saveAs(blob,$scope.photoBook.title.replace(" ","-")+".json");
 		};
