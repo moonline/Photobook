@@ -27,6 +27,7 @@ Service/*.js
 *.xlsx
 *.ppt
 *.pptx
+*.od*
 
 # mac trash
 .DS_Store
