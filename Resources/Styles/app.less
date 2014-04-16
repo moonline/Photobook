@@ -17,19 +17,41 @@ body { padding-top: 2cm; font-family: Ubuntu, Arial, Helvetica, sans-serif; }
 
 
 
-
-.toolBar { position: fixed; top: 0; left: 0; padding: 0.5cm; width: 100%; background: black; background: linear-gradient(rgb(50,50,50),black);
-	color: black; box-shadow: 0 0 0.5cm gray; }
-
 figcaption:before { content: "✎"; color: white; margin-right: 0.25cm; font-weight: bold; font-size: 0.6cm;
 	background: green; background: linear-gradient(green,teal); border-radius: 0.5cm;
 	width: 0.6cm; height: 0.6cm; display: inline-block; text-align: center;
 	vertical-align: middle; padding: 0.1cm;
 }
 
+.pageFrame {
+	display: flex;
+	justify-content: space-around;
+	width: 100%;
+}
+
+
+
+/**
+ * Controls
+ */
+.controls {
+	display: flex; flex-direction: row;
+	background: silver; background: linear-gradient(white, silver); color: black;
+	opacity: 0.9; padding: 0.25cm;
+}
+
+.toolBar {
+	position: fixed; top: 0; left: 0; padding: 0.5cm; width: 100%;
+	box-shadow: 0 0 0.5cm gray; opacity: 1; z-index: 100;
+}
+
+.welcomeControls {
+	opacity: 1; background: none; padding: 2cm;
+	display: flex; justify-content: space-around;
+}
+
 .imageControls {
-	display: flex; flex-wrap: wrap; background: rgba(255,255,255,0.5); padding: 0.1cm;
-	justify-content: flex-start; align-content: flex-start;
+	display: flex; flex-wrap: wrap; justify-content: flex-start; align-content: flex-start;
 
 	* { margin: 0 0.1cm; }
 
@@ -38,27 +60,22 @@ figcaption:before { content: "✎"; color: white; margin-right: 0.25cm; font-wei
 			.label { display: none; }
 		}
 	}
-	.controlsBlock:last-child { margin-bottom: 0; }
 }
+
+.pageContentControls {
+	position: absolute; box-shadow: 0 0 0.5cm black; border-radius: 0.1cm;
+
+	* { margin: 0 0.1cm; }
+}
+
 .imageContainer.wide .imageControls *, .layout1line .imageContainer.horizontal .imageControls * {
 	width: auto;
 	.label { display: inline-block; }
 }
 
-.pageControls { padding: 0 0.5cm; }
-
-.titles { position: absolute;
-	.title { position: absolute;
-
-	}
-}
-
-
-
 .titleControls {
 	display: flex; flex-direction: row; justify-content: space-around; min-width: 14cm;
-	background: white; background: linear-gradient(white, silver); color: black;
-	padding: 0.25cm; box-shadow: 0 0 0.5cm black; border-radius: 0.1cm; opacity: 0.9;
+	box-shadow: 0 0 0.5cm black; border-radius: 0.1cm;
 
 	/*&:before {
 		 width: 0; heigth: 0; border-style: solid; border-width: 0.25cm;
@@ -68,3 +85,16 @@ figcaption:before { content: "✎"; color: white; margin-right: 0.25cm; font-wei
 
 	> .control > * { max-width: 2cm; }
 }
+
+
+/**
+ * Content
+ */
+.titles { position: absolute;
+	.title { position: absolute;
+
+	}
+}
+
+
+
