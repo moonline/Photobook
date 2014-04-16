@@ -1,5 +1,6 @@
 {
 	"name": "Photobook Designer",
+	"version": "0.1",
 	"description": "Design and print a photobook",
 	"launch_path": "index.html",
 	"icons": {
