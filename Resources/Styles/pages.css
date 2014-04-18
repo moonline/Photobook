@@ -27,9 +27,15 @@ body { background: silver; }
 .content .imageContainer.wide { width: 27.7cm; }
 
 figure.imageContainer { display: flex; flex-direction: column; justify-content: space-between; }
-figure.imageContainer figcaption { padding: 0.1cm; color: white; text-align: center; text-shadow: 0 0 0.25cm black; font-weight: bold;
+figure.imageContainer figcaption { padding: 0.1cm; color: white; text-align: center; font-weight: bold;
+	background-color: rgba(0,0,0,0.25);
 	/*background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB94EBgkjJc53tkoAAAAZdEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIEdJTVBXgQ4XAAAADUlEQVQI12NgYGCoBwAAhACAxkwJbwAAAABJRU5ErkJggg==');
-	background-color: rgba(0,0,0,0.5);*/
+	*/
+}
+figure.imageContainer figcaption:empty { background: none; }
+figure.imageContainer figcaption:focus { background: rgba(255,255,255,0.9); border-radius: 0.25cm; padding: 0; margin: 0.1cm; color: black;
+	-webkit-box-shadow: inset 0px 0px 0.1cm 0px black; -moz-box-shadow: inset 0px 0px 0.1cm 0px black;
+	box-shadow: inset 0px 0px 0.1cm 0px black;
 }
 
 .content.layout2line .imageContainer { height: 9.4cm; }
@@ -46,11 +52,12 @@ figure.imageContainer figcaption { padding: 0.1cm; color: white; text-align: cen
 .content.layout1line .imageContainer.vertical { width: 13.75cm; }
 
 
-@media print {
-	body { padding: none; }
+@media print {/**/
+/*@media only screen and (max-width: 1400px)  { /* for testing */
+	body { padding: 0; }
 	.controls { display: none; }
 	.page { padding: 0; width: 27.7cm; height: 19cm;  margin: 0; box-shadow: none; }
-	.page > .content { background-color: none; }
+	.page > .content { background: none; }
 	figure.imageContainer { justify-content: flex-end; }
 	figcaption:before { content: ""; margin: 0; padding: 0; width: 0; height: 0; display: auto;	}
 }

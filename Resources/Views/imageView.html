@@ -22,46 +22,46 @@
 
 	<div class="pageFrame" data-ng-repeat="page in photoBook.pages">
 		<div class="page">
-			<div class="content layout{{page.numberOfLines}}line" data-images="{{page.images.length}}">
-				<div class="titles" >
-					<div data-ng-repeat="title in page.titles" class="title {{title.properties['type']}} {{title.properties['size']}}"
-						 style="top: {{title.properties['top']}}cm; left: {{title.properties['left']}}cm; width: {{title.properties['width']}}cm;">
-						<h2 contenteditable="true" data-ng-model="title.value">{{title.value}}</h2>
-						<div class="controls titleControls">
-							<div class="control">
-								<label>top</label>
-								<select class="blue" data-ng-model="title.properties['top']" title="Position of title from top border"
-										data-ng-options="n for n in getNumberList(1,19,1)" ></select>
-							</div>
-							<div class="control">
-								<label>left</label>
-								<select class="blue" data-ng-model="title.properties['left']" title="Position of title from left border"
-										data-ng-options="n for n in getNumberList(1,27,1)" ></select>
-							</div>
-							<div class="control">
-								<label>width</label>
-								<input type="range" min="0" max="25" step="1" data-ng-model="title.properties['width']" title="Title width" />
-							</div>
-							<div class="control">
-								<select class="blue" data-ng-model="title.properties['size']" ng-options="p for p in settings.titleSizesAvailable"
+			<div class="titles" >
+				<div data-ng-repeat="title in page.titles" class="title {{title.properties['type']}} {{title.properties['size']}}"
+					 style="top: {{title.properties['top']}}cm; left: {{title.properties['left']}}cm; width: {{title.properties['width']}}cm;">
+					<h2 contenteditable="true" data-ng-model="title.value">{{title.value}}</h2>
+					<div class="controls titleControls">
+						<div class="control">
+							<label>top</label>
+							<select class="blue" data-ng-model="title.properties['top']" title="Position of title from top border"
+									data-ng-options="n for n in getNumberList(1,19,1)" ></select>
+						</div>
+						<div class="control">
+							<label>left</label>
+							<select class="blue" data-ng-model="title.properties['left']" title="Position of title from left border"
+									data-ng-options="n for n in getNumberList(1,27,1)" ></select>
+						</div>
+						<div class="control">
+							<label>width</label>
+							<input type="range" min="0" max="25" step="1" data-ng-model="title.properties['width']" title="Title width" />
+						</div>
+						<div class="control">
+							<select class="blue" data-ng-model="title.properties['size']" ng-options="p for p in settings.titleSizesAvailable"
 									title="Title font size">
-								</select>
-							</div>
+							</select>
+						</div>
+						<div class="control">
+							<select class="blue" data-ng-model="title.properties['type']" ng-options="p for p in settings.titleTypesAvailable"
+									title="Title style type">
+							</select>
+						</div>
+						<div class="control">
 							<div class="control">
-								<select class="blue" data-ng-model="title.properties['type']" ng-options="p for p in settings.titleTypesAvailable"
-										title="Title style type">
-								</select>
-							</div>
-							<div class="control">
-								<div class="control">
-									<button class="button red" data-ng-click="page.removeTitle(title)" title="Delete title">
-										<span class="icon icon-liga">&#xe12c;</span>
-									</button>
-								</div>
+								<button class="button red" data-ng-click="page.removeTitle(title)" title="Delete title">
+									<span class="icon icon-liga">&#xe12c;</span>
+								</button>
 							</div>
 						</div>
 					</div>
 				</div>
+			</div>
+			<div class="content layout{{page.numberOfLines}}line" data-images="{{page.images.length}}">
 				<figure data-ng-repeat="image in page.images" class="imageContainer {{image.properties['display']}} {{image.properties['position']}}"
 						style="background-image: url('{{image.path}}')">
 					<div class="controls imageControls">
