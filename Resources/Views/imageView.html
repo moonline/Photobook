@@ -25,21 +25,23 @@
 			<div class="titles" >
 				<div data-ng-repeat="title in page.titles" class="title {{title.properties['type']}} {{title.properties['size']}}"
 					 style="top: {{title.properties['top']}}cm; left: {{title.properties['left']}}cm; width: {{title.properties['width']}}cm;">
-					<h2 contenteditable="true" data-ng-model="title.value">{{title.value}}</h2>
+					<h2 contenteditable="true" data-ng-model="title.value" >{{title.value}}</h2>
 					<div class="controls titleControls">
 						<div class="control">
-							<label>top</label>
-							<select class="blue" data-ng-model="title.properties['top']" title="Position of title from top border"
-									data-ng-options="n for n in getNumberList(1,19,1)" ></select>
+							<span class="icon icon-liga" data-dragpoint="true" data-pos-left="title.properties['left']"
+								  data-pos-top="title.properties['top']" data-width="title.properties['width']">&#xe093;</span>
 						</div>
 						<div class="control">
-							<label>left</label>
-							<select class="blue" data-ng-model="title.properties['left']" title="Position of title from left border"
-									data-ng-options="n for n in getNumberList(1,27,1)" ></select>
+							<label>&dArr;</label>
+							<input type="number" data-ng-model="title.properties['top']" title="Position of title from top border" />
 						</div>
 						<div class="control">
-							<label>width</label>
-							<input type="range" min="0" max="25" step="1" data-ng-model="title.properties['width']" title="Title width" />
+							<label>&rArr;</label>
+							<input type="number" data-ng-model="title.properties['left']" title="Position of title from left border" />
+						</div>
+						<div class="control">
+							<label>&hArr;</label>
+							<input type="range" min="0" max="25" step="1" data-ng-model="title.properties['width']" title="Title width ({{title.properties['width']}}cm)" />
 						</div>
 						<div class="control">
 							<select class="blue" data-ng-model="title.properties['size']" ng-options="p for p in settings.titleSizesAvailable"

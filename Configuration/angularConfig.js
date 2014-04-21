@@ -1,13 +1,5 @@
-define([
-	"angular",
-	"Application/ImageController",
-
-	"angular-route"
-	],
-	function(
-			angular,
-			ImageController
-		) {
+define([ "angular", "Application/ImageController", "Service/PPIService", "angular-route" ] ,function(
+			angular, ImageController, PPIService) {
 	'use strict';
 
 	
@@ -49,6 +41,85 @@ define([
 			}
 		};
 	});
+
+
+	app.directive('dragpoint', function($document, $parse) {
+		return function(scope, element, attrs) {
+			var startX = 0, startY = 0;
+			var pxPerCm = PPIService.calcPPI();
+			console.log(pxPerCm);
+
+			element.on('mousedown', function(event) {
+				// Prevent default dragging of selected content
+				event.preventDefault();
+
+				startX = event.pageX;
+				startY = event.pageY;
+
+				$document.on('mousemove', mousemove);
+				$document.on('mouseup', mouseup);
+			});
+
+			function mousemove(event) {
+				scope.$apply(function() {
+					var posTop = parseFloat($parse(attrs.posTop)(scope));
+					var posLeft = parseFloat($parse(attrs.posLeft)(scope));
+
+					var adjustY = (event.pageY - startY)/pxPerCm;
+					var adjustX = (event.pageX - startX)/pxPerCm;
+
+					$parse(attrs.posTop).assign(scope,Math.round((adjustY + posTop)*10)/10);
+					$parse(attrs.posLeft).assign(scope,Math.round((adjustX + posLeft)*10)/10);
+
+					startX = event.pageX;
+					startY = event.pageY;
+				});
+			}
+
+			function mouseup() {
+				$document.unbind('mousemove', mousemove);
+				$document.unbind('mouseup', mouseup);
+			}
+
+			// pixels * 2.54 / 96
+		};
+	});
+
+	app.directive('draggable', ['$document', function($document) {
+		return function(scope, element, attr) {
+			var startX = 0, startY = 0, x = 0, y = 0;
+
+			element.css({
+				position: 'relative',
+				border: '1px solid red',
+				backgroundColor: 'lightgrey',
+				cursor: 'pointer'
+			});
+
+			element.on('mousedown', function(event) {
+// Prevent default dragging of selected content
+				event.preventDefault();
+				startX = event.pageX - x;
+				startY = event.pageY - y;
+				$document.on('mousemove', mousemove);
+				$document.on('mouseup', mouseup);
+			});
+
+			function mousemove(event) {
+				y = event.pageY - startY;
+				x = event.pageX - startX;
+				element.css({
+					top: y + 'px',
+					left: x + 'px'
+				});
+			}
+
+			function mouseup() {
+				$document.unbind('mousemove', mousemove);
+				$document.unbind('mouseup', mouseup);
+			}
+		};
+	}]);
 
 	app.directive('ngChange', function() {
 		return {

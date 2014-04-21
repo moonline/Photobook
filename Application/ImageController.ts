@@ -2,6 +2,8 @@ import Page = require("Model/Page");
 import Image = require("Model/Image");
 import PhotoBook = require("Model/PhotoBook");
 import FileService = require("Service/FileService");
+// included only to get it builded by tsc
+import PPIService = require("Service/PPIService");
 
 declare function saveAs(blobb, name: string):void;
 

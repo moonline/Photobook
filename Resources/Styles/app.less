@@ -76,7 +76,7 @@ figcaption:before { content: "✎"; color: white; margin-right: 0.25cm; font-wei
 
 .titleControls {
 	display: flex; flex-direction: row; justify-content: space-around; min-width: 14cm;
-	box-shadow: 0 0 0.5cm black; border-radius: 0.1cm;
+	box-shadow: 0 0 0.5cm black; border-radius: 0.1cm; align-items: center;
 
 	/*&:before {
 		 width: 0; heigth: 0; border-style: solid; border-width: 0.25cm;
@@ -84,7 +84,11 @@ figcaption:before { content: "✎"; color: white; margin-right: 0.25cm; font-wei
 		 position: relative; top: -1cm;
 	 }*/
 
-	> .control > * { max-width: 2cm; }
+	> .control {
+		> * { max-width: 2cm; }
+		> span[data-dragpoint] { cursor: move; font-size: 1.1em; width: 1cm; }
+		> input[type="number"] { width: 1cm; }
+	}
 }
 
 
