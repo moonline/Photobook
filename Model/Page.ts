@@ -30,8 +30,21 @@ class Page {
 		this.images.push(image);
 	}
 
+	public addImagePaths(pathList: string): void {
+		var paths: string[] = new Array();
+		var imagePaths:string[] = pathList.split("\n");
+		for(var i in imagePaths) {
+			if(paths.indexOf(imagePaths[i]) < 0 && imagePaths[i].length > 1) {
+				paths.push(imagePaths[i]);
+				this.createImage(imagePaths[i]);
+			}
+		}
+	}
+
 	public createImage(path: string = prompt('Image path')):void {
-		this.images.push(new Image(path));
+		if(path && path.length > 1) {
+			this.images.push(new Image(path));
+		}
 	}
 
 	public removeImage(image: Image):void {

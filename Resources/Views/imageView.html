@@ -2,20 +2,24 @@
 	<div class="controls toolBar">
 		<img class="icon" src="./Resources/Img/appIcon.png" alt="Photobook Designer Icon" />
 		<div class="control">
-			<button class="button green" data-ng-click="save()" title="Save photobook to file">
+			<button class="button black" data-ng-click="save()" title="Save photobook to file on computer">
 				<span class="icon icon-liga">&#xe115;</span> Save
 			</button>
 		</div>
 		<div class="control">
-			<input type="file" accept="application/json" name="loadFile" value="Open File" title="Open photobook from file"
-			   onchange="angular.element(this).scope().loadFile(this.files)" />
+			<span class="inputFileWrapper button black" title="Open file from computer">
+				<input type="file" accept="application/json" name="loadFile" value="Open File" title="Open photobook from file"
+				   onchange="angular.element(this).scope().loadFile(this.files)" />
+				<span class="icon icon-liga">&#xe04c;</span> Open
+			</span>
 		</div>
+		<label>Photobook:</label>
 		<input type="text" data-ng-model="photoBook.title" />
 	</div>
 
 	<div class="controls welcomeControls" data-ng-if="photoBook.pages.length == 0">
 		<div class="control">
-			<button class="button green" data-ng-click="photoBook.createPage(2,photoBook.pages.length)" title="Create new page">
+			<button class="button" data-ng-click="photoBook.createPage(2,photoBook.pages.length)" title="Create new page">
 				<span class="icon icon-liga">&#xe108;</span> New page</button>
 		</div>
 	</div>
@@ -44,18 +48,18 @@
 							<input type="range" min="0" max="25" step="1" data-ng-model="title.properties['width']" title="Title width ({{title.properties['width']}}cm)" />
 						</div>
 						<div class="control">
-							<select class="blue" data-ng-model="title.properties['size']" ng-options="p for p in settings.titleSizesAvailable"
+							<select data-ng-model="title.properties['size']" ng-options="p for p in settings.titleSizesAvailable"
 									title="Title font size">
 							</select>
 						</div>
 						<div class="control">
-							<select class="blue" data-ng-model="title.properties['type']" ng-options="p for p in settings.titleTypesAvailable"
+							<select data-ng-model="title.properties['type']" ng-options="p for p in settings.titleTypesAvailable"
 									title="Title style type">
 							</select>
 						</div>
 						<div class="control">
 							<div class="control">
-								<button class="button red" data-ng-click="page.removeTitle(title)" title="Delete title">
+								<button class="button" data-ng-click="page.removeTitle(title)" title="Delete title">
 									<span class="icon icon-liga">&#xe12c;</span>
 								</button>
 							</div>
@@ -66,71 +70,81 @@
 			<div class="content layout{{page.numberOfLines}}line" data-images="{{page.images.length}}">
 				<figure data-ng-repeat="image in page.images" class="imageContainer {{image.properties['display']}} {{image.properties['position']}}"
 						style="background-image: url('{{image.path}}')">
+
 					<div class="controls imageControls">
 						<div class="control">
 							<!--<label><span class="icon-liga">&#xe053;</span></label>-->
-							<select class="blue" data-ng-model="image.properties['display']" ng-options="p for p in settings.displayAvailable"
+							<select data-ng-model="image.properties['display']" ng-options="p for p in settings.displayAvailable"
 									title="Image display options">
 							</select>
 						</div>
 						<div class="control">
 							<!--<label><span class="icon-liga">&#xe093;</span></label>-->
-							<select class="blue" data-ng-model="image.properties['position']" ng-options="p for p in settings.positionAvailable"
+							<select data-ng-model="image.properties['position']" ng-options="p for p in settings.positionAvailable"
 								title="Image position"></select>
 						</div>
 						<div class="control">
-							<button class="button blue" data-ng-click="page.moveImage(image,-1)" title="Move image left">
+							<button class="button" data-ng-click="page.moveImage(image,-1)" title="Move image left">
 								<span class="icon icon-liga">&#xe00c;</span><span class="label">&nbsp;move left</span>
 							</button>
 						</div>
 						<div class="control">
-							<button class="button blue" data-ng-click="page.moveImage(image, 1)" title="Move image right">
+							<button class="button" data-ng-click="page.moveImage(image, 1)" title="Move image right">
 								<span class="icon icon-liga">&#xe00d;</span><span class="label">&nbsp;move right</span>
 							</button>
 						</div>
 						<div class="control">
-							<button class="button red" data-ng-click="page.removeImage(image)" title="Delete image">
+							<button class="button" data-ng-click="page.removeImage(image)" title="Delete image">
 								<span class="icon icon-liga">&#xe12c;</span><span class="label">&nbsp;delete image</span>
 							</button>
 						</div>
 					</div>
+
 					<figcaption contenteditable="true" data-ng-model="image.caption">{{image.caption}}</figcaption>
 				</figure>
 			</div>
+
 			<div class="controls pageContentControls">
 				<div class="control">
-					<button class="button green" data-ng-click="page.createImage()" title="Add new image to page">
-						<span class="icon icon-liga">&#xe108; &#xe074;</span> New image</button>
-					<!--<input type="text" data-ng-change="addImage(page, this.attribute(value))" />-->
-					<button class="button green" data-ng-click="page.createTitle()" title="Create a new title">
-						<span class="icon icon-liga">&#xe108; &#xe128;</span> New Title
+					<button class="button" data-ng-click="page.createImage()" title="Add new image to page">
+						<span class="icon icon-liga">&#xe108; &#xe074;</span> New image
 					</button>
 				</div>
 				<div class="control">
-					<select class="blue" data-ng-model="page.numberOfLines" ng-options="l for l in settings.linesPerPageAvailable"
+					<textarea class="dragArea" placeholder="drag images here" data-ng-input="true" data-callback="page.addImagePaths(value)"></textarea>
+				</div>
+				<div class="control">
+					<button class="button" data-ng-click="page.createTitle()" title="Create a new title">
+						<span class="icon icon-liga">&#xe108; &#xe128;</span> New Title
+					</button>
+				</div>
+
+				<div class="control">
+					<select data-ng-model="page.numberOfLines" ng-options="l for l in settings.linesPerPageAvailable"
 						title="Number of lines per page"></select>
 				</div>
 				<div class="control">
-					<button class="button blue" data-ng-click="photoBook.movePage(page,-1)" title="Move page one position upwards">
+					<button class="button" data-ng-click="photoBook.movePage(page,-1)" title="Move page one position upwards">
 						<span class="icon icon-liga">&#xe00e;</span> move page up
 					</button>
 				</div>
 				<div class="control">
-					<button class="button blue" data-ng-click="photoBook.movePage(page, 1)" title="Move page one position downwards">
+					<button class="button" data-ng-click="photoBook.movePage(page, 1)" title="Move page one position downwards">
 						<span class="icon icon-liga">&#xe00b;</span> move page down
 					</button>
 				</div>
 				<div class="control">
-					<button class="button green" data-ng-click="photoBook.createPage(2,$index+1)" title="Insert new page after">
+					<button class="button" data-ng-click="photoBook.createPage(2,$index+1)" title="Insert new page after">
 						<span class="icon icon-liga">&#xe108;</span> New page after</button>
 					</button>
 				</div>
 				<div class="control">
-					<button class="button red" data-ng-click="photoBook.removePage(page)" title="Remove page">
+					<button class="button" data-ng-click="photoBook.removePage(page)" title="Remove page">
 						<span class="icon icon-liga">&#xe12c;</span> delete page
 					</button>
 				</div>
 			</div>
+
 		</div>
 	</div>
 </div>

@@ -109,6 +109,35 @@ define([ "angular", "Application/ImageController", "Service/PPIService", "angula
 		};
 	});
 
+	/**
+	 * data-ng-input directive
+	 *
+	 * @example
+	 * <textarea data-ng-input="true" data-callback="page.addImagePaths(value)"></textarea>
+	 *
+	 * 'value' is the placeholder used to insert the element value
+	 */
+	app.directive('ngInput', function($document,$parse) {
+		return {
+			scope: {
+				callback: '&callback'
+			},
+			restrict: 'A',
+			link: function(scope, elements, attrs) {
+				var element = elements[0];
+				element.addEventListener('input', function (event){
+					var callback = $parse(scope.callback);
+					scope.$apply(function () {
+						if(element.value && (element.value != "")) {
+							callback({value : element.value}, scope);
+						}
+					});
+					element.value = "";
+				});
+			}
+		};
+	});
+
 
 	/* controllers */
 	app.controller('ImageController', ImageController);

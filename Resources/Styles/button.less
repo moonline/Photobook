@@ -1,12 +1,16 @@
 input[type="button"], .button, button, select {
-	display: inline-block; border-radius: 0.25em; color: black; font-weight: bold; padding: 0.25em 0.5em;
-	.background-linear-gradient(white,silver); .box-shadow(0 0 0.5em gray); border: none;
+	display: inline-block; border-radius: 0.4em; color: rgb(50,50,50); font-weight: bold; padding: 0.25em 0.5em;
+	.background-linear-gradient(white,gainsboro); .box-shadow(0 0 0.5em silver); border: none; border: 1px solid darkgray;
+	margin-right: 0.2cm;
 
-	span.icon { display: inline; margin: 0; font-size: 1.2em; }
+	span.icon { display: inline; margin: 0; font-size: 1.2em; color: inherit; }
 
 	&:hover {
-		color: white;
-		.background-linear-gradient(silver,gray);
+		color: black;
+		border-color: gray;
+		.box-shadow(0 0 0.5em gray);
+
+		span.icon { color: inherit; }
 	}
 
 	&:active {
@@ -20,6 +24,15 @@ input[type="button"], .button, button, select {
 		&:hover {
 			.background-linear-gradient(brown, rgb(100,0,0));
 		}
+	}
+
+	&.black {
+		color: gainsboro;
+		.background-linear-gradient(rgb(85,85,80),rgb(60,60,55));
+		border-color: rgb(90,90,80);
+		.box-shadow(0 0 0.25em rgb(60,60,55));
+
+		&:hover { color: white; border-color: rgb(120,120,110); }
 	}
 
 	&.blue {
