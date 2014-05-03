@@ -24,7 +24,6 @@ body { background: silver; }
 .imageContainer.bottomCenter { background-position: bottom center; }
 .imageContainer.bottomRight { background-position: bottom right; }
 
-.content .imageContainer.wide { width: 27.7cm; }
 
 figure.imageContainer { display: flex; flex-direction: column; justify-content: space-between; }
 figure.imageContainer figcaption { padding: 0.1cm; color: white; text-align: center; font-weight: bold;
@@ -38,18 +37,27 @@ figure.imageContainer figcaption:focus { background: rgba(255,255,255,0.9); bord
 	box-shadow: inset 0px 0px 0.1cm 0px black;
 }
 
-.content.layout2line .imageContainer { height: 9.4cm; }
-.content.layout2line .imageContainer.horizontal { width: 13.75cm; }
-.content.layout2line .imageContainer.vertical { width: 6.775cm; }
+.content .imageContainer.wide { width: 100%; }
 
-.content.layout3line .imageContainer { height: 6.2cm; }
-.content.layout3line .imageContainer.horizontal { width: 9.1cm; }
-.content.layout3line .imageContainer.vertical { width: 4.45cm; }
-.content.layout3line .imageContainer.double { width: 18.4cm; }
+/* image gap: 0.2cm / 0.722 % of width */
+.content.layout1line .imageContainer { height: 100%; }
+.content.layout1line .imageContainer.horizontal { width: 100%; }
+.content.layout1line .imageContainer.vertical { width: 49.649%; }
 
-.content.layout1line .imageContainer { height: 19cm; }
-.content.layout1line .imageContainer.horizontal { width: 27.9cm; }
-.content.layout1line .imageContainer.vertical { width: 13.75cm; }
+.content.layout2line .imageContainer { height: 49.474%; }
+.content.layout2line .imageContainer.horizontal { width: 49.639%; }
+.content.layout2line .imageContainer.vertical { width: 24.458%; }
+.content.layout2line .imageContainer.double { width: 100%; }
+
+.content.layout3line .imageContainer { height: 32.632%; }
+.content.layout3line .imageContainer.horizontal { width: 32.611%; }
+.content.layout3line .imageContainer.vertical { width: 16.065%; }
+.content.layout3line .imageContainer.double { width: 66.185%; }
+
+.content.layout4line .imageContainer { height: 24.211%; }
+.content.layout4line .imageContainer.horizontal { width: 21.580%; }
+.content.layout4line .imageContainer.vertical { width: 10.469%; }
+.content.layout4line .imageContainer.double { width: 43.803%; }
 
 
 @media print {/**/
