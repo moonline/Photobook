@@ -41,3 +41,6 @@ Service/*.js
 /.idea/
 .settings
 .project
+
+# documentation
+issues.rst

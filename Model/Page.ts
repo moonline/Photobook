@@ -1,18 +1,26 @@
 import Image = require("Model/Image");
 import Title = require("Model/Title");
+import PhotoBook = require("Model/PhotoBook");
+import RelativePosition = require("Model/RelativePosition");
 
 class Page {
 	numberOfLines: number;
 	images: Image[];
 	titles: Title[];
+	photoBook: PhotoBook;
 
 	constructor(numberOfLines: number = 2) {
 		this.numberOfLines = numberOfLines;
 		this.images = [];
 		this.titles = [];
+		this.photoBook = null;
 	}
 
-	public importFromObject(page: any) {
+	public setPhotobook(photoBook: PhotoBook):void {
+		this.photoBook = photoBook;
+	}
+
+	public importFromObject(page: any):void {
 		this.numberOfLines = page.numberOfLines;
 		for(var i in page.images) {
 			var newImage:Image = new Image(page.images[i].path);
@@ -28,6 +36,10 @@ class Page {
 
 	public addImage(image: Image):void {
 		this.images.push(image);
+	}
+
+	public insertImage(image: Image):void {
+		this.images.unshift(image);
 	}
 
 	public addImagePaths(pathList: string): void {
@@ -57,10 +69,17 @@ class Page {
 	public moveImage(image: Image, amount:number = 1) {
 		var from:number = this.images.indexOf(image);
 		var to:number = from+amount;
-		if(from >= 0 && to >= 0 && to < this.images.length) {
-			this.images.splice(to, 0, this.images.splice(from, 1)[0]);
+		if(from >= 0) {
+			if(to < 0) {
+				this.photoBook.getNeighborPage(this,RelativePosition.previous).addImage(image);
+				this.images.splice(from,1);
+			} else if(to >= this.images.length) {
+				this.photoBook.getNeighborPage(this,RelativePosition.next).insertImage(image);
+				this.images.splice(from,1);
+			} else {
+				this.images.splice(to, 0, this.images.splice(from, 1)[0]);
+			}
 		}
-
 	}
 
 	public createTitle(title:string = ""):void {

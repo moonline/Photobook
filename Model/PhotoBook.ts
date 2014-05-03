@@ -1,4 +1,5 @@
 import Page = require("Model/Page");
+import RelativePosition = require("Model/RelativePosition");
 
 class PhotoBook {
 	pages: Page[];
@@ -10,11 +11,23 @@ class PhotoBook {
 	}
 
 	public addPage(page: Page, position: number = 0):void {
+		page.setPhotobook(this);
 		this.pages.splice(position, 0, page);
+	}
+
+	public getNeighborPage(page:Page, relativePosition: RelativePosition = RelativePosition.next): Page {
+		var currentPosition: number = this.pages.indexOf(page);
+		var neighborPosition: number = currentPosition+relativePosition;
+		if(currentPosition >= 0 && (typeof this.pages[neighborPosition] !== 'undefined')) {
+			return this.pages[neighborPosition];
+		} else {
+			return null;
+		}
 	}
 
 	public createPage(numberOfLines: number = 2, position: number = 0):void {
 		var page = new Page(numberOfLines);
+		page.setPhotobook(this);
 		this.addPage(page,position);
 	}
 
@@ -38,6 +51,7 @@ class PhotoBook {
 		for(var i in photobook.pages) {
 			var newPage:Page = new Page(photobook.pages[i].numberOfLines);
 			newPage.importFromObject(photobook.pages[i]);
+			newPage.setPhotobook(this);
 			this.pages.push(newPage);
 		}
 	}
