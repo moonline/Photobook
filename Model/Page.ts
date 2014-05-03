@@ -7,17 +7,17 @@ class Page {
 	numberOfLines: number;
 	images: Image[];
 	titles: Title[];
-	photoBook: PhotoBook;
+	parentPhotoBook: PhotoBook;
 
 	constructor(numberOfLines: number = 2) {
 		this.numberOfLines = numberOfLines;
 		this.images = [];
 		this.titles = [];
-		this.photoBook = null;
+		this.parentPhotoBook = null;
 	}
 
 	public setPhotobook(photoBook: PhotoBook):void {
-		this.photoBook = photoBook;
+		this.parentPhotoBook = photoBook;
 	}
 
 	public importFromObject(page: any):void {
@@ -71,10 +71,10 @@ class Page {
 		var to:number = from+amount;
 		if(from >= 0) {
 			if(to < 0) {
-				this.photoBook.getNeighborPage(this,RelativePosition.previous).addImage(image);
+				this.parentPhotoBook.getNeighborPage(this,RelativePosition.previous).addImage(image);
 				this.images.splice(from,1);
 			} else if(to >= this.images.length) {
-				this.photoBook.getNeighborPage(this,RelativePosition.next).insertImage(image);
+				this.parentPhotoBook.getNeighborPage(this,RelativePosition.next).insertImage(image);
 				this.images.splice(from,1);
 			} else {
 				this.images.splice(to, 0, this.images.splice(from, 1)[0]);

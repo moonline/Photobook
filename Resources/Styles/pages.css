@@ -54,7 +54,7 @@ figure.imageContainer figcaption:focus { background: rgba(255,255,255,0.9); bord
 
 @media print {/**/
 /*@media only screen and (max-width: 1400px)  { /* for testing */
-	body { padding: 0; }
+	body { padding: 0; background: white; }
 	.controls { display: none; }
 	.page { padding: 0; width: 27.7cm; height: 19cm;  margin: 0; box-shadow: none; }
 	.page > .content { background: none; }

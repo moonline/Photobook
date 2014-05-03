@@ -45,7 +45,17 @@ class ImageController{
 			while(!$scope.photoBook.title || $scope.photoBook.title == "") {
 				$scope.photoBook.title = prompt("Please enter the title of your photobook");
 			}
-			var blob = new Blob([JSON.stringify($scope.photoBook)], {type: 'application/json'});
+			var serializedObjects: any[] = [];
+			var blob = new Blob([JSON.stringify(
+				$scope.photoBook,
+				function(key: any, value: any) {
+					// don't serialize parent relations of pages -> cyclic
+					if (key=="parentPhotoBook") {
+						return undefined;
+					}
+					else return value;
+				}
+			)], {type: 'application/json'});
 			var fileSaver = saveAs(blob,$scope.photoBook.title.replace(" ","-")+".json");
 		};
 
