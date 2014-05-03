@@ -4,16 +4,20 @@ import PhotoBook = require("Model/PhotoBook");
 import RelativePosition = require("Model/RelativePosition");
 
 class Page {
-	numberOfLines: number;
+	properties: Object;
 	images: Image[];
 	titles: Title[];
 	parentPhotoBook: PhotoBook;
 
-	constructor(numberOfLines: number = 2) {
-		this.numberOfLines = numberOfLines;
+	constructor(sections: number = 2) {
 		this.images = [];
 		this.titles = [];
 		this.parentPhotoBook = null;
+
+		this.properties = {
+			layout: "standard",
+			sections: sections
+		};
 	}
 
 	public setPhotobook(photoBook: PhotoBook):void {
@@ -21,7 +25,8 @@ class Page {
 	}
 
 	public importFromObject(page: any):void {
-		this.numberOfLines = page.numberOfLines;
+		// for backward compatibility: import numberOfLines property from attribute
+		this.properties = page.properties || { layout: "standard", sections: page.numberOfLines };
 		for(var i in page.images) {
 			var newImage:Image = new Image(page.images[i].path);
 			newImage.importFromObject(page.images[i]);

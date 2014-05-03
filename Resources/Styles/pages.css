@@ -14,16 +14,6 @@ body { background: silver; }
 .content .imageContainer { display: inline-flex; background-position: center center;
 	-webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover;
 }
-.imageContainer.topLeft { background-position: top left; }
-.imageContainer.topCenter { background-position: top center; }
-.imageContainer.topRight { background-position: top right; }
-.imageContainer.middleLeft { background-position: center left; }
-.imageContainer.middleCenter { background-position: center center; }
-.imageContainer.middleRight { background-position: center right; }
-.imageContainer.bottomLeft { background-position: bottom left; }
-.imageContainer.bottomCenter { background-position: bottom center; }
-.imageContainer.bottomRight { background-position: bottom right; }
-
 
 figure.imageContainer { display: flex; flex-direction: column; justify-content: space-between; }
 figure.imageContainer figcaption { padding: 0.1cm; color: white; text-align: center; font-weight: bold;
@@ -36,29 +26,6 @@ figure.imageContainer figcaption:focus { background: rgba(255,255,255,0.9); bord
 	-webkit-box-shadow: inset 0px 0px 0.1cm 0px black; -moz-box-shadow: inset 0px 0px 0.1cm 0px black;
 	box-shadow: inset 0px 0px 0.1cm 0px black;
 }
-
-.content .imageContainer.wide { width: 100%; }
-
-/* image gap: 0.2cm / 0.722 % of width */
-.content.layout1line .imageContainer { height: 100%; }
-.content.layout1line .imageContainer.horizontal { width: 100%; }
-.content.layout1line .imageContainer.vertical { width: 49.649%; }
-
-.content.layout2line .imageContainer { height: 49.474%; }
-.content.layout2line .imageContainer.horizontal { width: 49.639%; }
-.content.layout2line .imageContainer.vertical { width: 24.458%; }
-.content.layout2line .imageContainer.double { width: 100%; }
-
-.content.layout3line .imageContainer { height: 32.632%; }
-.content.layout3line .imageContainer.horizontal { width: 32.611%; }
-.content.layout3line .imageContainer.vertical { width: 16.065%; }
-.content.layout3line .imageContainer.double { width: 66.185%; }
-
-.content.layout4line .imageContainer { height: 24.211%; }
-.content.layout4line .imageContainer.horizontal { width: 21.580%; }
-.content.layout4line .imageContainer.vertical { width: 10.469%; }
-.content.layout4line .imageContainer.double { width: 43.803%; }
-
 
 @media print {/**/
 /*@media only screen and (max-width: 1400px)  { /* for testing */

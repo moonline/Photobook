@@ -25,7 +25,7 @@
 	</div>
 
 	<div class="pageFrame" data-ng-repeat="page in photoBook.pages">
-		<div class="page">
+		<div class="page" data-layout="{{page.properties['layout']}}">
 			<div class="titles" >
 				<div data-ng-repeat="title in page.titles" class="title {{title.properties['type']}} {{title.properties['size']}}"
 					 style="top: {{title.properties['top']}}cm; left: {{title.properties['left']}}cm; width: {{title.properties['width']}}cm;">
@@ -48,12 +48,12 @@
 							<input type="range" min="0" max="25" step="1" data-ng-model="title.properties['width']" title="Title width ({{title.properties['width']}}cm)" />
 						</div>
 						<div class="control">
-							<select data-ng-model="title.properties['size']" ng-options="p for p in settings.titleSizesAvailable"
+							<select data-ng-model="title.properties['size']" ng-options="p for p in layouts[page.properties.layout].title.sizes"
 									title="Title font size">
 							</select>
 						</div>
 						<div class="control">
-							<select data-ng-model="title.properties['type']" ng-options="p for p in settings.titleTypesAvailable"
+							<select data-ng-model="title.properties['type']" ng-options="p for p in layouts[page.properties.layout].title.layouts"
 									title="Title style type">
 							</select>
 						</div>
@@ -67,20 +67,20 @@
 					</div>
 				</div>
 			</div>
-			<div class="content layout{{page.numberOfLines}}line" data-images="{{page.images.length}}">
-				<figure data-ng-repeat="image in page.images" class="imageContainer {{image.properties['display']}} {{image.properties['position']}}"
-						style="background-image: url('{{image.path}}')">
+			<div class="content" data-images="{{page.images.length}}" data-sections="{{page.properties['sections']}}">
+				<figure data-ng-repeat="image in page.images" data-layout="{{image.properties['display']}}" data-position="{{image.properties['position']}}"
+						class="imageContainer" style="background-image: url('{{image.path}}')">
 
 					<div class="controls imageControls">
 						<div class="control">
 							<!--<label><span class="icon-liga">&#xe053;</span></label>-->
-							<select data-ng-model="image.properties['display']" ng-options="p for p in settings.displayAvailable"
+							<select data-ng-model="image.properties['display']" ng-options="p for p in layouts[page.properties.layout].image.layouts"
 									title="Image display options">
 							</select>
 						</div>
 						<div class="control">
 							<!--<label><span class="icon-liga">&#xe093;</span></label>-->
-							<select data-ng-model="image.properties['position']" ng-options="p for p in settings.positionAvailable"
+							<select data-ng-model="image.properties['position']" ng-options="p for p in layouts[page.properties.layout].image.positions"
 								title="Image position"></select>
 						</div>
 						<div class="control">
@@ -120,9 +120,12 @@
 				</div>
 
 				<div class="control">
-					<select data-ng-model="page.numberOfLines" ng-options="l for l in settings.linesPerPageAvailable"
+					<select data-ng-model="page.properties['sections']" ng-options="l for l in layouts[page.properties['layout']].sections"
 						title="Number of lines per page"></select>
 				</div>
+				<select data-ng-model="page.properties['layout']" ng-options="value for (key,value) in availableLayouts"
+						title="Page layout">
+				</select>
 				<div class="control">
 					<button class="button" data-ng-click="photoBook.movePage(page,-1)" title="Move page one position upwards">
 						<span class="icon icon-liga">&#xe00e;</span> move page up

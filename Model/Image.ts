@@ -7,7 +7,7 @@ class Image {
 		this.path = path;
 		this.properties = {
 			display: "horizontal",
-			position: "middleCenter"
+			position: "center"
 		};
 		this.caption = null;
 	}
