@@ -54,6 +54,9 @@ class ImageController{
 				$scope.$apply();
 			});
 		};
+
+		// prevent user from closing the browser accidentially
+		window.onbeforeunload = function() { return true; };
 	}
 }
 
