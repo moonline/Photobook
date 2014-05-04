@@ -105,46 +105,58 @@
 			</div>
 
 			<div class="controls pageContentControls">
-				<div class="control">
-					<button class="button" data-ng-click="page.createImage()" title="Add new image to page">
-						<span class="icon icon-liga">&#xe108; &#xe074;</span> New image
-					</button>
-				</div>
-				<div class="control">
-					<textarea class="dragArea" placeholder="drag images here" data-ng-input="true" data-callback="page.addImagePaths(value)"></textarea>
-				</div>
-				<div class="control">
-					<button class="button" data-ng-click="page.createTitle()" title="Create a new title">
-						<span class="icon icon-liga">&#xe108; &#xe128;</span> New Title
-					</button>
-				</div>
+				<div class="controlsBox" data-size="medium">
+					<h3><span class="icon icon-liga">&#xe048;</span>Page</h3>
+					<div class="controlsBoxContent">
+						<div class="control" data-size="single">
+							<button class="button" data-ng-click="photoBook.createPage(2,$index+1)" title="Insert new page after">
+								<span class="icon icon-liga">&#xe108;</span><span class="caption">Add after</span>
+							</button>
+						</div>
+						<div class="control" data-size="single">
+							<button class="button" data-ng-click="photoBook.movePage(page,-1)" title="Move page one position upwards">
+								<span class="icon icon-liga">&#xe00e;</span><span class="caption">Move up</span>
+							</button>
+						</div>
+						<div class="control" data-size="single">
+							<button class="button" data-ng-click="photoBook.movePage(page, 1)" title="Move page one position downwards">
+								<span class="icon icon-liga">&#xe00b;</span><span class="caption">Move down</span>
+							</button>
+						</div>
+						<div class="control" data-size="single">
+							<button class="button" data-ng-click="photoBook.removePage(page)" title="Remove page">
+								<span class="icon icon-liga">&#xe12c;</span><span class="caption">Delete</span>
+							</button>
+						</div>
 
-				<div class="control">
-					<select data-ng-model="page.properties['sections']" ng-options="l for l in layouts[page.properties['layout']].sections"
-						title="Number of lines per page"></select>
+						<div class="control" data-size="single">
+							<select data-ng-model="page.properties['sections']" ng-options="l for l in layouts[page.properties['layout']].sections"
+									title="Number of sections per page"></select>
+						</div>
+						<div class="control" data-size="tribble">
+							<select data-ng-model="page.properties['layout']" ng-options="value for (key,value) in availableLayouts"
+									title="Page layout">
+							</select>
+						</div>
+					</div>
 				</div>
-				<select data-ng-model="page.properties['layout']" ng-options="value for (key,value) in availableLayouts"
-						title="Page layout">
-				</select>
-				<div class="control">
-					<button class="button" data-ng-click="photoBook.movePage(page,-1)" title="Move page one position upwards">
-						<span class="icon icon-liga">&#xe00e;</span> move page up
-					</button>
-				</div>
-				<div class="control">
-					<button class="button" data-ng-click="photoBook.movePage(page, 1)" title="Move page one position downwards">
-						<span class="icon icon-liga">&#xe00b;</span> move page down
-					</button>
-				</div>
-				<div class="control">
-					<button class="button" data-ng-click="photoBook.createPage(2,$index+1)" title="Insert new page after">
-						<span class="icon icon-liga">&#xe108;</span> New page after</button>
-					</button>
-				</div>
-				<div class="control">
-					<button class="button" data-ng-click="photoBook.removePage(page)" title="Remove page">
-						<span class="icon icon-liga">&#xe12c;</span> delete page
-					</button>
+				<div class="controlsBox" data-size="small">
+					<h3><span class="icon icon-liga">&#xe030;</span> Insert</h3>
+					<div class="controlsBoxContent">
+						<div class="control" data-size="double">
+							<button class="button" data-ng-click="page.createTitle()" title="Create a new title">
+								<span class="icon icon-liga">&#xe034;</span><span class="caption">&nbsp;Title</span>
+							</button>
+						</div>
+						<div class="control" data-size="double">
+							<button class="button" data-ng-click="page.createImage()" title="Add new image to page">
+								<span class="icon icon-liga">&#xe074;</span><span class="caption">&nbsp;Image</span>
+							</button>
+						</div>
+						<div class="control" data-size="quad">
+							<textarea class="dragArea" placeholder="drag images here" data-ng-input="true" data-callback="page.addImagePaths(value)"></textarea>
+						</div>
+					</div>
 				</div>
 			</div>
 
