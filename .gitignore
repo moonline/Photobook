@@ -2,6 +2,7 @@
 Model/*.js
 Application/*.js
 Service/*.js
+Main.js
 
 # temporary files
 *~

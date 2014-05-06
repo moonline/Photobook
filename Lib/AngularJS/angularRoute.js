@@ -276,7 +276,7 @@ function $RouteProvider(){
        Note that this example is using {@link ng.directive:script inlined templates}
        to get it working on jsfiddle as well.
 
-     <example module="ngViewExample" deps="angular-route.js">
+     <example module="ngViewExample" deps="angularRoute.js">
        <file name="index.html">
          <div ng-controller="MainCntl">
            Choose:
@@ -668,7 +668,7 @@ ngRouteModule.directive('ngView', ngViewFactory);
  * @scope
  * @priority 400
  * @example
-    <example module="ngViewExample" deps="angular-route.js" animations="true">
+    <example module="ngViewExample" deps="angularRoute.js" animations="true">
       <file name="index.html">
         <div ng-controller="MainCntl as main">
           Choose:
