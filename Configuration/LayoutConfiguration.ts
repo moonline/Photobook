@@ -4,7 +4,8 @@ class LayoutConfiguration {
 			sections: [1, 2, 3, 4],
 			image: {
 				layouts: ["slim","vertical","horizontal", "double", "wide"],
-				positions: ["left","top", "right", "bottom","center"]
+				positions: ["left","top", "right", "bottom","center"],
+				verticalStyles: ["standard", "double", "tribble"]
 			},
 			title: {
 				sizes: ["small", "normal", "large", "extraLarge", "big", "extraBig"],

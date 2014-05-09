@@ -1,4 +1,7 @@
-/* image gap: 0.2cm / 0.722 % of width */
+/* image gap:
+	0.2cm / 0.722 % of width
+    0.2cm / 1.053 % of height
+*/
 .page[data-layout="standard"] .content {
 	.imageContainer[data-layout="wide"] { width: 100%; }
 
@@ -19,6 +22,7 @@
 
 	&[data-sections="3"] .imageContainer {
 		height: 32.632%;
+		&[data-vertical-style="double"] { height: 66.317%; }
 		&[data-layout="slim"] { width: 7.672%; }
 		&[data-layout="vertical"] { width: 16.065%; }
 		&[data-layout="horizontal"] { width: 32.611%; }
@@ -27,6 +31,8 @@
 
 	&[data-sections="4"] .imageContainer {
 		height: 24.211%;
+		&[data-vertical-style="double"] { height: 49.475%; }
+		&[data-vertical-style="tribble"] { height: 74.739%; }
 		&[data-layout="slim"] { width: 4.874%; }
 		&[data-layout="vertical"] { width: 10.469%; }
 		&[data-layout="horizontal"] { width: 21.580%; }

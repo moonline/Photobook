@@ -68,7 +68,8 @@
 				</div>
 			</div>
 			<div class="content" data-images="{{page.images.length}}" data-sections="{{page.properties['sections']}}">
-				<figure data-ng-repeat="image in page.images" data-layout="{{image.properties['display']}}" data-position="{{image.properties['position']}}"
+				<figure data-ng-repeat="image in page.images" data-layout="{{image.properties['display']}}"
+						data-position="{{image.properties['position']}}" data-vertical-style="{{image.properties['verticalStyle']}}"
 						class="imageContainer" style="background-image: url('{{image.path}}')">
 
 					<div class="controls imageControls">
@@ -76,6 +77,11 @@
 							<!--<label><span class="icon-liga">&#xe053;</span></label>-->
 							<select data-ng-model="image.properties['display']" ng-options="p for p in layouts[page.properties.layout].image.layouts"
 									title="Image display options">
+							</select>
+						</div>
+						<div class="control">
+							<select data-ng-model="image.properties['verticalStyle']" ng-options="p for p in layouts[page.properties.layout].image.verticalStyles"
+									title="Image verticaldisplay options">
 							</select>
 						</div>
 						<div class="control">
