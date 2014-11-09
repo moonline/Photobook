@@ -3,6 +3,9 @@ Model/*.js
 Application/*.js
 Service/*.js
 Main.js
+rasterVorlage.html
+rasterVorlage.odg
+
 
 # temporary files
 *~
