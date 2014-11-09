@@ -25,7 +25,15 @@
 	</div>
 
 	<div class="pageFrame" data-ng-repeat="page in photoBook.pages">
-		<div class="page" data-layout="{{page.properties['layout']}}">
+		<div class="controls pageGroupControls" data-ng-if="$index % pagesPerGroup == 0">
+			<span data-ng-if="$index == visiblePagesStart" data-ng-click="setVisiblePages(-pagesPerGroup)">
+				{{$index+1}} - {{min($index+pagesPerGroup, photoBook.pages.length)}} of {{photoBook.pages.length}} &#9650;
+			</span>
+			<span data-ng-if="$index != visiblePagesStart" data-ng-click="setVisiblePages($index)">				
+				{{$index+1}} - {{min($index+pagesPerGroup, photoBook.pages.length)}} of {{photoBook.pages.length}} &#9660;
+			</span>
+		</div>
+		<div class="page" data-layout="{{page.properties['layout']}}" data-ng-if="$index >= visiblePagesStart && $index < visiblePagesStart+pagesPerGroup">
 			<div class="titles" >
 				<div data-ng-repeat="title in page.titles" class="title {{title.properties['type']}} {{title.properties['size']}}"
 					 style="top: {{title.properties['top']}}cm; left: {{title.properties['left']}}cm; width: {{title.properties['width']}}cm;">

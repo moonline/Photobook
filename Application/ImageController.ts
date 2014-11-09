@@ -19,6 +19,20 @@ class ImageController{
 		this.$scope.pages = [];
 		this.$scope.availableLayouts = Object.keys(LayoutConfiguration.layouts);
 		this.$scope.layouts = LayoutConfiguration.layouts;
+		this.$scope.pagesPerGroup = 4;
+		this.$scope.visiblePagesStart = 0;
+		
+		$scope.min = function(num1: number, num2: number) {
+			return Math.min(num1, num2);
+		}
+		
+		$scope.isGroupStartPage = function(page: number) {
+			return page % $scope.pagesPerGroup == 0;
+		};
+		
+		$scope.setVisiblePages = function(startPage: number) {
+			$scope.visiblePagesStart = startPage;
+		};
 
 		$scope.getNumberList = function(start:number = 0, end:number = 10, step:number = 1) {
 			var numbers:number[] = [];
