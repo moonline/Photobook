@@ -33,10 +33,9 @@ figure.imageContainer {
 	}
 }
 
-@media print {/**/
-/*@media only screen and (max-width: 1400px)  { /* for testing */
+@media print {
 	body { padding: 0; background: white; }
-	.controls { display: none; }
+	.controls { display: none!important; }
 	.page { padding: 0; width: 27.7cm; height: 19cm;  margin: 0; box-shadow: none; }
 	.page > .content { background: none; }
 	figure.imageContainer { justify-content: flex-end; }
