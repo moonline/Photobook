@@ -48,7 +48,7 @@ run build.sh to compile code and styles using tsc and lessc of node.js.
 Version history
 ---------------
 
-Version | Description 				| Features
----		|---						|---
-0.1		| first alpha release 		| insert images & titles, save & load files
-0.2 	| second alpha release 		| add parts for better performance, refactor code
+Version | 			| Dependencies							| Features
+---		|---		|---									|---
+0.1		| Alpha 1	| &bull; node: 10.25<br />&bull; tsc: 1.0<br />&bull; lessc: 2.2		| &bull; insert images & titles<br />&bull; save & load files
+0.2 	| Alpha 2	| &bull; node: 10.25<br />&bull; tsc: 1.0<br />&bull; lessc: 2.2		| &bull; add parts for better performance<br />&bull; refactor code
