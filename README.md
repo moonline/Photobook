@@ -39,7 +39,16 @@ run build.sh to compile code and styles using tsc and lessc of node.js.
 
 	lessc ./Resources/Styles/styles.less ./Resources/Styles/styles.css
 
-	
+
 ### Compile TypeScript by hand
 
 	tsc --target ES5 ./Main.ts --module AMD --out ./Main.js
+
+
+Version history
+---------------
+
+Version | Description 				| Features
+---		|---						|---
+0.1		| first alpha release 		| insert images & titles, save & load files
+0.2 	| second alpha release 		| add parts for better performance, refactor code
