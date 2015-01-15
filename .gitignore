@@ -1,7 +1,6 @@
 # ignore js files in model -> will be generated from ts files
 Model/*.js
 Application/*.js
-Configuration/*.js
 Service/*.js
 Main.js
 rasterVorlage.html
