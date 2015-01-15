@@ -78,7 +78,9 @@
 			<div class="content" data-images="{{page.images.length}}" data-sections="{{page.properties['sections']}}">
 				<figure data-ng-repeat="image in page.images" data-layout="{{image.properties['display']}}"
 						data-position="{{image.properties['position']}}" data-vertical-style="{{image.properties['verticalStyle']}}"
-						class="imageContainer" style="background-image: url('{{image.path}}')">
+						class="imageContainer" style="background-image: url('{{image.path}}');
+							{{image.properties['position'] == 'custom' &&
+							'background-position: '+ (image.properties['offsetLeft'] || 0) + 'cm '+ (image.properties['offsetTop'] || 0)+'cm;' || '' }}">
 
 					<div class="controls imageControls">
 						<div class="control">
@@ -92,11 +94,25 @@
 									title="Image verticaldisplay options">
 							</select>
 						</div>
+
 						<div class="control">
 							<!--<label><span class="icon-liga">&#xe093;</span></label>-->
 							<select data-ng-model="image.properties['position']" ng-options="p for p in layouts[page.properties.layout].image.positions"
 								title="Image position"></select>
 						</div>
+						<div data-ng-if="image.properties['position'] == 'custom'" class="control range">
+							<label>&#8614;</label>
+							<input type="range" min="-30" max="0" step="0.25" data-ng-model="image.properties['offsetLeft']"
+								   data-ng-init="image.properties['offsetLeft'] = 0"
+								   title="&#8614; Offset left: {{image.properties['offsetLeft']}}cm" />
+						</div>
+						<div data-ng-if="image.properties['position'] == 'custom'" class="control range">
+							<label>&#8615;</label>
+							<input type="range" min="-20" max="0" step="0.25" data-ng-model="image.properties['offsetTop']"
+								  data-ng-init="image.properties['offsetTop'] = 0"
+								  title="&#8615; Offset top: {{image.properties['offsetTop']}}cm" />
+						</div>
+
 						<div class="control">
 							<button class="button" data-ng-click="page.moveImage(image,-1)" title="Move image left">
 								<span class="icon icon-liga">&#xe00c;</span><span class="label">&nbsp;move left</span>
