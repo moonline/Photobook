@@ -32,11 +32,14 @@ Print with Firefox
 Compile from source
 -------------------
 
-### Styles
+run build.sh to compile code and styles using tsc and lessc of node.js.
+
+
+### Compile styles by hand
 
 	lessc ./Resources/Styles/styles.less ./Resources/Styles/styles.css
 
 	
-### TypeScript
+### Compile TypeScript by hand
 
 	tsc --target ES5 ./Main.ts --module AMD
