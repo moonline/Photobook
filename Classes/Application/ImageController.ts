@@ -1,6 +1,7 @@
 /// <reference path="../Domain/Model/Page.ts"/>
 /// <reference path="../Domain/Model/Image.ts"/>
 /// <reference path="../Domain/Model/PhotoBook.ts"/>
+/// <reference path="../Domain/Model/Element.ts"/>
 
 /// <reference path="../Service/FileService.ts"/>
 
@@ -16,6 +17,7 @@ module app.application {
 
 		constructor($scope, $location) {
 			this.scope = $scope;
+			this.scope.currentElement = null;
 
 			this.scope.min = this.min.bind(this);
 			this.scope.isGroupStartPage = this.isGroupStartPage.bind(this);

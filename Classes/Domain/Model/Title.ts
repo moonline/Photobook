@@ -1,7 +1,9 @@
+/// <reference path="../../Domain/Model/Element.ts"/>
+
 module app.domain.model {
 	'use strict';
 
-	export class Title {
+	export class Title implements app.domain.model.Element {
 		value: string;
 		properties: Object;
 
