@@ -42,4 +42,4 @@ run build.sh to compile code and styles using tsc and lessc of node.js.
 	
 ### Compile TypeScript by hand
 
-	tsc --target ES5 ./Main.ts --module AMD
+	tsc --target ES5 ./Main.ts --module AMD --out ./Main.js

@@ -1,4 +1,5 @@
-module PPIService {
+module app.service.PPIService {
+	'use strict';
 
 	export var ppi:number;
 
@@ -12,6 +13,4 @@ module PPIService {
 		}
 		return PPIService.ppi;
 	}
-};
-
-export = PPIService;
+}

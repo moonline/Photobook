@@ -103,13 +103,13 @@
 						<div data-ng-if="image.properties['position'] == 'custom'" class="control range">
 							<label>&#8614;</label>
 							<input type="range" min="-30" max="0" step="0.25" data-ng-model="image.properties['offsetLeft']"
-								   data-ng-init="image.properties['offsetLeft'] = 0"
+								   data-ng-init="image.properties['offsetLeft'] = image.properties['offsetLeft'] || 0"
 								   title="&#8614; Offset left: {{image.properties['offsetLeft']}}cm" />
 						</div>
 						<div data-ng-if="image.properties['position'] == 'custom'" class="control range">
 							<label>&#8615;</label>
 							<input type="range" min="-20" max="0" step="0.25" data-ng-model="image.properties['offsetTop']"
-								  data-ng-init="image.properties['offsetTop'] = 0"
+								  data-ng-init="image.properties['offsetTop'] = image.properties['offsetTop'] || 0"
 								  title="&#8615; Offset top: {{image.properties['offsetTop']}}cm" />
 						</div>
 

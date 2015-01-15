@@ -1,4 +1,6 @@
-module FileService {
+module app.service.FileService {
+	'use strict';
+
 	/**
 	 * read file on harddisk
 	 *
@@ -13,7 +15,7 @@ module FileService {
 			};
 			reader.readAsText(file);
 		}
-	};
+	}
 
 	/**
 	 * rad files from harddisk
@@ -39,7 +41,5 @@ module FileService {
 				reader.readAsText(file);
 			}
 		}
-	};
+	}
 }
-
-export = FileService;
