@@ -27,4 +27,16 @@ Print with Firefox
 ![Print](Documentation/print1.jpg)
 ![Print](Documentation/print2.jpg)
 ![Print](Documentation/print3.jpg)
+
+
+Compile from source
+-------------------
+
+### Styles
+
+	lessc ./Resources/Styles/styles.less ./Resources/Styles/styles.css
+
 	
+### TypeScript
+
+	tsc --target ES5 ./Main.ts --module AMD
