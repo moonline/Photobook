@@ -5,7 +5,7 @@ Service/*.js
 Main.js
 rasterVorlage.html
 rasterVorlage.odg
-
+Resources/Styles/styles.css
 
 # temporary files
 *~

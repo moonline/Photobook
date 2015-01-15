@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-	<title>Image Manager</title>
+	<title>Photo book</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width">
 
@@ -9,13 +9,13 @@
 
 		<!-- styles -->
 		<link href="Resources/Styles/browserReset.css" type="text/css" rel="stylesheet" />
-		<link href="Resources/Styles/styles.less" type="text/css" rel="stylesheet/less"/>
-
-		<script src="Lib/less/less.min.js"></script>
-		<script src="Lib/FileSaver/FileSaver.js"></script>
-		<script src="Lib/RequireJS/require.js" data-main="Main.js"></script>
-
-
+		<link href="Resources/Styles/styles.css" type="text/css" rel="stylesheet" />
 	</head>
-	<body data-ng-view></body>
+	<body data-ng-view>
+		<script src="./Configuration/LayoutConfiguration.js"></script>
+		<script src="./Resources/Libraries/FileSaver/FileSaver.js"></script>
+		<script src="./Resources/Libraries/AngularJS/angular.js" ></script>
+		<script src="./Resources/Libraries/AngularJS/angularRoute.js" ></script>
+		<script src="./Main.js" ></script>
+	</body>
 </html>

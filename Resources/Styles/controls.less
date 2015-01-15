@@ -30,7 +30,21 @@
 		* { width: 1cm;
 			.label { display: none; }
 		}
+
+		&.range { width: 3cm;
+			input, button { width: 3cm; }
+			label { display: none; }
+		}
 	}
+}
+
+.pageGroupControls {
+	background: rgb(100,100,100); padding: 0.5rem; color: white;
+	margin-bottom: 0.1rem; width: 100%;
+	display: flex; flex-flow: column; align-items: center;
+	
+	&:hover { cursor: pointer; }
+	span { color: white; }
 }
 
 .pageContentControls {
