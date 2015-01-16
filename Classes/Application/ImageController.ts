@@ -1,5 +1,6 @@
 /// <reference path="../Domain/Model/Page.ts"/>
 /// <reference path="../Domain/Model/Image.ts"/>
+/// <reference path="../Domain/Model/Title.ts"/>
 /// <reference path="../Domain/Model/PhotoBook.ts"/>
 /// <reference path="../Domain/Model/Element.ts"/>
 
@@ -19,6 +20,8 @@ module app.application {
 			this.scope = $scope;
 			this.scope.currentElement = null;
 
+			this.scope.getTypeName = this.getTypeName.bind(this);
+			this.scope.setCurrentElement = this.setCurrentElement.bind(this);
 			this.scope.min = this.min.bind(this);
 			this.scope.isGroupStartPage = this.isGroupStartPage.bind(this);
 			this.scope.setVisiblePages = this.setVisiblePages.bind(this);
@@ -33,11 +36,26 @@ module app.application {
 			this.scope.layouts = configuration.LayoutConfiguration.layouts;
 			this.scope.pagesPerGroup = 4;
 			this.scope.visiblePagesStart = 0;
+			window['currentElement'] = this.scope.currentElement;
+
+			console.log(this.scope);
 
 			// prevent user from closing the browser accidentially
 			window.onbeforeunload = function() { return true; };
 		}
 
+		// TODO: improove
+		getTypeName(element: any): string {
+			if(element instanceof app.domain.model.Page) { return 'Page'; }
+			if(element instanceof app.domain.model.Image) { return 'Image'; }
+			if(element instanceof app.domain.model.Title) { return 'Title'; }
+			if(element instanceof app.domain.model.PhotoBook) { return 'PhotoBook'; }
+			return null;
+		}
+
+		setCurrentElement(element: app.domain.model.Element): void {
+			this.scope.currentElement = element;
+		}
 
 		min(num1: number, num2: number): number {
 			return Math.min(num1, num2);

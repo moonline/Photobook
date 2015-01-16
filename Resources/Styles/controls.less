@@ -16,8 +16,47 @@
 	input[type=text] { color: black; }
 }
 
-.sidebar {
-	background: silver;
+.sidebar.controls {
+	background: silver; padding: 0;
+	.flex; .flex-flow(column);
+
+	.controlsSection {
+		.flex; .flex-flow(column);
+
+		h3 { padding: 0.25cm; background: gray; color: white;
+			.icon { margin-right: 0.25cm; color: #FFF; }
+		}
+		.controlsSectionContent {
+			&.buttonGrid {
+				.flex; .flex-wrap(wrap);
+
+				.control {
+					button, input, select, textarea { width: 100%; display: inline-block;
+						.icon { display: block; }
+					}
+					&[data-columns="2"] {
+						.flex; .flex-flow(row);
+
+						label, button, input, select, textarea { width: 50%; }
+					}
+					&[data-columns="3"] {
+						.flex; .flex-flow(row);
+
+						label { width: 33%; }
+						button, input, select, textarea { width: 66%; }
+					}
+				}
+				&[data-columns="3"] .control { width: 33%;
+					&[data-size="double"] { width: 66%; }
+					&[data-size="tribble"] { width: 100%; }
+				}
+				&[data-columns="2"] .control { width: 50%;
+					&[data-size="double"] { width: 100%; }
+					&[data-size="tribble"] { width: 100%; }
+				}
+			}
+		}
+	}
 }
 
 .welcomeControls {
@@ -52,7 +91,7 @@
 }
 
 .pageContentControls {
-	position: absolute; box-shadow: 0 0 0.5cm black; border-radius: 0.1cm; width: 27.7cm;
+	/*position: absolute; box-shadow: 0 0 0.5cm black; border-radius: 0.1cm; width: 27.7cm;*/
 
 	.controlsBox {
 		padding: 0; margin: 0; margin-right: 0.2cm; border: 1px solid rgb(50,50,50);
