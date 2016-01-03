@@ -86,16 +86,16 @@
 			</div>
 
 			<div class="pageFrame" data-ng-repeat="page in photoBook.pages">
-				<div class="controls pageGroupControls" data-ng-if="$index % pagesPerGroup == 0">
-					<span data-ng-if="$index == visiblePagesStart" data-ng-click="setVisiblePages(-pagesPerGroup)">
-						{{$index+1}} - {{min($index+pagesPerGroup, photoBook.pages.length)}} of {{photoBook.pages.length}} &#9650;
+				<div class="controls pageGroupControls" data-ng-if="isGroupStartPage($index)">
+					<span data-ng-show="$index == visiblePagesStart" data-ng-click="setVisiblePagesStart(-pagesPerGroup-numberOfTitlePages)">
+						{{$index+1}} - {{min(getGroupEndPage($index)+1, photoBook.pages.length)}} of {{photoBook.pages.length}} &#9650;
 					</span>
-					<span data-ng-if="$index != visiblePagesStart" data-ng-click="setVisiblePages($index)">
-						{{$index+1}} - {{min($index+pagesPerGroup, photoBook.pages.length)}} of {{photoBook.pages.length}} &#9660;
+					<span data-ng-hide="$index == visiblePagesStart" data-ng-click="setVisiblePagesStart($index)">
+						{{$index+1}} - {{min(getGroupEndPage($index)+1, photoBook.pages.length)}} of {{photoBook.pages.length}} &#9660;
 					</span>
 				</div>
 				<div class="page" data-layout="{{page.properties['layout']}}"
-					data-ng-if="$index >= visiblePagesStart && $index < visiblePagesStart+pagesPerGroup"
+					data-ng-if="isPageInGroup($index)"
 					data-ng-click="setCurrentElement(page); $event.stopPropagation();" data-ng-current="{{currentElement == page && 'true' || 'false'}}">
 					<div class="titles" >
 						<div data-ng-repeat="title in page.titles" class="title {{title.properties['type']}} {{title.properties['size']}}"
@@ -196,9 +196,6 @@
 							<figcaption contenteditable="true" data-ng-model="image.caption">{{image.caption}}</figcaption>
 						</figure>
 					</div>
-
-
-
 				</div>
 			</div>
 
