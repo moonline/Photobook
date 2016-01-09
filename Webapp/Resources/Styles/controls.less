@@ -65,23 +65,6 @@
 	display: flex; justify-content: space-around;
 }
 
-.imageControls {
-	display: flex; flex-wrap: wrap; justify-content: flex-start; align-content: flex-start;
-
-	* { margin: 0 0.1cm; }
-
-	.control {
-		* { width: 1cm;
-			.label { display: none; }
-		}
-
-		&.range { width: 3cm;
-			input, button { width: 3cm; }
-			label { display: none; }
-		}
-	}
-}
-
 .pageGroupControls {
 	background: rgb(100,100,100); padding: 0.5rem; color: white;
 	margin-bottom: 0.1rem; width: 100%;
@@ -89,58 +72,6 @@
 
 	&:hover { cursor: pointer; }
 	span { color: white; }
-}
-
-.pageContentControls {
-	/*position: absolute; box-shadow: 0 0 0.5cm black; border-radius: 0.1cm; width: 27.7cm;*/
-
-	.controlsBox {
-		padding: 0; margin: 0; margin-right: 0.2cm; border: 1px solid rgb(50,50,50);
-		border-radius: 0.2cm; overflow: hidden; background: rgba(0,0,0,0.1);
-
-		&[data-size="small"] { width: 24.25%; }
-		&[data-size="medium"] { width: 49.5%; }
-		&[data-size="large"] { width: 74.25%; }
-		&[data-size="extraLarge"] { width: 100%; }
-
-		h3 {
-			background: linear-gradient(rgb(50,50,50), black); color: white; padding: 0.1cm 0.2cm;
-			width: 100%; display: block;
-
-			.icon { color: white; }
-		}
-
-		.controlsBoxContent {
-			padding: 0.1cm; display: flex; flex-wrap: wrap; justify-content: space-between; width: 100%;
-
-			.control {
-				margin: 0 0 0.1cm 0; padding: 0;
-				> * { height: 0.9cm; margin: 0; }
-
-				&[data-size="single"] { width: 23.5%; }
-				&[data-size="double"] { width: 49%; }
-				&[data-size="tribble"] { width: 74.5%; }
-				&[data-size="quad"] { width: 100%; }
-
-				button, .button, select, textarea {
-					width: 100%; text-align: center; padding: 0;
-				}
-				button, .button {
-					span { display: inline-block; margin: auto;
-						&.icon { margin-right: 0.2cm; }
-					}
-				}
-				select { padding: 0.2cm; }
-				textarea { padding: 0.15cm; }
-			}
-		}
-		.icon { margin-right: 0.2cm; }
-	}
-}
-
-.imageContainer.wide .imageControls *, .layout1line .imageContainer.horizontal .imageControls * {
-	width: auto;
-	.label { display: inline-block; }
 }
 
 .titleControls {

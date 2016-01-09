@@ -28,7 +28,7 @@
 	</div>
 	<div class="applicationFrame">
 		<div class="controls sidebar">
-			<div class="pageContentControls" data-ng-if="getTypeName(currentElement) == 'Page' ">
+			<div class="pageContentControls" data-ng-if="getTypeName(currentElement) == 'Page'">
 				<div class="controlsSection" data-size="medium">
 					<h3><span class="icon icon-liga">&#xe048;</span>Page</h3>
 					<div class="controlsSectionContent buttonGrid" data-columns="2">
@@ -85,6 +85,63 @@
 					</div>
 				</div>
 			</div>
+
+			<div class="imageControls" data-ng-if="getTypeName(currentElement) == 'Image'">
+				<div class="controlsSection" data-size="medium">
+					<h3><span class="icon icon-liga">&#xe048;</span>Image</h3>
+					<div class="controlsSectionContent buttonGrid" data-columns="2">
+						<div class="control" data-size="double" data-columns="2">
+							<!--<label><span class="icon-liga">&#xe053;</span></label>-->
+							<label>Horizontal display</label>
+							<select data-ng-model="currentElement.properties['display']" ng-options="p for p in layouts[currentPage.properties.layout].image.layouts"
+									title="Image display options">
+							</select>
+						</div>
+						<div class="control" data-size="double" data-columns="2">
+							<label>Vertical display</label>
+							<select data-ng-model="currentElement.properties['verticalStyle']" ng-options="p for p in layouts[currentPage.properties.layout].image.verticalStyles"
+									title="Image verticaldisplay options">
+							</select>
+						</div>
+
+						<div class="control" data-size="double" data-columns="2">
+							<!--<label><span class="icon-liga">&#xe093;</span></label>-->
+							<label>Alignment</label>
+							<select data-ng-model="currentElement.properties['position']" ng-options="p for p in layouts[currentPage.properties.layout].image.positions"
+									title="Image position"></select>
+						</div>
+						<div data-ng-if="currentElement.properties['position'] == 'custom'" class="control range"  data-size="double" data-columns="2">
+							<label>&#8614; Horizontal offset</label>
+							<input type="range" min="-30" max="0" step="0.25" data-ng-model="currentElement.properties['offsetLeft']"
+								   data-ng-init="currentElement.properties['offsetLeft'] = currentElement.properties['offsetLeft'] || 0"
+								   title="&#8614; Offset left: {{currentElement.properties['offsetLeft']}}cm" />
+						</div>
+						<div data-ng-if="currentElement.properties['position'] == 'custom'" class="control range"  data-size="double" data-columns="2">
+							<label>&#8615; Vertical offset</label>
+							<input type="range" min="-20" max="0" step="0.25" data-ng-model="currentElement.properties['offsetTop']"
+								   data-ng-init="currentElement.properties['offsetTop'] = currentElement.properties['offsetTop'] || 0"
+								   title="&#8615; Offset top: {{currentElement.properties['offsetTop']}}cm" />
+						</div>
+
+						<div class="control" data-size="single">
+							<button class="button" data-ng-click="currentPage.moveImage(currentElement,-1)" title="Move image left">
+								<span class="icon icon-liga">&#xe00c;</span><span class="label">&nbsp;move left</span>
+							</button>
+						</div>
+						<div class="control" data-size="single">
+							<button class="button" data-ng-click="currentPage.moveImage(currentElement, 1)" title="Move image right">
+								<span class="icon icon-liga">&#xe00d;</span><span class="label">&nbsp;move right</span>
+							</button>
+						</div>
+						<div class="control" data-size="single">
+							<button class="button" data-ng-click="currentPage.removeImage(currentElement)" title="Delete image">
+								<span class="icon icon-liga">&#xe12c;</span><span class="label">&nbsp;delete image</span>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
 		</div>
 		<div class="main">
 
@@ -106,10 +163,10 @@
 				</div>
 				<div class="page" data-layout="{{page.properties['layout']}}"
 					data-ng-if="isPageInGroup($index)"
-					data-ng-click="setCurrentElement(page); $event.stopPropagation();" data-ng-current="{{currentElement == page && 'true' || 'false'}}">
+					data-ng-click="setCurrentElement(page, page); $event.stopPropagation();" data-ng-current="{{currentElement == page && 'true' || 'false'}}">
 					<div class="titles" >
 						<div data-ng-repeat="title in page.titles" class="title {{title.properties['type']}} {{title.properties['size']}}"
-							 style="top: {{title.properties['top']}}cm; left: {{title.properties['left']}}cm; width: {{title.properties['width']}}cm;" data-ng-click="setCurrentElement(title); $event.stopPropagation();">
+							 style="top: {{title.properties['top']}}cm; left: {{title.properties['left']}}cm; width: {{title.properties['width']}}cm;" data-ng-click="setCurrentElement(title, page); $event.stopPropagation();">
 							<h2 contenteditable="true" data-ng-model="title.value" >{{title.value}}</h2>
 							<div class="controls titleControls">
 								<div class="control">
@@ -149,59 +206,15 @@
 						</div>
 					</div>
 					<div class="content" data-images="{{page.images.length}}" data-sections="{{page.properties['sections']}}">
-						<figure data-ng-repeat="image in page.images" data-layout="{{image.properties['display']}}"
+						<figure data-ng-repeat="image in page.images"
+								data-layout="{{image.properties['display']}}"
 								data-position="{{image.properties['position']}}" data-vertical-style="{{image.properties['verticalStyle']}}"
-								class="imageContainer" style="background-image: url('http://localhost:8080/api/image?path={{image.path}}&size={{imageQuality}}');
+								data-ng-current="{{currentElement == image && 'true' || 'false'}}"
+								class="imageContainer"
+								style="background-image: url('http://localhost:8080/api/image?path={{image.path}}&size={{imageQuality}}');
 							{{image.properties['position'] == 'custom' &&
-							'background-position: '+ (image.properties['offsetLeft'] || 0) + 'cm '+ (image.properties['offsetTop'] || 0)+'cm;' || '' }}" data-ng-click="setCurrentElement(image); $event.stopPropagation();">
-
-							<div class="controls imageControls">
-								<div class="control">
-									<!--<label><span class="icon-liga">&#xe053;</span></label>-->
-									<select data-ng-model="image.properties['display']" ng-options="p for p in layouts[page.properties.layout].image.layouts"
-											title="Image display options">
-									</select>
-								</div>
-								<div class="control">
-									<select data-ng-model="image.properties['verticalStyle']" ng-options="p for p in layouts[page.properties.layout].image.verticalStyles"
-											title="Image verticaldisplay options">
-									</select>
-								</div>
-
-								<div class="control">
-									<!--<label><span class="icon-liga">&#xe093;</span></label>-->
-									<select data-ng-model="image.properties['position']" ng-options="p for p in layouts[page.properties.layout].image.positions"
-											title="Image position"></select>
-								</div>
-								<div data-ng-if="image.properties['position'] == 'custom'" class="control range">
-									<label>&#8614;</label>
-									<input type="range" min="-30" max="0" step="0.25" data-ng-model="image.properties['offsetLeft']"
-										   data-ng-init="image.properties['offsetLeft'] = image.properties['offsetLeft'] || 0"
-										   title="&#8614; Offset left: {{image.properties['offsetLeft']}}cm" />
-								</div>
-								<div data-ng-if="image.properties['position'] == 'custom'" class="control range">
-									<label>&#8615;</label>
-									<input type="range" min="-20" max="0" step="0.25" data-ng-model="image.properties['offsetTop']"
-										   data-ng-init="image.properties['offsetTop'] = image.properties['offsetTop'] || 0"
-										   title="&#8615; Offset top: {{image.properties['offsetTop']}}cm" />
-								</div>
-
-								<div class="control">
-									<button class="button" data-ng-click="page.moveImage(image,-1)" title="Move image left">
-										<span class="icon icon-liga">&#xe00c;</span><span class="label">&nbsp;move left</span>
-									</button>
-								</div>
-								<div class="control">
-									<button class="button" data-ng-click="page.moveImage(image, 1)" title="Move image right">
-										<span class="icon icon-liga">&#xe00d;</span><span class="label">&nbsp;move right</span>
-									</button>
-								</div>
-								<div class="control">
-									<button class="button" data-ng-click="page.removeImage(image)" title="Delete image">
-										<span class="icon icon-liga">&#xe12c;</span><span class="label">&nbsp;delete image</span>
-									</button>
-								</div>
-							</div>
+							'background-position: '+ (image.properties['offsetLeft'] || 0) + 'cm '+ (image.properties['offsetTop'] || 0)+'cm;' || '' }}"
+								data-ng-click="setCurrentElement(image, page); $event.stopPropagation();">
 
 							<figcaption contenteditable="true" data-ng-model="image.caption">{{image.caption}}</figcaption>
 						</figure>

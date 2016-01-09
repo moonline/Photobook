@@ -16,7 +16,12 @@
 	-webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover;
 }
 
-figure.imageContainer { display: flex; flex-direction: column; justify-content: space-between; }
+
+figure.imageContainer {
+	display: flex; flex-direction: column; justify-content: flex-end;
+
+	&[data-ng-current="true"] { border: 0.1cm solid cornflowerblue; }
+}
 figure.imageContainer figcaption { padding: 0.1cm; color: white; text-align: center; font-weight: bold;
 	background-color: rgba(0,0,0,0.25);
 	/*background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB94EBgkjJc53tkoAAAAZdEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIEdJTVBXgQ4XAAAADUlEQVQI12NgYGCoBwAAhACAxkwJbwAAAABJRU5ErkJggg==');
@@ -31,7 +36,7 @@ figure.imageContainer {
 }
 
 @media print {
-	body { padding: 0; background: white; height: auto; overflow: auto; }	
+	body { padding: 0; background: white; height: auto; overflow: auto; }
 	.controls { display: none!important; }
 	.page { padding: 0; width: 27.7cm; height: 19cm;  margin: 0; box-shadow: none; }
 	.page > .content { background: none; }

@@ -19,6 +19,7 @@ module app.application {
 		constructor($scope, $location) {
 			this.scope = $scope;
 			this.scope.currentElement = null;
+			this.scope.currentPage = null;
 
 			this.scope.getTypeName = this.getTypeName.bind(this);
 			this.scope.setCurrentElement = this.setCurrentElement.bind(this);
@@ -56,8 +57,9 @@ module app.application {
 			return null;
 		}
 
-		setCurrentElement(element: app.domain.model.Element): void {
+		setCurrentElement(element: app.domain.model.Element, page: app.domain.model.Page): void {
 			this.scope.currentElement = element;
+			this.scope.currentPage = page;
 		}
 
 		min(num1: number, num2: number): number {
