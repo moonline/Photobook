@@ -10,13 +10,14 @@ body { padding-top: 2cm; font-family: Ubuntu, Arial, Helvetica, sans-serif; }
 
 .view { height: 100%; overflow: hidden; }
 
-.applicationFrame {
-	.flex; .flex-flow(row); height: 100%; overflow: hidden;
+@media screen {
+	.applicationFrame {
+		.flex; .flex-flow(row); height: 100%; overflow: hidden;
 
-	.sidebar { width: 20%; }
-	.main { width: 100%; height: 100%; overflow-y: auto; overflow-x: hidden; }
+		.sidebar { width: 20%; }
+		.main { width: 100%; height: 100%; overflow-y: auto; overflow-x: hidden; }
+	}
 }
-
 /* templates */
 .listElement {
 	padding: @elementPadding;
@@ -50,4 +51,3 @@ figcaption:before { content: "✎"; color: white; margin-right: 0.25cm; font-wei
 }
 
 img.icon { height: 1cm; margin-right: 0.5cm; display: block; width: auto; }
-

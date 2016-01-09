@@ -3,6 +3,7 @@
 /// <reference path="./Declarations/body-parser/body-parser.d.ts" />
 /// <reference path="./Declarations/mime/mime.d.ts" />
 /// <reference path="./Declarations/easyimage/easyimage.d.ts" />
+/// <reference path="./Declarations/image-size/image-size.d.ts" />
 // thanks @ https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import FS = require('fs');
@@ -11,6 +12,7 @@ import Express = require('express');
 import BodyParser = require('body-parser');
 import Mime = require('mime');
 import EasyImage = require('easyimage');
+import ImageSize = require('image-size');
 
 import makeDirectoryRecursive = require('./Helper/FileHelper');
 
@@ -34,12 +36,33 @@ makeDirectoryRecursive(configuration.imagesCache);
 var app = Express();
 app.use(allowCrossDomain);
 app.use(BodyParser.json())
-//app.use('/', Express.static(__dirname + '/Webapp'));
+app.use('/', Express.static(__dirname + '/Webapp'));
+
+
+function respondImage(response: any, imagePath: string): void {
+	response.writeHead(200, { 'Content-Type': Mime.lookup(imagePath) });
+	response.end(FS.readFileSync(imagePath), 'binary');
+}
+
+function renderAndReturnThumbnail(imagePath: string, thumbnailPath: string, thumbnailSize: number, response: any): void {
+	var thumbnailConfiguration: any = {
+		src: imagePath,
+		dst: thumbnailPath,
+		width: thumbnailSize
+	};
+	EasyImage.resize(thumbnailConfiguration).then(function (error, stdout, stderr) {
+			if (error) {
+				console.error(error);
+			}
+			respondImage(response, thumbnailPath);
+	});
+}
 
 
 app.get('/api/image', function(request, response){
 	if (request.query.path) {
-		var imagePath = request.query.path;
+		// legacy support for old photobooks
+		var imagePath = (request.query.path.indexOf('file://') === 0) ? request.query.path.substring(7) : request.query.path;
 
 		FS.stat(imagePath, function(error: any, imageStatistics: any) {
 			if(error) {
@@ -51,24 +74,18 @@ app.get('/api/image', function(request, response){
 					if(error) { FS.mkdirSync(thumbnailDirectoryPath); }
 
 					var thumbnailPath = Path.join(thumbnailDirectoryPath, Path.basename(imagePath));
+					var thumbnailSize = request.query.size || configuration.thumbnail.size;
 
 					FS.stat(thumbnailPath, function(error, thumbnailStatistics) {
 						if(error) {
-							var thumbnailConfiguration: any = {
-								src: imagePath,
-								dst: thumbnailPath,
-								width: request.query.size || configuration.thumbnail.size
-							};
-							EasyImage.resize(thumbnailConfiguration).then(function (error, stdout, stderr) {
-									if (error) {
-										console.error(error);
-									}
-									response.writeHead(200, { 'Content-Type': Mime.lookup(thumbnailPath) });
-									response.end(FS.readFileSync(thumbnailPath), 'binary');
-							});
+							renderAndReturnThumbnail(imagePath, thumbnailPath, thumbnailSize, response)
 						} else {
-							response.writeHead(200, { 'Content-Type': Mime.lookup(thumbnailPath) });
-							response.end(FS.readFileSync(thumbnailPath), 'binary');
+							ImageSize(thumbnailPath, function(error, dimensions) {
+								if(dimensions.width != thumbnailSize) {
+									renderAndReturnThumbnail(imagePath, thumbnailPath, thumbnailSize, response);
+								}
+							});
+							respondImage(response, thumbnailPath);
 						}
 					});
 				});

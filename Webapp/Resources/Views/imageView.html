@@ -9,12 +9,22 @@
 		<div class="control">
 			<span class="inputFileWrapper button black" title="Open file from computer">
 				<input type="file" accept="application/json" name="loadFile" value="Open File" title="Open photobook from file"
-				   onchange="angular.element(this).scope().loadFile(this.files)" />
+					onchange="angular.element(this).scope().loadFile(this.files)" />
 				<span class="icon icon-liga">&#xe04c;</span> Open
 			</span>
 		</div>
 		<label>Photobook:</label>
 		<input type="text" data-ng-model="photoBook.title" />
+		<div class="control">
+			<label for="pagesPerGroup">Pages per group:</label>
+			<select name="pagesPerGroup" id="pagesPerGroup" data-ng-model="pagesPerGroup" data-ng-options="option for option in [2,4,8,16,32,64,128, 256, 512,1024]">
+			</select>
+			<label for="numberOfTitlePages">Number of title pages:</label>
+			<select name="numberOfTitlePages" id="numberOfTitlePages" data-ng-model="numberOfTitlePages" data-ng-options="option for option in [0,1,2,3]"></select>
+			<label for="imageQuality">Image quality:</label>
+			<input type="range" name="imageQuality" id="imageQuality" min="250" max="5000" step="250" data-ng-model="imageQuality" />
+			<output name="imageQualityPx" for="imageQuality">{{imageQuality}}</output>
+		</div>
 	</div>
 	<div class="applicationFrame">
 		<div class="controls sidebar">
@@ -141,7 +151,7 @@
 					<div class="content" data-images="{{page.images.length}}" data-sections="{{page.properties['sections']}}">
 						<figure data-ng-repeat="image in page.images" data-layout="{{image.properties['display']}}"
 								data-position="{{image.properties['position']}}" data-vertical-style="{{image.properties['verticalStyle']}}"
-								class="imageContainer" style="background-image: url('{{image.path}}');
+								class="imageContainer" style="background-image: url('http://localhost:8080/api/image?path={{image.path}}&size={{imageQuality}}');
 							{{image.properties['position'] == 'custom' &&
 							'background-position: '+ (image.properties['offsetLeft'] || 0) + 'cm '+ (image.properties['offsetTop'] || 0)+'cm;' || '' }}" data-ng-click="setCurrentElement(image); $event.stopPropagation();">
 
