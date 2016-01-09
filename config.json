@@ -1,0 +1,4 @@
+{
+	"imagesCache": "./cache/images",
+	"imageFormats": ["jpg", "jpeg", "png", "svg"]
+}
