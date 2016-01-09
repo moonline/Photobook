@@ -1,4 +1,8 @@
 {
 	"imagesCache": "./cache/images",
-	"imageFormats": ["jpg", "jpeg", "png", "svg"]
+	"imageFormats": ["jpg", "jpeg", "png", "svg"],
+	"thumbnail": {
+		"directory": ".thumbnails",
+		"size": 500
+	}
 }
