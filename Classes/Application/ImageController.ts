@@ -1,6 +1,8 @@
 /// <reference path="../Domain/Model/Page.ts"/>
 /// <reference path="../Domain/Model/Image.ts"/>
+/// <reference path="../Domain/Model/Title.ts"/>
 /// <reference path="../Domain/Model/PhotoBook.ts"/>
+/// <reference path="../Domain/Model/Element.ts"/>
 
 /// <reference path="../Service/FileService.ts"/>
 
@@ -16,10 +18,15 @@ module app.application {
 
 		constructor($scope, $location) {
 			this.scope = $scope;
+			this.scope.currentElement = null;
 
+			this.scope.getTypeName = this.getTypeName.bind(this);
+			this.scope.setCurrentElement = this.setCurrentElement.bind(this);
 			this.scope.min = this.min.bind(this);
 			this.scope.isGroupStartPage = this.isGroupStartPage.bind(this);
-			this.scope.setVisiblePages = this.setVisiblePages.bind(this);
+			this.scope.getGroupEndPage = this.getGroupEndPage.bind(this);
+			this.scope.setVisiblePagesStart = this.setVisiblePagesStart.bind(this);
+			this.scope.isPageInGroup = this.isPageInGroup.bind(this);
 			this.scope.getNumberList = this.getNumberList.bind(this);
 			this.scope.save = this.save.bind(this);
 			this.scope.loadFile = this.loadFile.bind(this);
@@ -30,23 +37,51 @@ module app.application {
 			this.scope.availableLayouts = Object.keys(configuration.LayoutConfiguration.layouts);
 			this.scope.layouts = configuration.LayoutConfiguration.layouts;
 			this.scope.pagesPerGroup = 4;
+			this.scope.numberOfTitlePages = 1;
 			this.scope.visiblePagesStart = 0;
+			window['currentElement'] = this.scope.currentElement;
+
+			console.log(this.scope);
 
 			// prevent user from closing the browser accidentially
 			window.onbeforeunload = function() { return true; };
 		}
 
+		// TODO: improove
+		getTypeName(element: any): string {
+			if(element instanceof app.domain.model.Page) { return 'Page'; }
+			if(element instanceof app.domain.model.Image) { return 'Image'; }
+			if(element instanceof app.domain.model.Title) { return 'Title'; }
+			if(element instanceof app.domain.model.PhotoBook) { return 'PhotoBook'; }
+			return null;
+		}
+
+		setCurrentElement(element: app.domain.model.Element): void {
+			this.scope.currentElement = element;
+		}
 
 		min(num1: number, num2: number): number {
 			return Math.min(num1, num2);
 		}
 
 		isGroupStartPage(page: number): boolean {
-			return page % this.scope.pagesPerGroup == 0;
+			return page == 0 || (page - this.scope.numberOfTitlePages) % this.scope.pagesPerGroup == 0;
+		}
+		
+		getGroupEndPage(groupStartPage: number): number {
+			if(groupStartPage > this.scope.numberOfTitlePages-1) {
+				return groupStartPage + this.scope.pagesPerGroup-1;
+			} else {
+				return this.scope.numberOfTitlePages-1;
+			}
 		}
 
-		setVisiblePages(startPage: number): void {
+		setVisiblePagesStart(startPage: number): void {
 			this.scope.visiblePagesStart = startPage;
+		}
+		
+		isPageInGroup(page) {
+			return page >= this.scope.visiblePagesStart && page <= this.getGroupEndPage(this.scope.visiblePagesStart);
 		}
 
 		getNumberList(start:number = 0, end:number = 10, step:number = 1): number[] {

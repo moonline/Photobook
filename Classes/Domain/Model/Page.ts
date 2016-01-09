@@ -3,10 +3,12 @@
 /// <reference path="../../Domain/Model/PhotoBook.ts"/>
 /// <reference path="../../Domain/Model/RelativePosition.ts"/>
 
+/// <reference path="../../Domain/Model/Element.ts"/>
+
 module app.domain.model {
 	'use strict';
 
-	export class Page {
+	export class Page implements app.domain.model.Element {
 		properties: Object;
 		images: Image[];
 		titles: Title[];

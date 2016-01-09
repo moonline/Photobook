@@ -28,6 +28,13 @@ module app.domain.model {
 			}
 		}
 
+		public createPageAfter(page:Page, numberOfLines: number = 2):void {
+			var pos: number = this.pages.indexOf(page);
+			if(pos >= 0) {
+				this.createPage(numberOfLines, pos+1);
+			}
+		}
+
 		public createPage(numberOfLines: number = 2, position: number = 0):void {
 			var page = new Page(numberOfLines);
 			page.setPhotobook(this);

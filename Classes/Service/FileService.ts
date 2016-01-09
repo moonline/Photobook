@@ -10,7 +10,7 @@ module app.service.FileService {
 	export function readFile(file, callback) {
 		if (file) {
 			var reader = new FileReader();
-			reader.onload = function(event) {
+			reader.onload = function(event: any) {
 				callback(event.target.result);
 			};
 			reader.readAsText(file);
@@ -31,7 +31,7 @@ module app.service.FileService {
 			if (file) {
 				var reader = new FileReader();
 				(function(i) {
-					reader.onload = function(event) {
+					reader.onload = function(event: any) {
 						fileContents.push(event.target.result);
 						if(i == (files.length-1)) {
 							callback(fileContents);

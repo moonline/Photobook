@@ -16,176 +16,185 @@
 		<label>Photobook:</label>
 		<input type="text" data-ng-model="photoBook.title" />
 	</div>
-
-	<div class="controls welcomeControls" data-ng-if="photoBook.pages.length == 0">
-		<div class="control">
-			<button class="button" data-ng-click="photoBook.createPage(2,photoBook.pages.length)" title="Create new page">
-				<span class="icon icon-liga">&#xe108;</span> New page</button>
-		</div>
-	</div>
-
-	<div class="pageFrame" data-ng-repeat="page in photoBook.pages">
-		<div class="controls pageGroupControls" data-ng-if="$index % pagesPerGroup == 0">
-			<span data-ng-if="$index == visiblePagesStart" data-ng-click="setVisiblePages(-pagesPerGroup)">
-				{{$index+1}} - {{min($index+pagesPerGroup, photoBook.pages.length)}} of {{photoBook.pages.length}} &#9650;
-			</span>
-			<span data-ng-if="$index != visiblePagesStart" data-ng-click="setVisiblePages($index)">				
-				{{$index+1}} - {{min($index+pagesPerGroup, photoBook.pages.length)}} of {{photoBook.pages.length}} &#9660;
-			</span>
-		</div>
-		<div class="page" data-layout="{{page.properties['layout']}}" data-ng-if="$index >= visiblePagesStart && $index < visiblePagesStart+pagesPerGroup">
-			<div class="titles" >
-				<div data-ng-repeat="title in page.titles" class="title {{title.properties['type']}} {{title.properties['size']}}"
-					 style="top: {{title.properties['top']}}cm; left: {{title.properties['left']}}cm; width: {{title.properties['width']}}cm;">
-					<h2 contenteditable="true" data-ng-model="title.value" >{{title.value}}</h2>
-					<div class="controls titleControls">
-						<div class="control">
-							<span class="icon icon-liga" data-dragpoint="true" data-pos-left="title.properties['left']"
-								  data-pos-top="title.properties['top']">&#xe093;</span>
-						</div>
-						<div class="control">
-							<label>&dArr;</label>
-							<input type="number" data-ng-model="title.properties['top']" title="Position of title from top border" />
-						</div>
-						<div class="control">
-							<label>&rArr;</label>
-							<input type="number" data-ng-model="title.properties['left']" title="Position of title from left border" />
-						</div>
-						<div class="control">
-							<label>&hArr;</label>
-							<input type="range" min="0" max="25" step="1" data-ng-model="title.properties['width']" title="Title width ({{title.properties['width']}}cm)" />
-						</div>
-						<div class="control">
-							<select data-ng-model="title.properties['size']" ng-options="p for p in layouts[page.properties.layout].title.sizes"
-									title="Title font size">
-							</select>
-						</div>
-						<div class="control">
-							<select data-ng-model="title.properties['type']" ng-options="p for p in layouts[page.properties.layout].title.layouts"
-									title="Title style type">
-							</select>
-						</div>
-						<div class="control">
-							<div class="control">
-								<button class="button" data-ng-click="page.removeTitle(title)" title="Delete title">
-									<span class="icon icon-liga">&#xe12c;</span>
-								</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="content" data-images="{{page.images.length}}" data-sections="{{page.properties['sections']}}">
-				<figure data-ng-repeat="image in page.images" data-layout="{{image.properties['display']}}"
-						data-position="{{image.properties['position']}}" data-vertical-style="{{image.properties['verticalStyle']}}"
-						class="imageContainer" style="background-image: url('{{image.path}}');
-							{{image.properties['position'] == 'custom' &&
-							'background-position: '+ (image.properties['offsetLeft'] || 0) + 'cm '+ (image.properties['offsetTop'] || 0)+'cm;' || '' }}">
-
-					<div class="controls imageControls">
-						<div class="control">
-							<!--<label><span class="icon-liga">&#xe053;</span></label>-->
-							<select data-ng-model="image.properties['display']" ng-options="p for p in layouts[page.properties.layout].image.layouts"
-									title="Image display options">
-							</select>
-						</div>
-						<div class="control">
-							<select data-ng-model="image.properties['verticalStyle']" ng-options="p for p in layouts[page.properties.layout].image.verticalStyles"
-									title="Image verticaldisplay options">
-							</select>
-						</div>
-
-						<div class="control">
-							<!--<label><span class="icon-liga">&#xe093;</span></label>-->
-							<select data-ng-model="image.properties['position']" ng-options="p for p in layouts[page.properties.layout].image.positions"
-								title="Image position"></select>
-						</div>
-						<div data-ng-if="image.properties['position'] == 'custom'" class="control range">
-							<label>&#8614;</label>
-							<input type="range" min="-30" max="0" step="0.25" data-ng-model="image.properties['offsetLeft']"
-								   data-ng-init="image.properties['offsetLeft'] = image.properties['offsetLeft'] || 0"
-								   title="&#8614; Offset left: {{image.properties['offsetLeft']}}cm" />
-						</div>
-						<div data-ng-if="image.properties['position'] == 'custom'" class="control range">
-							<label>&#8615;</label>
-							<input type="range" min="-20" max="0" step="0.25" data-ng-model="image.properties['offsetTop']"
-								  data-ng-init="image.properties['offsetTop'] = image.properties['offsetTop'] || 0"
-								  title="&#8615; Offset top: {{image.properties['offsetTop']}}cm" />
-						</div>
-
-						<div class="control">
-							<button class="button" data-ng-click="page.moveImage(image,-1)" title="Move image left">
-								<span class="icon icon-liga">&#xe00c;</span><span class="label">&nbsp;move left</span>
-							</button>
-						</div>
-						<div class="control">
-							<button class="button" data-ng-click="page.moveImage(image, 1)" title="Move image right">
-								<span class="icon icon-liga">&#xe00d;</span><span class="label">&nbsp;move right</span>
-							</button>
-						</div>
-						<div class="control">
-							<button class="button" data-ng-click="page.removeImage(image)" title="Delete image">
-								<span class="icon icon-liga">&#xe12c;</span><span class="label">&nbsp;delete image</span>
-							</button>
-						</div>
-					</div>
-
-					<figcaption contenteditable="true" data-ng-model="image.caption">{{image.caption}}</figcaption>
-				</figure>
-			</div>
-
-			<div class="controls pageContentControls">
-				<div class="controlsBox" data-size="medium">
+	<div class="applicationFrame">
+		<div class="controls sidebar">
+			<div class="pageContentControls" data-ng-if="getTypeName(currentElement) == 'Page' ">
+				<div class="controlsSection" data-size="medium">
 					<h3><span class="icon icon-liga">&#xe048;</span>Page</h3>
-					<div class="controlsBoxContent">
+					<div class="controlsSectionContent buttonGrid" data-columns="2">
 						<div class="control" data-size="single">
-							<button class="button" data-ng-click="photoBook.createPage(2,$index+1)" title="Insert new page after">
+							<button class="button" data-ng-click="photoBook.createPageAfter(currentElement,2)" title="Insert new page after">
 								<span class="icon icon-liga">&#xe108;</span><span class="caption">Add after</span>
 							</button>
 						</div>
 						<div class="control" data-size="single">
-							<button class="button" data-ng-click="photoBook.movePage(page,-1)" title="Move page one position upwards">
+							<button class="button" data-ng-click="photoBook.movePage(currentElement,-1)" title="Move page one position upwards">
 								<span class="icon icon-liga">&#xe00e;</span><span class="caption">Move up</span>
 							</button>
 						</div>
 						<div class="control" data-size="single">
-							<button class="button" data-ng-click="photoBook.movePage(page, 1)" title="Move page one position downwards">
+							<button class="button" data-ng-click="photoBook.movePage(currentElement, 1)" title="Move page one position downwards">
 								<span class="icon icon-liga">&#xe00b;</span><span class="caption">Move down</span>
 							</button>
 						</div>
 						<div class="control" data-size="single">
-							<button class="button" data-ng-click="photoBook.removePage(page)" title="Remove page">
-								<span class="icon icon-liga">&#xe12c;</span><span class="caption">Delete</span>
+							<button class="button" data-ng-click="photoBook.removePage(currentElement)" title="Remove page">
+								<span class="icon icon-liga">&#xe12c;</span><span class="caption">Delete page</span>
 							</button>
 						</div>
 
-						<div class="control" data-size="single">
-							<select data-ng-model="page.properties['sections']" ng-options="l for l in layouts[page.properties['layout']].sections"
+						<div class="control" data-size="double" data-columns="2">
+							<label>Sections (rows)</label>
+							<select data-ng-model="currentElement.properties['sections']" ng-options="l for l in layouts[currentElement.properties['layout']].sections"
 									title="Number of sections per page"></select>
 						</div>
-						<div class="control" data-size="tribble">
-							<select data-ng-model="page.properties['layout']" ng-options="value for (key,value) in availableLayouts"
+						<div class="control" data-size="double" data-columns="2">
+							<label>Page layout</label>
+							<select data-ng-model="currentElement.properties['layout']" ng-options="value for (key,value) in availableLayouts"
 									title="Page layout">
 							</select>
 						</div>
 					</div>
 				</div>
-				<div class="controlsBox" data-size="small">
+				<div class="controlsSection" data-size="small">
 					<h3><span class="icon icon-liga">&#xe030;</span> Insert</h3>
-					<div class="controlsBoxContent">
-						<div class="control" data-size="double">
-							<button class="button" data-ng-click="page.createTitle()" title="Create a new title">
+					<div class="controlsSectionContent buttonGrid" data-columns="2">
+						<div class="control" data-size="single">
+							<button class="button" data-ng-click="currentElement.createTitle()" title="Create a new title">
 								<span class="icon icon-liga">&#xe034;</span><span class="caption">&nbsp;Title</span>
 							</button>
 						</div>
-						<div class="control" data-size="double">
-							<button class="button" data-ng-click="page.createImage()" title="Add new image to page">
+						<div class="control" data-size="single">
+							<button class="button" data-ng-click="currentElement.createImage()" title="Add new image to page">
 								<span class="icon icon-liga">&#xe074;</span><span class="caption">&nbsp;Image</span>
 							</button>
 						</div>
-						<div class="control" data-size="quad">
-							<textarea class="dragArea" placeholder="drag images here" data-ng-input="true" data-callback="page.addImagePaths(value)"></textarea>
+						<div class="control" data-size="double">
+							<textarea class="dragArea" placeholder="drag images here" data-ng-input="true" data-callback="currentElement.addImagePaths(value)"></textarea>
 						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="main">
+
+			<div class="controls welcomeControls" data-ng-if="photoBook.pages.length == 0">
+				<div class="control">
+					<button class="button" data-ng-click="photoBook.createPage(2,photoBook.pages.length)" title="Create new page">
+						<span class="icon icon-liga">&#xe108;</span> New page</button>
+				</div>
+			</div>
+
+			<div class="pageFrame" data-ng-repeat="page in photoBook.pages">
+				<div class="controls pageGroupControls" data-ng-if="isGroupStartPage($index)">
+					<span data-ng-show="$index == visiblePagesStart" data-ng-click="setVisiblePagesStart(-pagesPerGroup-numberOfTitlePages)">
+						{{$index+1}} - {{min(getGroupEndPage($index)+1, photoBook.pages.length)}} of {{photoBook.pages.length}} &#9650;
+					</span>
+					<span data-ng-hide="$index == visiblePagesStart" data-ng-click="setVisiblePagesStart($index)">
+						{{$index+1}} - {{min(getGroupEndPage($index)+1, photoBook.pages.length)}} of {{photoBook.pages.length}} &#9660;
+					</span>
+				</div>
+				<div class="page" data-layout="{{page.properties['layout']}}"
+					data-ng-if="isPageInGroup($index)"
+					data-ng-click="setCurrentElement(page); $event.stopPropagation();" data-ng-current="{{currentElement == page && 'true' || 'false'}}">
+					<div class="titles" >
+						<div data-ng-repeat="title in page.titles" class="title {{title.properties['type']}} {{title.properties['size']}}"
+							 style="top: {{title.properties['top']}}cm; left: {{title.properties['left']}}cm; width: {{title.properties['width']}}cm;" data-ng-click="setCurrentElement(title); $event.stopPropagation();">
+							<h2 contenteditable="true" data-ng-model="title.value" >{{title.value}}</h2>
+							<div class="controls titleControls">
+								<div class="control">
+							<span class="icon icon-liga" data-dragpoint="true" data-pos-left="title.properties['left']"
+								  data-pos-top="title.properties['top']">&#xe093;</span>
+								</div>
+								<div class="control">
+									<label>&dArr;</label>
+									<input type="number" data-ng-model="title.properties['top']" title="Position of title from top border" />
+								</div>
+								<div class="control">
+									<label>&rArr;</label>
+									<input type="number" data-ng-model="title.properties['left']" title="Position of title from left border" />
+								</div>
+								<div class="control">
+									<label>&hArr;</label>
+									<input type="range" min="0" max="25" step="1" data-ng-model="title.properties['width']" title="Title width ({{title.properties['width']}}cm)" />
+								</div>
+								<div class="control">
+									<select data-ng-model="title.properties['size']" ng-options="p for p in layouts[page.properties.layout].title.sizes"
+											title="Title font size">
+									</select>
+								</div>
+								<div class="control">
+									<select data-ng-model="title.properties['type']" ng-options="p for p in layouts[page.properties.layout].title.layouts"
+											title="Title style type">
+									</select>
+								</div>
+								<div class="control">
+									<div class="control">
+										<button class="button" data-ng-click="page.removeTitle(title)" title="Delete title">
+											<span class="icon icon-liga">&#xe12c;</span>
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="content" data-images="{{page.images.length}}" data-sections="{{page.properties['sections']}}">
+						<figure data-ng-repeat="image in page.images" data-layout="{{image.properties['display']}}"
+								data-position="{{image.properties['position']}}" data-vertical-style="{{image.properties['verticalStyle']}}"
+								class="imageContainer" style="background-image: url('{{image.path}}');
+							{{image.properties['position'] == 'custom' &&
+							'background-position: '+ (image.properties['offsetLeft'] || 0) + 'cm '+ (image.properties['offsetTop'] || 0)+'cm;' || '' }}" data-ng-click="setCurrentElement(image); $event.stopPropagation();">
+
+							<div class="controls imageControls">
+								<div class="control">
+									<!--<label><span class="icon-liga">&#xe053;</span></label>-->
+									<select data-ng-model="image.properties['display']" ng-options="p for p in layouts[page.properties.layout].image.layouts"
+											title="Image display options">
+									</select>
+								</div>
+								<div class="control">
+									<select data-ng-model="image.properties['verticalStyle']" ng-options="p for p in layouts[page.properties.layout].image.verticalStyles"
+											title="Image verticaldisplay options">
+									</select>
+								</div>
+
+								<div class="control">
+									<!--<label><span class="icon-liga">&#xe093;</span></label>-->
+									<select data-ng-model="image.properties['position']" ng-options="p for p in layouts[page.properties.layout].image.positions"
+											title="Image position"></select>
+								</div>
+								<div data-ng-if="image.properties['position'] == 'custom'" class="control range">
+									<label>&#8614;</label>
+									<input type="range" min="-30" max="0" step="0.25" data-ng-model="image.properties['offsetLeft']"
+										   data-ng-init="image.properties['offsetLeft'] = image.properties['offsetLeft'] || 0"
+										   title="&#8614; Offset left: {{image.properties['offsetLeft']}}cm" />
+								</div>
+								<div data-ng-if="image.properties['position'] == 'custom'" class="control range">
+									<label>&#8615;</label>
+									<input type="range" min="-20" max="0" step="0.25" data-ng-model="image.properties['offsetTop']"
+										   data-ng-init="image.properties['offsetTop'] = image.properties['offsetTop'] || 0"
+										   title="&#8615; Offset top: {{image.properties['offsetTop']}}cm" />
+								</div>
+
+								<div class="control">
+									<button class="button" data-ng-click="page.moveImage(image,-1)" title="Move image left">
+										<span class="icon icon-liga">&#xe00c;</span><span class="label">&nbsp;move left</span>
+									</button>
+								</div>
+								<div class="control">
+									<button class="button" data-ng-click="page.moveImage(image, 1)" title="Move image right">
+										<span class="icon icon-liga">&#xe00d;</span><span class="label">&nbsp;move right</span>
+									</button>
+								</div>
+								<div class="control">
+									<button class="button" data-ng-click="page.removeImage(image)" title="Delete image">
+										<span class="icon icon-liga">&#xe12c;</span><span class="label">&nbsp;delete image</span>
+									</button>
+								</div>
+							</div>
+
+							<figcaption contenteditable="true" data-ng-model="image.caption">{{image.caption}}</figcaption>
+						</figure>
 					</div>
 				</div>
 			</div>
