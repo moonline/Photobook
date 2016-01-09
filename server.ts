@@ -38,19 +38,19 @@ app.use(BodyParser.json())
 
 
 app.get('/api/image', function(request, response){
-	if (request.query.path && request.query.name) {
-		var imagePath = Path.join(request.query.path, request.query.name);
+	if (request.query.path) {
+		var imagePath = request.query.path;
 
 		FS.stat(imagePath, function(error: any, imageStatistics: any) {
 			if(error) {
 				response.status(400).send('Image not found!');
 			} else {
-				var thumbnailDirectoryPath = Path.join(request.query.path, configuration.thumbnail.directory);
+				var thumbnailDirectoryPath = Path.join(Path.dirname(imagePath), configuration.thumbnail.directory);
 
 				FS.stat(thumbnailDirectoryPath, function(error, thumbnailDirectoryStatistics) {
 					if(error) { FS.mkdirSync(thumbnailDirectoryPath); }
 
-					var thumbnailPath = Path.join(thumbnailDirectoryPath, request.query.name);
+					var thumbnailPath = Path.join(thumbnailDirectoryPath, Path.basename(imagePath));
 
 					FS.stat(thumbnailPath, function(error, thumbnailStatistics) {
 						if(error) {
@@ -75,7 +75,7 @@ app.get('/api/image', function(request, response){
 			}
 		});
 	} else {
-		response.status(400).send('Image not found!');
+		response.status(400).send('Path missing!');
 	}
 });
 
