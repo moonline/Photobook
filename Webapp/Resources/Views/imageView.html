@@ -28,7 +28,7 @@
 	</div>
 	<div class="applicationFrame">
 		<div class="controls sidebar">
-			<div class="pageContentControls" data-ng-if="getTypeName(currentElement) == 'Page'">
+			<div data-ng-if="getTypeName(currentElement) == 'Page'">
 				<div class="controlsSection" data-size="medium">
 					<h3><span class="icon icon-liga">&#xe048;</span>Page</h3>
 					<div class="controlsSectionContent buttonGrid" data-columns="2">
@@ -86,7 +86,7 @@
 				</div>
 			</div>
 
-			<div class="imageControls" data-ng-if="getTypeName(currentElement) == 'Image'">
+			<div data-ng-if="getTypeName(currentElement) == 'Image'">
 				<div class="controlsSection" data-size="medium">
 					<h3><span class="icon icon-liga">&#xe048;</span>Image</h3>
 					<div class="controlsSectionContent buttonGrid" data-columns="2">
@@ -135,7 +135,46 @@
 						</div>
 						<div class="control" data-size="single">
 							<button class="button" data-ng-click="currentPage.removeImage(currentElement)" title="Delete image">
-								<span class="icon icon-liga">&#xe12c;</span><span class="label">&nbsp;delete image</span>
+								<span class="icon icon-liga">&#xe12c;</span>
+								<span class="label">&nbsp;delete image</span>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div data-ng-if="getTypeName(currentElement) == 'Title'">
+				<div class="controlsSection" data-size="medium">
+					<h3><span class="icon icon-liga">&#xe048;</span>Title</h3>
+					<div class="controlsSectionContent buttonGrid" data-columns="2">
+						<div class="control" data-size="double" data-columns="2">
+							<label>&dArr; Horizontal position</label>
+							<input type="number" data-ng-model="currentElement.properties['top']" title="Position of title from top border" />
+						</div>
+						<div class="control" data-size="double" data-columns="2">
+							<label>&rArr; Vertical position</label>
+							<input type="number" data-ng-model="currentElement.properties['left']" title="Position of title from left border" />
+						</div>
+						<div class="control" data-size="double" data-columns="2">
+							<label>&hArr; Width</label>
+							<input type="range" min="0" max="25" step="1" data-ng-model="currentElement.properties['width']" title="Title width ({{currentElement.properties['width']}}cm)" />
+						</div>
+						<div class="control" data-size="double" data-columns="2">
+							<label>Size</label>
+							<select data-ng-model="currentElement.properties['size']" ng-options="p for p in layouts[currentPage.properties.layout].title.sizes"
+									title="Title font size">
+							</select>
+						</div>
+						<div class="control" data-size="double" data-columns="2">
+							<label>Style</label>
+							<select data-ng-model="currentElement.properties['type']" ng-options="p for p in layouts[currentPage.properties.layout].title.layouts"
+									title="Title style type">
+							</select>
+						</div>
+						<div class="control" data-size="single">
+							<button class="button" data-ng-click="currentPage.removeTitle(currentElement)" title="Delete title">
+								<span class="icon icon-liga">&#xe12c;</span>
+								<span class="label">&nbsp;Delete title</span>
 							</button>
 						</div>
 					</div>
@@ -161,48 +200,25 @@
 						{{$index+1}} - {{min(getGroupEndPage($index)+1, photoBook.pages.length)}} of {{photoBook.pages.length}} &#9660;
 					</span>
 				</div>
-				<div class="page" data-layout="{{page.properties['layout']}}"
+				<div class="page"
+					data-layout="{{page.properties['layout']}}"
 					data-ng-if="isPageInGroup($index)"
 					data-ng-click="setCurrentElement(page, page); $event.stopPropagation();" data-ng-current="{{currentElement == page && 'true' || 'false'}}">
 					<div class="titles" >
-						<div data-ng-repeat="title in page.titles" class="title {{title.properties['type']}} {{title.properties['size']}}"
-							 style="top: {{title.properties['top']}}cm; left: {{title.properties['left']}}cm; width: {{title.properties['width']}}cm;" data-ng-click="setCurrentElement(title, page); $event.stopPropagation();">
-							<h2 contenteditable="true" data-ng-model="title.value" >{{title.value}}</h2>
+						<div data-ng-repeat="title in page.titles"
+								class="title {{title.properties['type']}} {{title.properties['size']}}"
+								style="top: {{title.properties['top']}}cm; left: {{title.properties['left']}}cm; width: {{title.properties['width']}}cm;"
+								data-ng-current="{{currentElement == title && 'true' || 'false'}}"
+								data-ng-click="setCurrentElement(title, page); $event.stopPropagation();">
 							<div class="controls titleControls">
 								<div class="control">
-							<span class="icon icon-liga" data-dragpoint="true" data-pos-left="title.properties['left']"
-								  data-pos-top="title.properties['top']">&#xe093;</span>
-								</div>
-								<div class="control">
-									<label>&dArr;</label>
-									<input type="number" data-ng-model="title.properties['top']" title="Position of title from top border" />
-								</div>
-								<div class="control">
-									<label>&rArr;</label>
-									<input type="number" data-ng-model="title.properties['left']" title="Position of title from left border" />
-								</div>
-								<div class="control">
-									<label>&hArr;</label>
-									<input type="range" min="0" max="25" step="1" data-ng-model="title.properties['width']" title="Title width ({{title.properties['width']}}cm)" />
-								</div>
-								<div class="control">
-									<select data-ng-model="title.properties['size']" ng-options="p for p in layouts[page.properties.layout].title.sizes"
-											title="Title font size">
-									</select>
-								</div>
-								<div class="control">
-									<select data-ng-model="title.properties['type']" ng-options="p for p in layouts[page.properties.layout].title.layouts"
-											title="Title style type">
-									</select>
-								</div>
-								<div class="control">
-									<div class="control">
-										<button class="button" data-ng-click="page.removeTitle(title)" title="Delete title">
-											<span class="icon icon-liga">&#xe12c;</span>
-										</button>
-									</div>
+									<span class="icon icon-liga"
+									data-dragpoint="true"
+									data-pos-left="title.properties['left']"
+								  	data-pos-top="title.properties['top']">&#xe093;</span>
 								</div>
 							</div>
+							<h2 contenteditable="true" data-ng-model="title.value" >{{title.value}}</h2>
 						</div>
 					</div>
 					<div class="content" data-images="{{page.images.length}}" data-sections="{{page.properties['sections']}}">
