@@ -126,8 +126,9 @@ module app.application {
 				var photobook = new app.domain.model.PhotoBook();
 				photobook.importFromObject(JSON.parse(fileContent));
 				scope.photoBook = photobook;
+				this.setCurrentElement(photobook.pages[0], photobook.pages[0]);
 				scope.$apply();
-			});
+			}.bind(this));
 		}
 	}
 }
