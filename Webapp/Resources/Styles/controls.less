@@ -6,32 +6,28 @@
 
 .toolBar {
 	position: fixed; top: 0; left: 0; padding: 0.5cm; width: 100%;
-	box-shadow: 0 0 0.25cm black; opacity: 1; z-index: 100;
+	box-shadow: 0 0 0.25cm @grey850; opacity: 1; z-index: 100;
 	align-items: center;
-	background: linear-gradient(rgb(62,62,58),rgb(20,20,20));
-	border-bottom: 1px solid rgb(100,100,100);
-
-	* { color: white; }
-
-	input[type=text] { color: black; }
-	select, option { color: black; }
 }
 
 .sidebar.controls {
-	background: silver; padding: 0;
+	background: rgb(220,220,220); padding: 0;
 	.flex; .flex-flow(column);
 
 	.controlsSection {
 		.flex; .flex-flow(column);
 
-		h3 { padding: 0.25cm; background: gray; color: white;
-			.icon { margin-right: 0.25cm; color: #FFF; }
+		h3 {
+			padding: 0.25cm; color: black; font-weight: bold;
+			border-top: 0.1rem solid @grey500;
+			.icon { margin-right: 0.25cm; color: black; }
 		}
 		.controlsSectionContent {
 			&.buttonGrid {
 				.flex; .flex-wrap(wrap);
 
 				.control {
+					margin: 0.25rem;
 					button, input, select, textarea { width: 100%; display: inline-block;
 						.icon { display: block; }
 					}
@@ -47,11 +43,14 @@
 						button, input, select, textarea { width: 66%; }
 					}
 				}
-				&[data-columns="3"] .control { width: 33%;
+				&[data-columns="3"] .control {
+					width: calc(~"33% - 0.75rem");
 					&[data-size="double"] { width: 66%; }
 					&[data-size="tribble"] { width: 100%; }
 				}
-				&[data-columns="2"] .control { width: 50%;
+				&[data-columns="2"] .control {
+					width: calc(~"50% - 0.5rem");
+
 					&[data-size="double"] { width: 100%; }
 					&[data-size="tribble"] { width: 100%; }
 				}

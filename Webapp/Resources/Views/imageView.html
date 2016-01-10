@@ -1,20 +1,23 @@
 <div class="view" id="imageView">
-	<div class="controls toolBar">
+	<div class="controls toolBar theme dark">
 		<img class="icon" src="./Resources/Img/appIcon.png" alt="Photobook Designer Icon" />
 		<div class="control">
-			<button class="button black" data-ng-click="save()" title="Save photobook to file on computer">
-				<span class="icon icon-liga">&#xe115;</span> Save
-			</button>
-		</div>
-		<div class="control">
-			<span class="inputFileWrapper button black" title="Open file from computer">
-				<input type="file" accept="application/json" name="loadFile" value="Open File" title="Open photobook from file"
-					onchange="angular.element(this).scope().loadFile(this.files)" />
-				<span class="icon icon-liga">&#xe04c;</span> Open
+			<span class="button" data-ng-click="save()" title="Save photobook to file on computer">
+				<span class="icon icon-liga">&#xe115;</span>
+				<span class="label">Save</span>
 			</span>
 		</div>
-		<label>Photobook:</label>
-		<input type="text" data-ng-model="photoBook.title" />
+		<div class="control">
+			<span class="inputFileWrapper button" title="Open file from computer">
+				<input type="file" accept="application/json" name="loadFile" value="Open File" title="Open photobook from file"
+					onchange="angular.element(this).scope().loadFile(this.files)" />
+				<span class="icon icon-liga">&#xe04c;</span>
+				<span class="label">Open</span>
+			</span>
+		</div>
+
+		<input class="blue" type="text" id="photobookTitle" name="photobookTitle" data-ng-model="photoBook.title" placeholder="Photobook name" />
+
 		<div class="control">
 			<label for="pagesPerGroup">Pages per group:</label>
 			<select name="pagesPerGroup" id="pagesPerGroup" data-ng-model="pagesPerGroup" data-ng-options="option for option in [2,4,8,16,32,64,128, 256, 512,1024]">
@@ -34,22 +37,26 @@
 					<div class="controlsSectionContent buttonGrid" data-columns="2">
 						<div class="control" data-size="single">
 							<button class="button" data-ng-click="photoBook.createPageAfter(currentElement,2)" title="Insert new page after">
-								<span class="icon icon-liga">&#xe108;</span><span class="caption">Add after</span>
+								<span class="icon icon-liga">&#xe108;</span>
+								<span class="caption">Add after</span>
 							</button>
 						</div>
 						<div class="control" data-size="single">
 							<button class="button" data-ng-click="photoBook.movePage(currentElement,-1)" title="Move page one position upwards">
-								<span class="icon icon-liga">&#xe00e;</span><span class="caption">Move up</span>
+								<span class="icon icon-liga">&#xe00e;</span>
+								<span class="caption">Move up</span>
 							</button>
 						</div>
 						<div class="control" data-size="single">
 							<button class="button" data-ng-click="photoBook.movePage(currentElement, 1)" title="Move page one position downwards">
-								<span class="icon icon-liga">&#xe00b;</span><span class="caption">Move down</span>
+								<span class="icon icon-liga">&#xe00b;</span>
+								<span class="caption">Move down</span>
 							</button>
 						</div>
 						<div class="control" data-size="single">
 							<button class="button" data-ng-click="photoBook.removePage(currentElement)" title="Remove page">
-								<span class="icon icon-liga">&#xe12c;</span><span class="caption">Delete page</span>
+								<span class="icon icon-liga">&#xe12c;</span>
+								<span class="caption">Delete page</span>
 							</button>
 						</div>
 
@@ -125,18 +132,20 @@
 
 						<div class="control" data-size="single">
 							<button class="button" data-ng-click="currentPage.moveImage(currentElement,-1)" title="Move image left">
-								<span class="icon icon-liga">&#xe00c;</span><span class="label">&nbsp;move left</span>
+								<span class="icon icon-liga">&#xe00c;</span>
+								<span class="caption">move left</span>
 							</button>
 						</div>
 						<div class="control" data-size="single">
 							<button class="button" data-ng-click="currentPage.moveImage(currentElement, 1)" title="Move image right">
-								<span class="icon icon-liga">&#xe00d;</span><span class="label">&nbsp;move right</span>
+								<span class="icon icon-liga">&#xe00d;</span>
+								<span class="caption">move right</span>
 							</button>
 						</div>
 						<div class="control" data-size="single">
 							<button class="button" data-ng-click="currentPage.removeImage(currentElement)" title="Delete image">
 								<span class="icon icon-liga">&#xe12c;</span>
-								<span class="label">&nbsp;delete image</span>
+								<span class="caption">delete image</span>
 							</button>
 						</div>
 					</div>
@@ -149,11 +158,11 @@
 					<div class="controlsSectionContent buttonGrid" data-columns="2">
 						<div class="control" data-size="double" data-columns="2">
 							<label>&dArr; Horizontal position</label>
-							<input type="number" data-ng-model="currentElement.properties['top']" title="Position of title from top border" />
+							<input type="number" data-ng-model="currentElement.properties['top']" title="Position of title from top border" step="0.1" />
 						</div>
 						<div class="control" data-size="double" data-columns="2">
 							<label>&rArr; Vertical position</label>
-							<input type="number" data-ng-model="currentElement.properties['left']" title="Position of title from left border" />
+							<input type="number" data-ng-model="currentElement.properties['left']" title="Position of title from left border" step="0.1" />
 						</div>
 						<div class="control" data-size="double" data-columns="2">
 							<label>&hArr; Width</label>
@@ -174,7 +183,7 @@
 						<div class="control" data-size="single">
 							<button class="button" data-ng-click="currentPage.removeTitle(currentElement)" title="Delete title">
 								<span class="icon icon-liga">&#xe12c;</span>
-								<span class="label">&nbsp;Delete title</span>
+								<span class="caption">Delete title</span>
 							</button>
 						</div>
 					</div>
