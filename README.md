@@ -20,6 +20,17 @@ Imagemagick needs to be installed:
 ![Titles](Documentation/pageTitles.jpg)
 
 
+Run the application
+-------------------
+
+1. Install imagemagick
+2. Install node
+3. Download source
+4. run `npm install` to install the dependencies
+5. run `build.sh` to compile the application
+6. run `npm start` to start the application
+7. open `http://localhost:8080/index.html` in your browser
+
 Print with Firefox
 ------------------
 
