@@ -20,6 +20,7 @@ node_modules
 *.*-swp
 *.tmp.*
 cache
+*.backup
 
 # ignore files
 *.ign.*
