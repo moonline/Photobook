@@ -1,0 +1,9 @@
+.page {
+	background: white;
+	box-shadow: 0 0 0.5cm gray;
+	width: 29.7cm;
+	height: 21cm;
+	padding: 1cm;
+	margin: 0.5cm;
+	overflow: hidden;
+}
