@@ -19,6 +19,7 @@ module app.application {
 		constructor($scope, $location) {
 			this.scope = $scope;
 			this.scope.currentElement = null;
+			this.scope.currentPage = null;
 
 			this.scope.getTypeName = this.getTypeName.bind(this);
 			this.scope.setCurrentElement = this.setCurrentElement.bind(this);
@@ -36,12 +37,12 @@ module app.application {
 			this.scope.pages = [];
 			this.scope.availableLayouts = Object.keys(configuration.LayoutConfiguration.layouts);
 			this.scope.layouts = configuration.LayoutConfiguration.layouts;
-			this.scope.pagesPerGroup = 4;
-			this.scope.numberOfTitlePages = 1;
+			this.scope.pagesPerGroup = 16;
+			this.scope.numberOfTitlePages = 0;
 			this.scope.visiblePagesStart = 0;
-			window['currentElement'] = this.scope.currentElement;
+			this.scope.imageQuality = 500;
 
-			console.log(this.scope);
+			window['currentElement'] = this.scope.currentElement;
 
 			// prevent user from closing the browser accidentially
 			window.onbeforeunload = function() { return true; };
@@ -56,8 +57,9 @@ module app.application {
 			return null;
 		}
 
-		setCurrentElement(element: app.domain.model.Element): void {
+		setCurrentElement(element: app.domain.model.Element, page: app.domain.model.Page): void {
 			this.scope.currentElement = element;
+			this.scope.currentPage = page;
 		}
 
 		min(num1: number, num2: number): number {
@@ -67,7 +69,7 @@ module app.application {
 		isGroupStartPage(page: number): boolean {
 			return page == 0 || (page - this.scope.numberOfTitlePages) % this.scope.pagesPerGroup == 0;
 		}
-		
+
 		getGroupEndPage(groupStartPage: number): number {
 			if(groupStartPage > this.scope.numberOfTitlePages-1) {
 				return groupStartPage + this.scope.pagesPerGroup-1;
@@ -79,7 +81,7 @@ module app.application {
 		setVisiblePagesStart(startPage: number): void {
 			this.scope.visiblePagesStart = startPage;
 		}
-		
+
 		isPageInGroup(page) {
 			return page >= this.scope.visiblePagesStart && page <= this.getGroupEndPage(this.scope.visiblePagesStart);
 		}
@@ -124,8 +126,9 @@ module app.application {
 				var photobook = new app.domain.model.PhotoBook();
 				photobook.importFromObject(JSON.parse(fileContent));
 				scope.photoBook = photobook;
+				this.setCurrentElement(photobook.pages[0], photobook.pages[0]);
 				scope.$apply();
-			});
+			}.bind(this));
 		}
 	}
 }

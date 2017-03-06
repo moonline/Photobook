@@ -16,22 +16,46 @@
 	-webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover;
 }
 
-figure.imageContainer { display: flex; flex-direction: column; justify-content: space-between; }
-figure.imageContainer figcaption { padding: 0.1cm; color: white; text-align: center; font-weight: bold;
+.title[data-ng-current="true"] h2 { border: 0.1cm solid cornflowerblue; margin: -0.1cm; }
+
+
+figure.imageContainer {
+	display: flex; flex-direction: column; justify-content: flex-end;
+
+	&[data-ng-current="true"] { border: 0.1cm solid cornflowerblue; }
+}
+figure.imageContainer figcaption {
+	padding: 0.1cm; color: white; text-align: center; font-weight: bold;
 	background-color: rgba(0,0,0,0.25);
 	/*background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB94EBgkjJc53tkoAAAAZdEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIEdJTVBXgQ4XAAAADUlEQVQI12NgYGCoBwAAhACAxkwJbwAAAABJRU5ErkJggg==');
 	*/
 }
 figure.imageContainer {
 	figcaption:empty { background: none; }
-	figcaption:focus { background: rgba(255,255,255,0.9); border-radius: 0.25cm; padding: 0; margin: 0.1cm; color: black;
-		-webkit-box-shadow: inset 0px 0px 0.1cm 0px black; -moz-box-shadow: inset 0px 0px 0.1cm 0px black;
-		box-shadow: inset 0px 0px 0.1cm 0px black;
+}
+
+@media screen {
+	figure.imageContainer {
+		figcaption:before {
+			content: "✎"; color: white; margin-right: @elementMargin; font-weight: bold; font-size: 0.6cm;
+			background: @blue700; border-radius: 0.5cm;
+			.box-shadow(0.1em 0.1em 0.1em @grey800);
+			width: 0.6cm; height: 0.6cm; display: inline-block; text-align: center;
+			vertical-align: middle; padding: 0.1cm;
+		}
+		figcaption:focus {
+			height: 2rem; padding: 0; padding-top: 0.5rem; margin: 0.1cm;
+			background: rgba(255,255,255,0.75); color: black;
+			border-bottom: 0.1rem solid @blue500;
+		}
+		figcaption:focus:before {
+			content: none; margin: 0; background: none; width: 0; height: 0; padding: 0;
+		}
 	}
 }
 
 @media print {
-	body { padding: 0; background: white; }
+	body { padding: 0; background: white; height: auto; overflow: auto; }
 	.controls { display: none!important; }
 	.page { padding: 0; width: 27.7cm; height: 19cm;  margin: 0; box-shadow: none; }
 	.page > .content { background: none; }

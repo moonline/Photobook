@@ -1,17 +1,26 @@
 # ignore js files in model -> will be generated from ts files
-Model/*.js
-Application/*.js
-Service/*.js
-Main.js
+*.js
+*/Model/*.js
+*/Application/*.js
+*/Service/*.js
+*/Main.js
 rasterVorlage.html
 rasterVorlage.odg
-Resources/Styles/styles.css
+*/Resources/Styles/styles.css
+
+# documentation
+issues.rst
+
+# node
+node_modules
 
 # temporary files
 *~
 *.swp
 *.*-swp
 *.tmp.*
+cache
+*.backup
 
 # ignore files
 *.ign.*
@@ -45,6 +54,3 @@ Resources/Styles/styles.css
 /.idea/
 .settings
 .project
-
-# documentation
-issues.rst

@@ -3,6 +3,10 @@ Photobook
 
 "Photobook" is an HTML5 Application to create a photobook using the printer function of the browser.
 
+Imagemagick needs to be installed:
+
+`$sudo apt-get install imagemagick`
+
 ![Main Screen](Documentation/mainScreen.jpg)
 
 ![Drag & Drop](Documentation/dragAndDrop.jpg)
@@ -15,6 +19,17 @@ Photobook
 
 ![Titles](Documentation/pageTitles.jpg)
 
+
+Run the application
+-------------------
+
+1. Install imagemagick
+2. Install node
+3. Download source
+4. run `npm install` to install the dependencies
+5. run `build.sh` to compile the application
+6. run `npm start` to start the application
+7. open `http://localhost:8080/index.html` in your browser
 
 Print with Firefox
 ------------------
@@ -53,3 +68,4 @@ Version | 			| Dependencies							| Features
 0.1		| Alpha 1	| &bull; node: 10.25<br />&bull; tsc: 1.0<br />&bull; lessc: 2.2		| &bull; insert images & titles<br />&bull; save & load files
 0.2 	| Alpha 2	| &bull; node: 10.25<br />&bull; tsc: 1.0<br />&bull; lessc: 2.2		| &bull; add parts for better performance<br />&bull; refactor code
 0.3 	| Alpha 3	| &bull; node: 10.25<br />&bull; tsc: 1.0<br />&bull; lessc: 2.2		| &bull; add title page before parts<br />&bull; refactor code
+0.4 	| Alpha 4	| &bull; node: 10.25<br />&bull; tsc: 1.0<br />&bull; lessc: 2.2		| &bull; add image thumbnail api<br />&bull; material design<br />&bull; image controls sidebar<br />&bull; title controls sidebar

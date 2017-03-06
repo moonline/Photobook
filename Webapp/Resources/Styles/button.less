@@ -1,21 +1,27 @@
-input[type="button"], .button, button, select {
-	display: inline-block; border-radius: 0.4em; color: rgb(50,50,50); font-weight: bold; padding: 0.25em 0.5em;
-	.background-linear-gradient(white,gainsboro); .box-shadow(0 0 0.5em silver); border: none; border: 1px solid darkgray;
-	margin-right: 0.2cm;
+input[type="button"], .button, button {
+	display: inline-flex; flex-direction: row;
+	align-items: center;
+	font-weight: bold; color: white; font-size: 1rem;
+	margin-right: 0.2cm; padding: @elementPadding 2rem;
+	background: @color700; .box-shadow(0.1em 0.1em 0.1em @grey500);
+	border: none; border-radius: 0.2em;
+	cursor: default;
 
-	span.icon { display: inline; margin: 0; font-size: 1.2em; color: inherit; }
+	span {
+		display: inline-block; margin: 0;
+
+		&.icon { font-size: 1.2em; color: inherit; }
+		&.icon + .label { margin-left: 0.5rem; }
+	}
 
 	&:hover {
-		color: black;
-		border-color: gray;
-		.box-shadow(0 0 0.5em gray);
+		background: @color900;
 
 		span.icon { color: inherit; }
 	}
 
 	&:active {
-		color: black;
-		.background-linear-gradient(gray,silver);
+		background: @color900;
 	}
 
 	&.error, &.red {
@@ -36,11 +42,14 @@ input[type="button"], .button, button, select {
 	}
 
 	&.blue {
-		.background-linear-gradient(deepskyblue,rgb(0,75,120));
-		border-color: midnightblue;
+		background: @blue500;
+		color: white;
 
 		&:hover {
-			.background-linear-gradient(rgb(0,170,240),rgb(0,60,100));
+			background: @blue700;
+		}
+		&:active {
+			background: @blue900;
 		}
 	}
 
@@ -58,12 +67,27 @@ input[type="button"], .button, button, select {
 	}
 }
 
+.theme.dark {
+	input[type="button"], .button, button {
+		background: @color500;
+		.box-shadow(0.1em 0.1em 0.1em @grey900);
+
+		&:hover, &:active {
+			background: @color700;
+		}
+	}
+}
+
 select {
-	padding: 0.25em;
-	
+	padding: 0 @elementPadding;
+	background: white;
+	border: none;
+	color: black;
+
 	option {
+		padding: @elementPadding;
 		border: none;
-		:last-child { border-bottom-right-radius: 0.25em; border-bottom-left-radius: 0.25em; };
+		&:checked { background: @grey400; }
 	}
 }
 
