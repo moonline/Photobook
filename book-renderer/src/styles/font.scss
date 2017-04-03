@@ -1,0 +1,9 @@
+@font-face{
+	font-family: "Ligature";
+	src: url('/font/ligature/LigatureSymbols-2.11.woff');
+	src: url('/font/ligature/LigatureSymbols-2.11".eot?#iefix') format('embedded-opentype'),
+	url('/font/ligature/LigatureSymbols-2.11.woff') format('woff'),
+	url('/font/ligature/LigatureSymbols-2.11.ttf') format('truetype'),
+	url('/font/ligature/LigatureSymbols-2.11.svg#icon') format('svg');
+}
+.icon-liga { font-family: "Ligature"; font-weight: normal; }
