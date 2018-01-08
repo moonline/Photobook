@@ -1,0 +1,22 @@
+.titleControls {
+	display: flex;
+	flex-direction: row;
+	background: gray;
+	background: linear-gradient(silver, gray);
+	color: black;
+	opacity: 0.9;
+	padding: 0.25cm;
+	font-size: 1.3rem;
+
+	position: absolute;
+	left: -1rem;
+	top: -1rem;
+	cursor: move;
+	border-radius: 1rem;
+	width: 1rem;
+	height: 1rem;
+	display: flex;
+	justify-content: center;
+	align-content: center;
+	align-items: center;
+}

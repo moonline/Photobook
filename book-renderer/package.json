@@ -2,22 +2,32 @@
   "name": "book-renderer",
   "version": "0.1.0",
   "private": true,
+  "main": "main.js",
   "dependencies": {
-    "react": "^15.4.2",
-    "react-dom": "^15.4.2"
+    "electron": "1.7.10",
+    "electron-reload": "^1.2.2",
+    "react": "^15.6.2",
+    "react-dom": "^15.6.2",
+    "react-draggable": "^2.2.3"
   },
   "devDependencies": {
-    "node-sass": "^4.5.2",
-    "npm-run-all": "^4.0.2",
-    "react-scripts": "0.9.4"
+    "@types/react": "^16.0.34",
+    "@types/react-dom": "^16.0.3",
+    "css-loader": "^0.28.8",
+    "html-webpack-plugin": "^2.30.1",
+    "node-sass": "^4.7.2",
+    "npm-run-all": "^4.1.2",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.19.1",
+    "ts-loader": "^3.2.0",
+    "typescript": "^2.6.2",
+    "webpack": "^3.10.0"
   },
   "scripts": {
-    "build-css": "node-sass src/ -o src/",
-    "watch-css": "npm run build-css && node-sass src/ -o src/ --watch --recursive",
-    "start-js": "react-scripts start",
-    "start": "npm-run-all -p watch-css start-js",
-    "build": "npm run build-css && react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "start": "npm-run-all --parallel build:watch start:app",
+    "start:app": "electron .",
+    "build": "npm run build:watch",
+    "build:app": "webpack",
+    "build:watch": "webpack --watch"
   }
 }
