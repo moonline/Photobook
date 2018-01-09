@@ -5,7 +5,10 @@ export interface Image {
 		position: string,
 		verticalStyle: string,
 		offsetLeft?: number,
-		offsetTop?: number
+		// TODO: Create compatibility import handler to fix that
+		offsetTop?: number|string
 	},
-	caption?: string
+	caption?: string,
+	// TODO: Create compatibility import handler to fix that
+	$$hashKey?: string
 }

@@ -5,6 +5,9 @@ export interface Title {
 		size: string,
 		top: number,
 		left: number,
-		width: number
-	}
+		// TODO: Create compatibility import handler to fix that
+		width: number|string
+	},
+	// TODO: Create compatibility import handler to fix that
+	$$hashKey?: string
 }

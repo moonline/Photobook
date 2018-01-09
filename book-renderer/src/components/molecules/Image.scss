@@ -1,11 +1,23 @@
-.imageContainer {
+.image {
 	display: flex; flex-direction: column; justify-content: flex-end;
+	margin: 0;
+	background-size: cover;
+
 	background-position: center center;
-	-webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover;
+
+	&[data-position="top"] { background-position: top center; }
+	&[data-position="bottom"] { background-position: bottom center; }
+	&[data-position="left"] { background-position: center left; }
+	&[data-position="right"] { background-position: center right; }
+	&[data-position="center"] { background-position: center center; }
 
 	figcaption {
-		padding: 0.1cm; color: white; text-align: center; font-weight: bold;
+		padding: 0.1cm;
+		text-align: center;
+		font-weight: bold;
+		color: white;
 		background-color: rgba(0,0,0,0.25);
+
 		&:empty {
 			background: none;
 		}

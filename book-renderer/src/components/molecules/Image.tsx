@@ -5,7 +5,7 @@ import './Image.scss';
 
 
 export const Image: React.SFC<ImageModel> = ({ path, caption, properties }) => (
-	<figure className="imageContainer"
+	<figure className="image"
 		data-layout={properties.display}
 		data-position={properties.position}
 		data-vertical-style={properties.verticalStyle}

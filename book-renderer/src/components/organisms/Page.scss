@@ -8,6 +8,7 @@
 	overflow: hidden;
 
 	.titles {
-		position: absolute;
+	    position: relative;
 	}
+	+.page { margin-top: 2.5cm; }
 }
