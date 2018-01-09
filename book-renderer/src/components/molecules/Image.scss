@@ -1,0 +1,18 @@
+.imageContainer {
+	display: flex; flex-direction: column; justify-content: flex-end;
+	background-position: center center;
+	-webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover;
+
+	figcaption {
+		padding: 0.1cm; color: white; text-align: center; font-weight: bold;
+		background-color: rgba(0,0,0,0.25);
+		&:empty {
+			background: none;
+		}
+	}
+}
+/*
+@media print {
+	figure.imageContainer { justify-content: flex-end; }
+}
+*/

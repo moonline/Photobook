@@ -1,5 +1,6 @@
 import { Serializable } from './Serializable';
 import { PageTitle } from './PageTitle';
+import { BookImage } from './BookImage';
 
 
 export class BookPage {
@@ -20,7 +21,7 @@ export class BookPage {
 		let page = new BookPage();
 		page.properties = page.properties;
 		page.titles = bookPageDto.titles.map(PageTitle.createFromDto);
-		// TODO: deserialize images
+		page.images = bookPageDto.images.map(BookImage.createFromDto);
 		return page;
 	}
 
