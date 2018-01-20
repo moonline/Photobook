@@ -1,14 +1,33 @@
 .page {
 	background: white;
-	box-shadow: 0 0 0.5cm gray;
+	-webkit-print-color-adjust: exact;
 	width: 29.7cm;
 	height: 21cm;
 	padding: 1cm;
-	margin: 0.5cm;
 	overflow: hidden;
 
 	.titles {
-	    position: relative;
+		position: relative;
 	}
-	+.page { margin-top: 2.5cm; }
+}
+
+@media screen {
+	.page {
+		box-shadow: 0 0 0.5cm gray;
+		margin: 0.5cm;
+	}
+}
+
+@page {
+	size: 29.7cm 21cm;
+	margin: 1cm;
+}
+
+@media print {
+	.page {
+		padding: 0;
+		width: calc(29.7cm - 2cm);
+		height: calc(21cm - 2cm);
+		page-break-after: always;
+	}
 }

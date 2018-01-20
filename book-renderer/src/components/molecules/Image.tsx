@@ -10,7 +10,7 @@ export const Image: React.SFC<ImageModel> = ({ path, caption, properties }) => (
 		data-position={properties.position}
 		data-vertical-style={properties.verticalStyle}
 		style={{
-			backgroundImage: `url(${path})`,
+			backgroundImage: `url('${path}')`,
 			...properties.position === 'custom' ?
 				{ backgroundPosition: `${properties.offsetLeft || 0}cm ${properties.offsetTop || 0}cm`} : {}
 		}}

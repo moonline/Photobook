@@ -4,11 +4,12 @@ import * as PropTypes from 'prop-types';
 import * as Path from 'path';
 import * as FS from 'fs';
 import { remote } from 'electron';
-const { registerOpen } = remote.require('./application/appMenu');
+const { registerOpen, messageBus } = remote.require('./application/appMenu');
 
 import { PhotoBook as PhotoBookModel } from '../domain/model/PhotoBook';
 
 import { Image as ImageContainer } from './containers/Image';
+import { PhotoBook as PhotoBookContainer } from './containers/PhotoBook';
 
 import { PhotoBook } from './organisms/PhotoBook';
 import { Page } from './organisms/Page';
@@ -36,12 +37,15 @@ export class App extends React.Component<{}, { photoBook: PhotoBookModel, direct
 	}
 
 	componentDidMount() {
-		console.log('App ready');
-		registerOpen((filePaths: string[]) => {
-			if(filePaths && filePaths.length > 0) {
-				this.onOpenFile(filePaths[0]);
-			}
+		console.log('App ready '+(new Date()).toLocaleString());
+
+		messageBus.listen('openFile', 'app', (filePath: string) => {
+			this.onOpenFile(filePath);
 		});
+		messageBus.listen('print', 'app', () => {
+			window.print();
+		});
+		messageBus.notify('clientReady');
 	}
 
 	onOpenFile(fileName) {
@@ -60,24 +64,28 @@ export class App extends React.Component<{}, { photoBook: PhotoBookModel, direct
 			<div className="app">
 				<main>
 					{this.state.photoBook ?
-						<PhotoBook {...this.state.photoBook}>
-							{(page, key) => (
-								<Page {...page} key={key}>
-									{[
-										(title, key) => (
-											<Title {...title} key={key} />
-										),
-										(image, key) => (
-											<ImageContainer image={image} key={key}>
-												{(imageProps) => (
-													<Image {...imageProps} />
-												)}
-											</ImageContainer>
-										)
-									]}
-								</Page>
-							)}
-						</PhotoBook>
+						<PhotoBookContainer photoBook={this.state.photoBook}>
+							{(photoBook) =>
+								<PhotoBook {...photoBook}>
+									{(page, key) => (
+										<Page {...page} key={key}>
+											{[
+												(title, key) => (
+													<Title {...title} key={key} />
+												),
+												(image, key) => (
+													<ImageContainer image={image} key={key}>
+														{(imageProps) => (
+															<Image {...imageProps} />
+														)}
+													</ImageContainer>
+												)
+											]}
+										</Page>
+									)}
+								</PhotoBook>
+							}
+						</PhotoBookContainer>
 					: 'Please open a file'
 					}
 				</main>
