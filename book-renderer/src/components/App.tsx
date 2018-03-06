@@ -21,11 +21,32 @@ import './App.scss';
 
 export class App extends React.Component<{}, { photoBook: PhotoBookModel, directory: string }> {
 	static childContextTypes = {
-		resourceBasePath: PropTypes.string
+		resourceBasePath: PropTypes.string,
+		thumbnail: PropTypes.shape({
+			directory: PropTypes.string,
+			compressionRate: PropTypes.number,
+			quality: PropTypes.string,
+			scalingFactor: PropTypes.number,
+			name: PropTypes.func
+		})
 	}
 
 	getChildContext() {
-		return { resourceBasePath: this.state.directory || '' };
+		const resourceBasePath: string = this.state.directory;
+		const directory: string = resourceBasePath ? Path.join(resourceBasePath, '.thumbnails') : null;
+		if (directory && !FS.existsSync(directory)){
+			FS.mkdirSync(directory);
+		}
+		return {
+			resourceBasePath,
+			thumbnail: {
+				directory,
+				compressionRate: 50,
+				quality: 'good',
+				scalingFactor: 2,
+				name: (name, width, height, extension) => `${name}-${width}-${height}.${extension}`
+			}
+		};
 	}
 
 	constructor(props) {
