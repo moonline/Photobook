@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Image as ImageModel } from '../../domain/model/Image';
+import { Image as ImageInterface } from '../../domain/dto/Image';
 
 import './Layout.scss';
 
@@ -8,8 +8,8 @@ import './Layout.scss';
 interface LayoutProps {
 	type: string,
 	sections: number,
-	images: ImageModel[],
-	children: (imageProps: ImageModel, key: string|number) => React.ReactNode,
+	images: ImageInterface[],
+	children: (imageProps: ImageInterface, key: string|number) => React.ReactNode,
 }
 
 export const Layout: React.SFC<LayoutProps> = ({ type, sections, images, children: imageRenderer }) => (

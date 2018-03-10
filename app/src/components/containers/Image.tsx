@@ -4,12 +4,12 @@ import * as Path from 'path';
 import * as FS from 'fs';
 const { nativeImage: NativeImage } = require('electron');
 
-import { Image as ImageModel } from '../../domain/model/Image';
+import { Image as ImageInterface } from '../../domain/dto/Image';
 
 import { ImageProps as ImageRendererProps } from '../molecules/Image';
 
 interface ImageProps {
-	image: ImageModel,
+	image: ImageInterface,
 	children: (imageProps: ImageRendererProps) => React.ReactNode
 }
 
@@ -95,7 +95,7 @@ export class Image extends React.Component<ImageProps, ImageState> {
 		}
 	}
 
-	getSourcePath = (image: ImageModel, resourceBasePath): string => {
+	getSourcePath = (image: ImageInterface, resourceBasePath): string => {
 		let imageAbsPath;
 		if (image.path.indexOf('file://') === 0) {
 			const oldPath = image.path.replace('file://', '');

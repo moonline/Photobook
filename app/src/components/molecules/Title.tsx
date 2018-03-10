@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Title as TitleProps } from '../../domain/model/Title';
+import { Title as TitleProps } from '../../domain/dto/Title';
 
 import './Title.scss';
 

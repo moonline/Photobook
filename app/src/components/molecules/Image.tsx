@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { Image as ImageModel } from '../../domain/model/Image';
+import { Image as ImageInterface } from '../../domain/dto/Image';
 
 import './Image.scss';
 
-export interface ImageProps extends ImageModel {
+export interface ImageProps extends ImageInterface {
 	imageRef?: (image: HTMLElement) => void
 }
 

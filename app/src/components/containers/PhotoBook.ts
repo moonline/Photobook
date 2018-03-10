@@ -1,10 +1,10 @@
 import * as React from 'react';
 
-import { PhotoBook as PhotoBookModel } from '../../domain/model/PhotoBook';
+import { PhotoBook as PhotoBookInterface } from '../../domain/dto/PhotoBook';
 
 interface PhotoBookProps {
-	photoBook: PhotoBookModel,
-	children: (photoBookProps: PhotoBookModel) => React.ReactNode
+	photoBook: PhotoBookInterface,
+	children: (photoBookProps: PhotoBookInterface) => React.ReactNode
 }
 
 export class PhotoBook extends React.Component<PhotoBookProps, {}> {

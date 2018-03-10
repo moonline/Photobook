@@ -1,10 +1,15 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import { observer } from 'mobx-react';
 
 import * as Path from 'path';
 import * as FS from 'fs';
 import { remote } from 'electron';
 const { registerOpen, messageBus } = remote.require('./application/appMenu');
+
+import { PhotoBookStore } from '../domain/store/PhotoBookStore';
+
+import { PhotoBook as PhotoBookInterface } from '../domain/dto/PhotoBook';
 
 import { PhotoBook as PhotoBookModel } from '../domain/model/PhotoBook';
 
@@ -19,7 +24,29 @@ import { Title } from './molecules/Title';
 import './App.scss';
 
 
-export class App extends React.Component<{}, { photoBook: PhotoBookModel, directory: string }> {
+const THUMBNAIL_DIRECTORY = '.thumbnails';
+
+
+interface AppProps {
+	store: PhotoBookStore
+}
+interface AppState {
+
+}
+export interface AppContext {
+	resourceBasePath: string,
+	thumbnail: {
+		directory: string,
+		compressionRate: number,
+		quality: string,
+		scalingFactor: number,
+		name: (name: string, width: number, height: number, extension: string) => string
+	},
+	store: PhotoBookStore
+}
+
+@observer
+export class App extends React.Component<AppProps, AppState> {
 	static childContextTypes = {
 		resourceBasePath: PropTypes.string,
 		thumbnail: PropTypes.shape({
@@ -28,12 +55,14 @@ export class App extends React.Component<{}, { photoBook: PhotoBookModel, direct
 			quality: PropTypes.string,
 			scalingFactor: PropTypes.number,
 			name: PropTypes.func
-		})
+		}),
+		store: PropTypes.instanceOf(PhotoBookStore)
 	}
 
-	getChildContext() {
-		const resourceBasePath: string = this.state.directory;
-		const directory: string = resourceBasePath ? Path.join(resourceBasePath, '.thumbnails') : null;
+	getChildContext = (): AppContext => {
+		// todo: move thumbnail directory to store
+		const resourceBasePath: string = this.props.store.directory;
+		const directory: string = resourceBasePath ? Path.join(resourceBasePath, THUMBNAIL_DIRECTORY) : null;
 		if (directory && !FS.existsSync(directory)){
 			FS.mkdirSync(directory);
 		}
@@ -45,16 +74,13 @@ export class App extends React.Component<{}, { photoBook: PhotoBookModel, direct
 				quality: 'good',
 				scalingFactor: 2,
 				name: (name, width, height, extension) => `${name}-${width}-${height}.${extension}`
-			}
+			},
+			store: this.props.store
 		};
 	}
 
 	constructor(props) {
 		super(props);
-		this.state = {
-			photoBook: null,
-			directory: null
-		};
 	}
 
 	componentDidMount() {
@@ -71,21 +97,25 @@ export class App extends React.Component<{}, { photoBook: PhotoBookModel, direct
 
 	onOpenFile(fileName) {
 		FS.readFile(fileName, (error, data) => {
-			if (error) { return console.error(error); }
+			if (error) {
+				return console.error(error);
+			}
+			const photoBook: PhotoBookInterface = JSON.parse(data.toString()) as PhotoBookInterface;
 			// TODO: verify loaded file
-			this.setState({
-				photoBook: JSON.parse(data.toString()) as PhotoBookModel,
-				directory: Path.dirname(fileName)
-			});
+			this.props.store.import(
+				PhotoBookModel.createFromDto(photoBook),
+				Path.dirname(fileName)
+			);
 		});
 	}
 
 	render() {
+		const { store } = this.props;
 		return (
 			<div className="app">
 				<main>
-					{this.state.photoBook ?
-						<PhotoBookContainer photoBook={this.state.photoBook}>
+					{store.loaded ?
+						<PhotoBookContainer photoBook={store.photoBook}>
 							{(photoBook) =>
 								<PhotoBook {...photoBook}>
 									{(page, key) => (

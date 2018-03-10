@@ -1,18 +1,18 @@
 import * as React from 'react';
 
-import { Page as PageModel } from '../../domain/model/Page';
-import { Title as TitleModel } from '../../domain/model/Title';
-import { Image as ImageModel } from '../../domain/model/Image';
+import { Page as PageInterface } from '../../domain/dto/Page';
+import { Title as TitleInterface } from '../../domain/dto/Title';
+import { Image as ImageInterface } from '../../domain/dto/Image';
 
 import { Layout } from '../molecules/Layout';
 
 import './Page.scss';
 
 
-interface PageProps extends PageModel {
+interface PageProps extends PageInterface {
 	children: [
-		(titleProps: TitleModel, key: string|number) => React.ReactNode,
-		(imageProps: ImageModel, key: string|number) => React.ReactNode
+		(titleProps: TitleInterface, key: string|number) => React.ReactNode,
+		(imageProps: ImageInterface, key: string|number) => React.ReactNode
 	]
 }
 

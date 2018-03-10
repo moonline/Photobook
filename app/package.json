@@ -7,6 +7,8 @@
     "electron": "1.7.10",
     "electron-reload": "^1.2.2",
     "fs": "0.0.1-security",
+    "mobx": "^3.6.1",
+    "mobx-react": "^4.4.3",
     "path": "^0.12.7",
     "prop-types": "^15.6.0",
     "react": "^15.6.2",
