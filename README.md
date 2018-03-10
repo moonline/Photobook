@@ -26,10 +26,11 @@ Run the application
 1. Install imagemagick
 2. Install node
 3. Download source
-4. run `npm install` to install the dependencies
-5. run `build.sh` to compile the application
-6. run `npm start` to start the application
-7. open `http://localhost:8080/index.html` in your browser
+4. ´cd v0.4.0
+5. run `npm install` to install the dependencies
+6. run `build.sh` to compile the application
+7. run `npm start` to start the application
+8. open `http://localhost:8080/index.html` in your browser
 
 Print with Firefox
 ------------------
@@ -63,7 +64,7 @@ run build.sh to compile code and styles using tsc and lessc of node.js.
 Run the experimental react app in development mode
 --------------------------------------------------
 
-cd `book-renderer`
+cd `app`
 `npm start`
 
 
