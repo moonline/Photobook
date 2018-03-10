@@ -60,6 +60,13 @@ run build.sh to compile code and styles using tsc and lessc of node.js.
 	tsc --target ES5 ./Main.ts --module AMD --out ./Main.js
 
 
+Run the experimental react app in development mode
+--------------------------------------------------
+
+cd `book-renderer`
+`npm start`
+
+
 Version history
 ---------------
 
