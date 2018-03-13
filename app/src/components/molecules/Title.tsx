@@ -23,6 +23,6 @@ export const Title: React.SFC<TitleProps> = ({ value, properties }) => (
 				</span>
 			</div>
 		</div>*/}
-		<h2>{value}</h2>
+		<h2 dangerouslySetInnerHTML={{__html: value}} />
 	</div>
 );

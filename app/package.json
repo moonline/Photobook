@@ -4,6 +4,7 @@
   "private": true,
   "main": "main.js",
   "dependencies": {
+    "check-prop-types": "^1.1.2",
     "electron": "1.7.10",
     "electron-reload": "^1.2.2",
     "fs": "0.0.1-security",

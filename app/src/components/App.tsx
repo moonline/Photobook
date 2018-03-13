@@ -7,6 +7,10 @@ import * as FS from 'fs';
 import { remote } from 'electron';
 const { registerOpen, messageBus } = remote.require('./application/appMenu');
 
+import { THUMBNAIL_DIRECTORY } from '../config/app';
+
+import { loadFromFile } from '../service/File';
+
 import { PhotoBookStore } from '../domain/store/PhotoBookStore';
 
 import { PhotoBook as PhotoBookInterface } from '../domain/dto/PhotoBook';
@@ -24,9 +28,6 @@ import { Title } from './molecules/Title';
 import './App.scss';
 
 
-const THUMBNAIL_DIRECTORY = '.thumbnails';
-
-
 interface AppProps {
 	store: PhotoBookStore
 }
@@ -34,9 +35,7 @@ interface AppState {
 
 }
 export interface AppContext {
-	resourceBasePath: string,
 	thumbnail: {
-		directory: string,
 		compressionRate: number,
 		quality: string,
 		scalingFactor: number,
@@ -48,9 +47,7 @@ export interface AppContext {
 @observer
 export class App extends React.Component<AppProps, AppState> {
 	static childContextTypes = {
-		resourceBasePath: PropTypes.string,
 		thumbnail: PropTypes.shape({
-			directory: PropTypes.string,
 			compressionRate: PropTypes.number,
 			quality: PropTypes.string,
 			scalingFactor: PropTypes.number,
@@ -60,16 +57,8 @@ export class App extends React.Component<AppProps, AppState> {
 	}
 
 	getChildContext = (): AppContext => {
-		// todo: move thumbnail directory to store
-		const resourceBasePath: string = this.props.store.directory;
-		const directory: string = resourceBasePath ? Path.join(resourceBasePath, THUMBNAIL_DIRECTORY) : null;
-		if (directory && !FS.existsSync(directory)){
-			FS.mkdirSync(directory);
-		}
 		return {
-			resourceBasePath,
 			thumbnail: {
-				directory,
 				compressionRate: 50,
 				quality: 'good',
 				scalingFactor: 2,
@@ -96,17 +85,22 @@ export class App extends React.Component<AppProps, AppState> {
 	}
 
 	onOpenFile(fileName) {
-		FS.readFile(fileName, (error, data) => {
-			if (error) {
-				return console.error(error);
-			}
-			const photoBook: PhotoBookInterface = JSON.parse(data.toString()) as PhotoBookInterface;
-			// TODO: verify loaded file
-			this.props.store.import(
-				PhotoBookModel.createFromDto(photoBook),
-				Path.dirname(fileName)
-			);
-		});
+		try {
+			loadFromFile(fileName, (photoBook: PhotoBookInterface) => {
+				// TODO needs improvement
+				// const { thumbnailDirectory } = this.props.store;
+				const thumbnailDirectory = Path.join(Path.dirname(fileName), THUMBNAIL_DIRECTORY);
+				if (thumbnailDirectory && !FS.existsSync(thumbnailDirectory)){
+					FS.mkdirSync(thumbnailDirectory);
+				}
+				this.props.store.import(
+					PhotoBookModel.createFromDto(photoBook),
+					Path.dirname(fileName)
+				);
+			});
+		} catch (e) {
+			console.error(e);
+		}
 	}
 
 	render() {

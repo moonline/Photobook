@@ -1,7 +1,10 @@
+import * as Path from 'path';
 import { observable, computed } from 'mobx';
 
 import { PhotoBook as PhotoBookInterface } from '../dto/PhotoBook';
 import { Page as PageInterface } from '../dto/Page';
+
+import { THUMBNAIL_DIRECTORY } from '../../config/app';
 
 
 export class PhotoBookStore {
@@ -13,6 +16,11 @@ export class PhotoBookStore {
 
 	@observable
 	public directory: string;
+
+	@computed
+	get thumbnailDirectory(): string {
+		return this.directory ? Path.join(this.directory, THUMBNAIL_DIRECTORY) : null;
+	}
 
 	@computed
 	get all(): PageInterface[] {

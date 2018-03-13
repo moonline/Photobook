@@ -20,6 +20,6 @@ export const Image: React.SFC<ImageProps> = ({ path, caption, properties, imageR
 		}}
 		ref={imageRef}
 	>
-		<figcaption>{caption}</figcaption>
+		<figcaption dangerouslySetInnerHTML={{__html:caption }} />
 	</figure>
 );
