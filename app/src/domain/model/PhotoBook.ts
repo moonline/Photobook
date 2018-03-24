@@ -1,19 +1,39 @@
+import * as Path from 'path';
+
 import { PhotoBook as PhotoBookInterface } from '../dto/PhotoBook';
 
 import { Page } from './Page';
 
+import { THUMBNAIL_DIRECTORY } from '../../config/app';
 
-export class PhotoBook implements PhotoBookInterface {
-	public title: string;
+
+export enum BookType {
+	SinglePage
+}
+
+
+export class PhotoBook {
+	readonly path: string;
 	public pages: Page[];
+	readonly type: BookType;
 
-	constructor(title: string) {
-		this.title = title;
+	get directory() {
+		return Path.dirname(this.path);
 	}
 
-	static createFromDto(dto: PhotoBookInterface): PhotoBook {
-		let book = new PhotoBook(dto.title);
-		book.pages = dto.pages.map(Page.createFromDto);
-		return book;
+	get thumbnailDirectory(): string {
+		return Path.join(this.directory, THUMBNAIL_DIRECTORY);
+	}
+
+
+	constructor(path: string, pages: Page[] = [], type: BookType = BookType.SinglePage) {
+		this.path = path;
+		this.pages = pages;
+		this.type = type;
+	}
+
+
+	static createFromDto(dto: PhotoBookInterface, path: string): PhotoBook {
+		return new PhotoBook(path, dto.pages.map(Page.createFromDto));
 	}
 }

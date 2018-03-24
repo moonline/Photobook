@@ -4,52 +4,26 @@ import { observable, computed } from 'mobx';
 import { PhotoBook as PhotoBookInterface } from '../dto/PhotoBook';
 import { Page as PageInterface } from '../dto/Page';
 
+import { PhotoBook as PhotoBookModel } from '../model/PhotoBook';
+
 import { THUMBNAIL_DIRECTORY } from '../../config/app';
 
 
 export class PhotoBookStore {
 	@observable
-	private pages: PageInterface[] = [];
-
-	@observable
-	public title: string;
-
-	@observable
-	public directory: string;
-
-	@computed
-	get thumbnailDirectory(): string {
-		return this.directory ? Path.join(this.directory, THUMBNAIL_DIRECTORY) : null;
-	}
-
-	@computed
-	get all(): PageInterface[] {
-		return this.pages;
-	}
-
-	@computed
-	get photoBook(): PhotoBookInterface {
-		return {
-			title: this.title,
-			pages: this.pages
-		};
-	}
+	public photoBook: PhotoBookModel = null;
 
 	@computed
 	get loaded(): boolean {
-		return this.pages.length > 0 && Boolean(this.title) && Boolean(this.directory);
+		return Boolean(this.photoBook);
 	}
 
 
-	public import = (photoBook: PhotoBookInterface, directory: string): void => {
-		this.title = photoBook.title;
-		this.pages = photoBook.pages;
-		this.directory = directory;
+	public import = (photoBook: PhotoBookModel): void => {
+		this.photoBook = photoBook;
 	}
 
-
-	public findById = (id: number) => this.pages[id] ? this.pages[id] : null;
-
+	/* TODO: move to page store or page model
 	public findPrevious = (page: PageInterface) => {
 		let position: number = this.pages.indexOf(page);
 		if (position > 0) {
@@ -72,7 +46,7 @@ export class PhotoBookStore {
 		}
 	}
 
-	/*
+
 	public add = (page: Page, position: number = this.pages.length): void => {
 		this.pages.splice(position, 0, page);
 	}

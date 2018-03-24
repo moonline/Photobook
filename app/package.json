@@ -14,7 +14,8 @@
     "prop-types": "^15.6.0",
     "react": "^15.6.2",
     "react-dom": "^15.6.2",
-    "react-draggable": "^2.2.3"
+    "react-draggable": "^2.2.3",
+    "typescript": "^2.7.2"
   },
   "devDependencies": {
     "@types/prop-types": "^15.5.2",

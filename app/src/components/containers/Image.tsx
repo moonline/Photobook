@@ -45,7 +45,7 @@ export class Image extends React.Component<ImageProps, ImageState> {
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
-			source: this.getSourcePath(props.image, context.store.directory),
+			source: this.getSourcePath(props.image, context.store.photoBook.directory),
 			thumbnail: null
 		};
 	}
@@ -58,7 +58,7 @@ export class Image extends React.Component<ImageProps, ImageState> {
 	}
 
 	createThumbnail = (maxContainerExtent: number) => {
-		const { store: { thumbnailDirectory }} = this.context;
+		const { store: { photoBook: { thumbnailDirectory }}} = this.context;
 		const { compressionRate, scalingFactor, name } = this.context.thumbnail;
 
 		if (thumbnailDirectory) {
@@ -94,7 +94,7 @@ export class Image extends React.Component<ImageProps, ImageState> {
 	componentWillReceiveProps(nextProps: ImageProps): void {
 		if (nextProps.image !== this.props.image) {
 			this.setState({
-				source: this.getSourcePath(nextProps.image, this.context.store.directory)
+				source: this.getSourcePath(nextProps.image, this.context.store.photoBook.directory)
 			});
 		}
 	}

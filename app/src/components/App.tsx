@@ -7,7 +7,6 @@ import * as FS from 'fs';
 import { remote } from 'electron';
 const { registerOpen, messageBus } = remote.require('./application/appMenu');
 
-import { THUMBNAIL_DIRECTORY } from '../config/app';
 
 import { loadFromFile } from '../service/File';
 
@@ -86,17 +85,13 @@ export class App extends React.Component<AppProps, AppState> {
 
 	onOpenFile(fileName) {
 		try {
-			loadFromFile(fileName, (photoBook: PhotoBookInterface) => {
-				// TODO needs improvement
-				// const { thumbnailDirectory } = this.props.store;
-				const thumbnailDirectory = Path.join(Path.dirname(fileName), THUMBNAIL_DIRECTORY);
+			loadFromFile(fileName, (photoBookDto: PhotoBookInterface) => {
+				const photoBook: PhotoBookModel = PhotoBookModel.createFromDto(photoBookDto, fileName);
+				const thumbnailDirectory = photoBook.thumbnailDirectory;
 				if (thumbnailDirectory && !FS.existsSync(thumbnailDirectory)){
 					FS.mkdirSync(thumbnailDirectory);
 				}
-				this.props.store.import(
-					PhotoBookModel.createFromDto(photoBook),
-					Path.dirname(fileName)
-				);
+				this.props.store.import(photoBook);
 			});
 		} catch (e) {
 			console.error(e);
@@ -104,35 +99,31 @@ export class App extends React.Component<AppProps, AppState> {
 	}
 
 	render() {
-		const { store } = this.props;
 		return (
 			<div className="app">
 				<main>
-					{store.loaded ?
-						<PhotoBookContainer photoBook={store.photoBook}>
-							{(photoBook) =>
-								<PhotoBook {...photoBook}>
-									{(page, key) => (
-										<Page {...page} key={key}>
-											{[
-												(title, key) => (
-													<Title {...title} key={key} />
-												),
-												(image, key) => (
-													<ImageContainer image={image} key={key}>
-														{(imageProps) => (
-															<Image {...imageProps} />
-														)}
-													</ImageContainer>
-												)
-											]}
-										</Page>
-									)}
-								</PhotoBook>
-							}
-						</PhotoBookContainer>
-					: 'Please open a file'
-					}
+					<PhotoBookContainer>
+						{(photoBook) =>
+							<PhotoBook {...photoBook}>
+								{(page, key) => (
+									<Page {...page} key={key}>
+										{[
+											(title, key) => (
+												<Title {...title} key={key} />
+											),
+											(image, key) => (
+												<ImageContainer image={image} key={key}>
+													{(imageProps) => (
+														<Image {...imageProps} />
+													)}
+												</ImageContainer>
+											)
+										]}
+									</Page>
+								)}
+							</PhotoBook>
+						}
+					</PhotoBookContainer>
 				</main>
 			</div>
 		);
