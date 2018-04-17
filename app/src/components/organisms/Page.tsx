@@ -4,27 +4,45 @@ import { Page as PageInterface } from '../../domain/dto/Page';
 import { Title as TitleInterface } from '../../domain/dto/Title';
 import { Image as ImageInterface } from '../../domain/dto/Image';
 
-import { Layout } from '../molecules/Layout';
+import { Page as PageModel, Orientation } from '../../domain/model/Page';
+import { Layout as LayoutModel } from '../../domain/model/Layout';
+import { Format as FormatModel } from '../../domain/model/Format';
+import { Image as ImageModel } from '../../domain/model/Image';
+import { Title as TitleModel } from '../../domain/model/Title';
+
+import * as layouts from '../molecules/Layout';
 
 import './Page.scss';
 
+interface Function {
+	name: string;
+}
 
-interface PageProps extends PageInterface {
+
+interface PageProps {
+	layout: LayoutModel,
+	format: FormatModel,
+	orientation: Orientation,
+	images: ImageModel[],
+	titles: TitleModel[],
 	children: [
-		(titleProps: TitleInterface, key: string|number) => React.ReactNode,
-		(imageProps: ImageInterface, key: string|number) => React.ReactNode
+		(title: TitleModel, key: string|number) => React.ReactNode,
+		(image: ImageModel, key: string|number) => React.ReactNode
 	]
 }
 
-export const Page: React.SFC<PageProps> = ({ images, titles, properties, children: [ titleRenderer, imageRenderer ] }) => (
-	<div className="page">
-		{(titles && titles.length > 0) &&
-			<div className="titles">
-				{titles.map(titleRenderer)}
-			</div>
-		}
-		<Layout type={properties.layout} images={images} sections={properties.sections}>
-			{imageRenderer}
-		</Layout>
-	</div>
-);
+export const Page: React.SFC<PageProps> = ({ layout, format, orientation, images, titles, children: [ titleRenderer, imageRenderer ] }) => {
+	let Layout = layouts[layout.constructor.name];
+	return (
+		<div className="page">
+			{(titles && titles.length > 0) &&
+				<div className="titles">
+					{titles.map(titleRenderer)}
+				</div>
+			}
+			<Layout {...layout} images={images} name={layout.name}>
+				{imageRenderer}
+			</Layout>
+		</div>
+	)
+};

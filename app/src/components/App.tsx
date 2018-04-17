@@ -15,6 +15,7 @@ import { PhotoBookStore } from '../domain/store/PhotoBookStore';
 import { PhotoBook as PhotoBookInterface } from '../domain/dto/PhotoBook';
 
 import { PhotoBook as PhotoBookModel } from '../domain/model/PhotoBook';
+import { Page as PageModel } from '../domain/model/Page';
 
 import { Image as ImageContainer } from './containers/Image';
 import { PhotoBook as PhotoBookContainer } from './containers/PhotoBook';
@@ -103,9 +104,9 @@ export class App extends React.Component<AppProps, AppState> {
 			<div className="app">
 				<main>
 					<PhotoBookContainer>
-						{(photoBook) =>
+						{(photoBook: PhotoBookModel) =>
 							<PhotoBook {...photoBook}>
-								{(page, key) => (
+								{(page: PageModel, key) => (
 									<Page {...page} key={key}>
 										{[
 											(title, key) => (

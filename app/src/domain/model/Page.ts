@@ -1,29 +1,38 @@
 import { Page as PageInterface } from '../dto/Page';
 
+import { Format } from './Format';
+import { Layout, RowLayout } from './Layout';
 import { Title } from './Title';
 import { Image } from './Image';
 
+export enum Orientation {
+	Portrait,
+	Landscape
+}
 
-export class Page implements PageInterface {
-	public images: any[] = [];
+
+export class Page {
+	readonly layout: Layout;
+	readonly orientation: Orientation = Orientation.Landscape;
+	readonly format: Format = new Format('A4', [10,10,10,10], [210,297]);
+	public images: Image[] = [];
 	public titles: Title[] = [];
 	public previousPage: Page = null;
 	public nextPage: Page = null;
-	public properties: {
-		layout: string,
-		sections: number
-	};
 
-	constructor(sections: number = 2) {
-		this.properties = {
-			layout: "standard",
-			sections: sections
-		};
+	constructor(
+		layout: Layout = new RowLayout(1),
+		orientation: Orientation = Orientation.Landscape,
+		format: Format = new Format('A4', [10,10,10,10], [210,297])
+	) {
+		this.format = format;
+		this.orientation = orientation;
+		this.layout = layout;
 	}
 
 	static createFromDto(dto: PageInterface): Page {
-		let page = new Page();
-		page.properties = dto.properties;
+		let layout: Layout = dto.properties.layout === 'standard' ? new RowLayout(dto.properties.sections) : new RowLayout();
+		let page = new Page(layout);
 		page.titles = dto.titles.map(Title.createFromDto);
 		page.images = dto.images.map(Image.createFromDto);
 		return page;

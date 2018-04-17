@@ -13,14 +13,17 @@ export enum BookType {
 
 
 export class PhotoBook {
+	// absolute path to the photobook file
 	readonly path: string;
 	public pages: Page[];
 	readonly type: BookType;
 
-	get directory() {
+	// get absolute directory path of the photobook file
+	get directory(): string {
 		return Path.dirname(this.path);
 	}
 
+	// get absolute directory path of the thumbnail directory
 	get thumbnailDirectory(): string {
 		return Path.join(this.directory, THUMBNAIL_DIRECTORY);
 	}

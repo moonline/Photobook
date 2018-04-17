@@ -6,7 +6,7 @@
 	align-content: space-between;
 	overflow: hidden;
 
-	&[data-type="standard"] {
+	&[data-type="rowlayout"] {
 		.image[data-layout="wide"] { width: 100%; }
 
 		&[data-sections="1"] .image {
