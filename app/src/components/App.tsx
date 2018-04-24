@@ -107,7 +107,8 @@ export class App extends React.Component<AppProps, AppState> {
 						{(photoBook: PhotoBookModel) =>
 							<PhotoBook {...photoBook}>
 								{(page: PageModel, key) => (
-									<Page {...page} key={key}>
+									// TODO: fix spread getter problem
+									<Page {...page} width={page.width} height={page.height} margin={page.margin} key={key}>
 										{[
 											(title, key) => (
 												<Title {...title} key={key} />

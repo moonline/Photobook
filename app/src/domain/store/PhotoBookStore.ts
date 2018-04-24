@@ -20,6 +20,8 @@ export class PhotoBookStore {
 
 
 	public import = (photoBook: PhotoBookModel): void => {
+		// TODO: use logging service
+		console.log('import photobook', (new Date()).toLocaleString());
 		this.photoBook = photoBook;
 	}
 

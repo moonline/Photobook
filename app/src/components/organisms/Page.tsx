@@ -6,7 +6,7 @@ import { Image as ImageInterface } from '../../domain/dto/Image';
 
 import { Page as PageModel, Orientation } from '../../domain/model/Page';
 import { Layout as LayoutModel } from '../../domain/model/Layout';
-import { Format as FormatModel } from '../../domain/model/Format';
+import { PageMargin } from '../../domain/model/Format';
 import { Image as ImageModel } from '../../domain/model/Image';
 import { Title as TitleModel } from '../../domain/model/Title';
 
@@ -21,8 +21,9 @@ interface Function {
 
 interface PageProps {
 	layout: LayoutModel,
-	format: FormatModel,
-	orientation: Orientation,
+	margin: PageMargin,
+	width: number,
+	height: number,
 	images: ImageModel[],
 	titles: TitleModel[],
 	children: [
@@ -31,10 +32,15 @@ interface PageProps {
 	]
 }
 
-export const Page: React.SFC<PageProps> = ({ layout, format, orientation, images, titles, children: [ titleRenderer, imageRenderer ] }) => {
+export const Page: React.SFC<PageProps> = ({ layout, margin, width, height, images, titles, children: [ titleRenderer, imageRenderer ], ...page }) => {
 	let Layout = layouts[layout.constructor.name];
+	let styles: {[name: string]: string } = {
+		padding: margin.map(value => `${value}mm`).join(' '),
+		width: `${width}mm`,
+		height: `${height}mm`
+	};
 	return (
-		<div className="page">
+		<div className="page" style={styles}>
 			{(titles && titles.length > 0) &&
 				<div className="titles">
 					{titles.map(titleRenderer)}

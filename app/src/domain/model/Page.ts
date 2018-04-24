@@ -1,6 +1,6 @@
 import { Page as PageInterface } from '../dto/Page';
 
-import { Format } from './Format';
+import { Format, PageMargin } from './Format';
 import { Layout, RowLayout } from './Layout';
 import { Title } from './Title';
 import { Image } from './Image';
@@ -19,6 +19,18 @@ export class Page {
 	public titles: Title[] = [];
 	public previousPage: Page = null;
 	public nextPage: Page = null;
+
+	get height(): number {
+		return this.orientation === Orientation.Portrait ? this.format.height : this.format.width;
+	}
+
+	get width(): number {
+		return this.orientation === Orientation.Portrait ? this.format.width : this.format.height;
+	}
+
+	get margin(): PageMargin {
+		return this.format.margin;
+	}
 
 	constructor(
 		layout: Layout = new RowLayout(1),
