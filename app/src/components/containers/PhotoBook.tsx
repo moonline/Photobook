@@ -1,11 +1,11 @@
-import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
+import * as PropTypes from 'prop-types';
+import * as React from 'react';
 
 import { PhotoBookStore } from '../../domain/store/PhotoBookStore';
 
-import { PhotoBook as PhotoBookModel } from '../../domain/model/PhotoBook';
 import { Page as PageModel } from '../../domain/model/Page';
+import { PhotoBook as PhotoBookModel } from '../../domain/model/PhotoBook';
 
 
 interface PhotoBookProps {
@@ -14,11 +14,11 @@ interface PhotoBookProps {
 
 @observer
 export class PhotoBook extends React.Component<PhotoBookProps, {}> {
-	static contextTypes = {
+	public static contextTypes = {
 		store: PropTypes.instanceOf(PhotoBookStore)
 	}
 
-	context: {
+	public context: {
 		store: PhotoBookStore
 	}
 
@@ -26,7 +26,7 @@ export class PhotoBook extends React.Component<PhotoBookProps, {}> {
 		super(props);
 	}
 
-	render() {
+	public render() {
 		const { store, store: { photoBook } } = this.context;
 		const { children: renderPhotoBook } = this.props;
 		return store.loaded

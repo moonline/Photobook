@@ -3,7 +3,7 @@ export interface Layout {
 }
 
 export class RowLayout implements Layout {
-	readonly sections: number;
+	public readonly sections: number;
 
 	constructor(sections: number = 1) {
 		this.sections = sections;

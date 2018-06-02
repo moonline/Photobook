@@ -5,9 +5,9 @@ import { Page as PageModel } from '../../domain/model/Page';
 
 
 export interface PhotoBookProps {
-	path: string,
-	pages: PageModel[]
-	children: (page: PageModel, key: number|string) => React.ReactNode
+	path: string;
+	pages: PageModel[];
+	children: (page: PageModel, key: number|string) => React.ReactNode;
 }
 
 export const PhotoBook: React.SFC<PhotoBookProps> = ({ path, pages, children: renderPage }) => (

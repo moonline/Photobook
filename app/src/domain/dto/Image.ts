@@ -1,5 +1,5 @@
 export interface Image {
-	path: string,
+	path: string;
 	properties: {
 		display: string,
 		position: string,
@@ -8,7 +8,7 @@ export interface Image {
 		// TODO: Create compatibility import handler to fix that
 		offsetTop?: number|string
 	},
-	caption?: string,
+	caption?: string;
 	// TODO: Create compatibility import handler to fix that
-	$$hashKey?: string
+	$$hashKey?: string;
 }

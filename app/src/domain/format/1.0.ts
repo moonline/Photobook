@@ -3,8 +3,10 @@ const { arrayOf, number, oneOf, oneOfType, shape, string } = PropTypes;
 
 
 const image = shape({
+	caption: string,
 	path: string.isRequired,
 	properties: shape({
+		'$$hashKey': string,
 		display: oneOf([
 			'slim',
 			'vertical',
@@ -12,6 +14,8 @@ const image = shape({
 			'double',
 			'wide'
 		]).isRequired,
+		offsetLeft: oneOfType([ number, string ]),
+		offsetTop: oneOfType([ number, string ]),
 		position: oneOf([
 			'left',
 			'top',
@@ -24,24 +28,14 @@ const image = shape({
 			'standard',
 			'double',
 			'tribble'
-		]).isRequired,
-		offsetLeft: oneOfType([ number, string ]),
-		offsetTop: oneOfType([ number, string ])
-	}).isRequired,
-	caption: string,
-	'$$hashKey': string
+		]).isRequired
+	}).isRequired
 });
 
 const title = shape({
-	value: string.isRequired,
 	properties: shape({
-		type: oneOf([
-			'standard',
-			'ocean',
-			'desert',
-			'winter',
-			'dark'
-		]).isRequired,
+		'$$hashKey': string,
+		left: number.isRequired,
 		size: oneOf([
 			'small',
 			'normal',
@@ -50,24 +44,30 @@ const title = shape({
 			'big',
 			'extraBig'
 		]).isRequired,
-		width: oneOfType([ number, string ]).isRequired,
 		top: number.isRequired,
-		left: number.isRequired
+		type: oneOf([
+			'standard',
+			'ocean',
+			'desert',
+			'winter',
+			'dark'
+		]).isRequired,
+		width: oneOfType([ number, string ]).isRequired
 	}).isRequired,
-	'$$hashKey': string
+	value: string.isRequired
 });
 
 const page = shape({
+	'$$hashKey': string,
 	images: arrayOf(image).isRequired,
-	titles: arrayOf(title).isRequired,
 	properties: shape({
 		layout: oneOf([ 'standard' ]).isRequired,
 		sections: oneOf([ 1, 2, 3, 4 ]).isRequired
 	}).isRequired,
-	'$$hashKey': string
+	titles: arrayOf(title).isRequired
 });
 
 export const format = {
-	title: string.isRequired,
-	pages: arrayOf(page).isRequired
+	pages: arrayOf(page).isRequired,
+	title: string.isRequired
 };

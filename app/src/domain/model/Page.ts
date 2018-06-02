@@ -1,9 +1,9 @@
 import { Page as PageInterface } from '../dto/Page';
 
 import { Format, PageMargin } from './Format';
+import { Image } from './Image';
 import { Layout, RowLayout } from './Layout';
 import { Title } from './Title';
-import { Image } from './Image';
 
 export enum Orientation {
 	Portrait,
@@ -12,9 +12,19 @@ export enum Orientation {
 
 
 export class Page {
-	readonly layout: Layout;
-	readonly orientation: Orientation = Orientation.Landscape;
-	readonly format: Format = new Format('A4', [10,10,10,10], [210,297]);
+	public static createFromDto(dto: PageInterface): Page {
+		const layout: Layout = dto.properties.layout === 'standard'
+			? new RowLayout(dto.properties.sections)
+			: new RowLayout();
+		const page = new Page(layout);
+		page.titles = dto.titles.map(Title.createFromDto);
+		page.images = dto.images.map(Image.createFromDto);
+		return page;
+	}
+
+	public readonly layout: Layout;
+	public readonly orientation: Orientation = Orientation.Landscape;
+	public readonly format: Format = new Format('A4', [10,10,10,10], [210,297]);
 	public images: Image[] = [];
 	public titles: Title[] = [];
 	public previousPage: Page = null;
@@ -40,14 +50,6 @@ export class Page {
 		this.format = format;
 		this.orientation = orientation;
 		this.layout = layout;
-	}
-
-	static createFromDto(dto: PageInterface): Page {
-		let layout: Layout = dto.properties.layout === 'standard' ? new RowLayout(dto.properties.sections) : new RowLayout();
-		let page = new Page(layout);
-		page.titles = dto.titles.map(Title.createFromDto);
-		page.images = dto.images.map(Image.createFromDto);
-		return page;
 	}
 
 	/*

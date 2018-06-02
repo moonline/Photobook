@@ -7,8 +7,9 @@ import { App } from './components/App';
 
 import './index.scss';
 
+const store = new PhotoBookStore();
 
 ReactDOM.render(
-	<App store={new PhotoBookStore()}/>,
+	<App store={store}/>,
 	document.getElementById('root')
 );

@@ -2,7 +2,13 @@ import { Title as TitleInterface } from '../dto/Title';
 
 
 export class Title implements TitleInterface {
-	readonly value: string;
+	public static createFromDto(dto: TitleInterface): Title {
+		const title = new Title(dto.value);
+		title.properties = dto.properties;
+		return title;
+	}
+
+	public readonly value: string;
 	public properties: {
 		type: string,
 		size: string,
@@ -11,20 +17,14 @@ export class Title implements TitleInterface {
 		left: number
 	};
 
-	constructor(title:string = "New Title") {
+	constructor(title: string = 'New Title') {
 		this.value = title;
 		this.properties = {
-			type: "standard",
-			size: "normal",
-			width: 9,
+			left: 9,
+			size: 'normal',
 			top: 7,
-			left: 9
+			type: 'standard',
+			width: 9
 		}
-	}
-
-	static createFromDto(dto: TitleInterface): Title {
-		let title = new Title(dto.value);
-		title.properties = dto.properties;
-		return title;
 	}
 }

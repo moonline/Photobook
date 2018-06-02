@@ -7,14 +7,14 @@ import './TitleControls.scss';
 
 
 export class TitleControls extends React.Component<any, any> {
-	onMove(event, dragable) {
+	private onMove(event, dragable) {
 		this.props.movedTo({
-			top: this.props.top, // + dragable.deltaX/this.pxPerCm,
-			left: this.props.left // + dragable.deltaY/this.pxPerCm
+			left: this.props.left, // + dragable.deltaY/this.pxPerCm
+			top: this.props.top // + dragable.deltaX/this.pxPerCm
 		});
 	}
 
-	render() {
+	public render() {
 		return (
 			<div className="controls titleControls">
 				<div className="control">

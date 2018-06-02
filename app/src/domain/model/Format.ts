@@ -4,11 +4,11 @@ export type PageSize =  [number, number];
 
 
 export class Format {
-	readonly name: string;
+	public readonly name: string;
 	// page margin in mm: top, right, bottom, left
-	readonly margin: PageMargin;
+	public readonly margin: PageMargin;
 	// page size in mm: width, height
-	readonly size: PageSize;
+	public readonly size: PageSize;
 
 	get width(): number {
 		return this.size[0];

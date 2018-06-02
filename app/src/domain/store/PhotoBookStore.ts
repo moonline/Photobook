@@ -1,8 +1,8 @@
+import { computed, observable } from 'mobx';
 import * as Path from 'path';
-import { observable, computed } from 'mobx';
 
-import { PhotoBook as PhotoBookInterface } from '../dto/PhotoBook';
 import { Page as PageInterface } from '../dto/Page';
+import { PhotoBook as PhotoBookInterface } from '../dto/PhotoBook';
 
 import { PhotoBook as PhotoBookModel } from '../model/PhotoBook';
 

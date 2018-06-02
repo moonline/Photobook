@@ -13,10 +13,14 @@ export enum BookType {
 
 
 export class PhotoBook {
+	public static createFromDto(dto: PhotoBookInterface, path: string): PhotoBook {
+		return new PhotoBook(path, dto.pages.map(Page.createFromDto));
+	}
+
 	// absolute path to the photobook file
-	readonly path: string;
+	public readonly path: string;
 	public pages: Page[];
-	readonly type: BookType;
+	public readonly type: BookType;
 
 	// get absolute directory path of the photobook file
 	get directory(): string {
@@ -33,10 +37,5 @@ export class PhotoBook {
 		this.path = path;
 		this.pages = pages;
 		this.type = type;
-	}
-
-
-	static createFromDto(dto: PhotoBookInterface, path: string): PhotoBook {
-		return new PhotoBook(path, dto.pages.map(Page.createFromDto));
 	}
 }

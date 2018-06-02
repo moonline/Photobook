@@ -1,5 +1,5 @@
-import * as FS from 'fs';
 import * as CheckPropTypes from 'check-prop-types';
+import * as FS from 'fs';
 const { assertPropTypes } = CheckPropTypes;
 
 import { PhotoBook as PhotoBookInterface } from '../domain/dto/PhotoBook';
@@ -16,4 +16,4 @@ export const loadFromFile = (fileName: string, callback: (photoBook: PhotoBookIn
 			callback(photoBook);
 		}
 	});
-}
+};

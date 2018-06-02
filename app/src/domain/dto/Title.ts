@@ -1,5 +1,5 @@
 export interface Title {
-	value: string,
+	value: string;
 	properties: {
 		type: string,
 		size: string,
@@ -7,7 +7,7 @@ export interface Title {
 		left: number,
 		// TODO: Create compatibility import handler to fix that
 		width: number|string
-	},
+	};
 	// TODO: Create compatibility import handler to fix that
-	$$hashKey?: string
+	$$hashKey?: string;
 }

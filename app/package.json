@@ -29,6 +29,8 @@
     "sass-loader": "^6.0.6",
     "style-loader": "^0.19.1",
     "ts-loader": "^3.2.0",
+    "tslint": "^5.10.0",
+    "tslint-react": "^3.6.0",
     "typescript": "^2.6.2",
     "webpack": "^3.10.0"
   },
@@ -39,6 +41,9 @@
     "start:app": "electron . --allow-file-access-from-files",
     "build": "npm run build:watch",
     "build:app": "webpack",
-    "build:watch": "webpack --watch"
+    "build:watch": "webpack --watch",
+    "lint": "npm run lint:tslint",
+    "lint:tslint": "tslint -c tslint.json 'src/**/*.{ts,tsx}' --force --format verbose",
+    "lint:tslint-fix": "lint:tslint -- --fix"
   }
 }

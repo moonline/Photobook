@@ -1,7 +1,7 @@
-import * as React from 'react';
-import * as PropTypes from 'prop-types';
-import * as Path from 'path';
 import * as FS from 'fs';
+import * as Path from 'path';
+import * as PropTypes from 'prop-types';
+import * as React from 'react';
 const { nativeImage: NativeImage } = require('electron');
 import { observer } from 'mobx-react';
 
@@ -23,16 +23,16 @@ interface ImageState {
 
 @observer
 export class Image extends React.Component<ImageProps, ImageState> {
-	static contextTypes = {
+	public static contextTypes = {
+		store: PropTypes.instanceOf(PhotoBookStore),
 		thumbnail: PropTypes.shape({
 			compressionRate: PropTypes.number,
+			name: PropTypes.func,
 			quality: PropTypes.string,
-			scalingFactor: PropTypes.number,
-			name: PropTypes.func
-		}),
-		store: PropTypes.instanceOf(PhotoBookStore)
+			scalingFactor: PropTypes.number
+		})
 	}
-	context: {
+	public context: {
 		thumbnail: {
 			compressionRate: number,
 			quality: string,
@@ -50,14 +50,14 @@ export class Image extends React.Component<ImageProps, ImageState> {
 		};
 	}
 
-	imageRef = (imageElement: HTMLElement) => {
+	private imageRef = (imageElement: HTMLElement) => {
 		if (imageElement && !this.state.thumbnail) {
 			const maxContainerExtent: number = Math.max(imageElement.clientHeight, imageElement.clientWidth);
 			this.createThumbnail(maxContainerExtent);
 		}
 	}
 
-	createThumbnail = (maxContainerExtent: number) => {
+	private createThumbnail = (maxContainerExtent: number) => {
 		const { store: { photoBook: { thumbnailDirectory }}} = this.context;
 		const { compressionRate, scalingFactor, name } = this.context.thumbnail;
 
@@ -91,15 +91,7 @@ export class Image extends React.Component<ImageProps, ImageState> {
 		}
 	}
 
-	componentWillReceiveProps(nextProps: ImageProps): void {
-		if (nextProps.image !== this.props.image) {
-			this.setState({
-				source: this.getSourcePath(nextProps.image, this.context.store.photoBook.directory)
-			});
-		}
-	}
-
-	getSourcePath = (image: ImageInterface, directory): string => {
+	private getSourcePath = (image: ImageInterface, directory): string => {
 		let imageAbsPath;
 		if (image.path.indexOf('file://') === 0) {
 			const oldPath = image.path.replace('file://', '');
@@ -114,7 +106,15 @@ export class Image extends React.Component<ImageProps, ImageState> {
 		return imageAbsPath;
 	}
 
-	render() {
+	public componentWillReceiveProps(nextProps: ImageProps): void {
+		if (nextProps.image !== this.props.image) {
+			this.setState({
+				source: this.getSourcePath(nextProps.image, this.context.store.photoBook.directory)
+			});
+		}
+	}
+
+	public render() {
 		const { image, children: renderImage } = this.props;
 		return renderImage({ ...image, path: this.state.thumbnail, imageRef: this.imageRef });
 	}

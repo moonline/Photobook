@@ -9,8 +9,8 @@ export const Title: React.SFC<TitleProps> = ({ value, properties }) => (
 		data-type={properties.type}
 		data-size={properties.size}
 		style={{
-			top: `${properties.top}cm`,
 			left: `${properties.left}cm`,
+			top: `${properties.top}cm`,
 			width: `${properties.width}cm`
 		}}>
 		{/*<div className="controls titleControls">
