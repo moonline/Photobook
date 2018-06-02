@@ -4,7 +4,7 @@ import { Image as ImageInterface } from '../../domain/dto/Image';
 import './Image.scss';
 
 export interface ImageProps extends ImageInterface {
-	imageRef?: (image: HTMLElement) => void
+	imageRef?: (image: HTMLElement) => void;
 }
 
 
@@ -20,6 +20,6 @@ export const Image: React.SFC<ImageProps> = ({ path, caption, properties, imageR
 		}}
 		ref={imageRef}
 	>
-		<figcaption dangerouslySetInnerHTML={{__html:caption }} />
+		<figcaption dangerouslySetInnerHTML={{__html: caption }} />
 	</figure>
 );

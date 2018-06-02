@@ -6,7 +6,7 @@ const image = shape({
 	caption: string,
 	path: string.isRequired,
 	properties: shape({
-		'$$hashKey': string,
+		$$hashKey: string,
 		display: oneOf([
 			'slim',
 			'vertical',
@@ -34,7 +34,7 @@ const image = shape({
 
 const title = shape({
 	properties: shape({
-		'$$hashKey': string,
+		$$hashKey: string,
 		left: number.isRequired,
 		size: oneOf([
 			'small',
@@ -58,7 +58,7 @@ const title = shape({
 });
 
 const page = shape({
-	'$$hashKey': string,
+	$$hashKey: string,
 	images: arrayOf(image).isRequired,
 	properties: shape({
 		layout: oneOf([ 'standard' ]).isRequired,

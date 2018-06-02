@@ -44,6 +44,6 @@
     "build:watch": "webpack --watch",
     "lint": "npm run lint:tslint",
     "lint:tslint": "tslint -c tslint.json 'src/**/*.{ts,tsx}' --force --format verbose",
-    "lint:tslint-fix": "lint:tslint -- --fix"
+    "lint:tslint-fix": "npm run lint:tslint -- --fix"
   }
 }

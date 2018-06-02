@@ -25,6 +25,6 @@ export class Title implements TitleInterface {
 			top: 7,
 			type: 'standard',
 			width: 9
-		}
+		};
 	}
 }

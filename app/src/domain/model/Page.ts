@@ -24,7 +24,7 @@ export class Page {
 
 	public readonly layout: Layout;
 	public readonly orientation: Orientation = Orientation.Landscape;
-	public readonly format: Format = new Format('A4', [10,10,10,10], [210,297]);
+	public readonly format: Format = new Format('A4', [10, 10, 10, 10], [210, 297]);
 	public images: Image[] = [];
 	public titles: Title[] = [];
 	public previousPage: Page = null;
@@ -45,7 +45,7 @@ export class Page {
 	constructor(
 		layout: Layout = new RowLayout(1),
 		orientation: Orientation = Orientation.Landscape,
-		format: Format = new Format('A4', [10,10,10,10], [210,297])
+		format: Format = new Format('A4', [10, 10, 10, 10], [210, 297])
 	) {
 		this.format = format;
 		this.orientation = orientation;

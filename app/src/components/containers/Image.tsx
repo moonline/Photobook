@@ -12,13 +12,13 @@ import { Image as ImageInterface } from '../../domain/dto/Image';
 import { ImageProps as ImageRendererProps } from '../molecules/Image';
 
 interface ImageProps {
-	image: ImageInterface,
-	children: (imageProps: ImageRendererProps) => React.ReactNode
+	image: ImageInterface;
+	children: (imageProps: ImageRendererProps) => React.ReactNode;
 }
 
 interface ImageState {
-	source: string,
-	thumbnail: string
+	source: string;
+	thumbnail: string;
 }
 
 @observer
@@ -31,7 +31,7 @@ export class Image extends React.Component<ImageProps, ImageState> {
 			quality: PropTypes.string,
 			scalingFactor: PropTypes.number
 		})
-	}
+	};
 	public context: {
 		thumbnail: {
 			compressionRate: number,
@@ -40,7 +40,7 @@ export class Image extends React.Component<ImageProps, ImageState> {
 			name: (name: string, width: number, height: number, extension: string) => string
 		},
 		store: PhotoBookStore
-	}
+	};
 
 	constructor(props, context) {
 		super(props, context);

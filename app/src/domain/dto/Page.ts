@@ -8,7 +8,7 @@ export interface Page {
 	properties: {
 		layout: string,
 		sections: number
-	},
+	};
 	// TODO: Create compatibility import handler to fix that
 	$$hashKey?: string;
 }

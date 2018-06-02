@@ -9,18 +9,18 @@ import { PhotoBook as PhotoBookModel } from '../../domain/model/PhotoBook';
 
 
 interface PhotoBookProps {
-	children: (photoBook: PhotoBookModel) => React.ReactNode
+	children: (photoBook: PhotoBookModel) => React.ReactNode;
 }
 
 @observer
 export class PhotoBook extends React.Component<PhotoBookProps, {}> {
 	public static contextTypes = {
 		store: PropTypes.instanceOf(PhotoBookStore)
-	}
+	};
 
 	public context: {
 		store: PhotoBookStore
-	}
+	};
 
 	constructor(props) {
 		super(props);

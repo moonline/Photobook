@@ -52,5 +52,5 @@ export const Page: React.SFC<PageProps> = (
 				{imageRenderer}
 			</Layout>
 		</div>
-	)
+	);
 };

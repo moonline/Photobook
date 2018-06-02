@@ -28,7 +28,7 @@ import './App.scss';
 
 
 interface AppProps {
-	store: PhotoBookStore
+	store: PhotoBookStore;
 }
 export interface AppContext {
 	thumbnail: {
@@ -36,8 +36,8 @@ export interface AppContext {
 		quality: string,
 		scalingFactor: number,
 		name: (name: string, width: number, height: number, extension: string) => string
-	},
-	store: PhotoBookStore
+	};
+	store: PhotoBookStore;
 }
 
 @observer
@@ -50,7 +50,7 @@ export class App extends React.Component<AppProps, {}> {
 			quality: PropTypes.string,
 			scalingFactor: PropTypes.number
 		})
-	}
+	};
 
 	constructor(props) {
 		super(props);
@@ -84,7 +84,7 @@ export class App extends React.Component<AppProps, {}> {
 	}
 
 	public componentDidMount() {
-		console.log('App ready '+(new Date()).toLocaleString());
+		console.log('App ready ' + (new Date()).toLocaleString());
 
 		messageBus.listen('openFile', 'app', (filePath: string) => {
 			this.onOpenFile(filePath);

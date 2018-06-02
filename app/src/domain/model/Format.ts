@@ -18,7 +18,7 @@ export class Format {
 		return this.size[1];
 	}
 
-	constructor(name: string, margin: PageMargin = [0,0,0,0], size: PageSize = [210, 297]) {
+	constructor(name: string, margin: PageMargin = [0, 0, 0, 0], size: PageSize = [210, 297]) {
 		this.name = name;
 		this.margin = margin;
 		this.size = size;
