@@ -1,30 +1,54 @@
 import { Title as TitleInterface } from '../dto/Title';
 
+import { AbsolutePosition } from './position/AbsolutePosition';
 
-export class Title implements TitleInterface {
+
+export enum TitleType {
+	standard,
+	ocean,
+	desert,
+	winter,
+	dark
+}
+
+export enum TitleSize {
+	small,
+	normal,
+	large,
+	extraLarge,
+	big,
+	extraBig
+}
+
+export class Title {
 	public static createFromDto(dto: TitleInterface): Title {
-		const title = new Title(dto.value);
-		title.properties = dto.properties;
-		return title;
+		const { value, properties: { left, size, top, type, width} } = dto;
+		return new Title(
+			value,
+			new AbsolutePosition(left, top),
+			type ? TitleType[type] : TitleType.standard,
+			size ? TitleSize[size] : TitleSize.normal,
+			Number(width)
+		);
 	}
 
-	public readonly value: string;
-	public properties: {
-		type: string,
-		size: string,
-		width: number|string,
-		top: number,
-		left: number
-	};
+	public readonly text: string;
+	public readonly position: AbsolutePosition;
+	public readonly type: TitleType;
+	public readonly size: TitleSize;
+	public readonly width: number;
 
-	constructor(title: string = 'New Title') {
-		this.value = title;
-		this.properties = {
-			left: 9,
-			size: 'normal',
-			top: 7,
-			type: 'standard',
-			width: 9
-		};
+	constructor(
+		text: string = 'New Title',
+		position: AbsolutePosition = new AbsolutePosition(9, 7),
+		type: TitleType = TitleType.standard,
+		size: TitleSize = TitleSize.normal,
+		width: number = 9
+	) {
+		this.text = text;
+		this.position = position;
+		this.type = type;
+		this.size = size;
+		this.width = width;
 	}
 }

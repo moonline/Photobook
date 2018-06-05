@@ -31,11 +31,15 @@ export class Page {
 	public nextPage: Page = null;
 
 	get height(): number {
-		return this.orientation === Orientation.Portrait ? this.format.height : this.format.width;
+		return this.orientation === Orientation.Portrait
+			? this.format.height
+			: this.format.width;
 	}
 
 	get width(): number {
-		return this.orientation === Orientation.Portrait ? this.format.width : this.format.height;
+		return this.orientation === Orientation.Portrait
+			? this.format.width
+			: this.format.height;
 	}
 
 	get margin(): PageMargin {
