@@ -107,7 +107,7 @@ export class App extends React.Component<AppProps, {}> {
 									<Page {...page} width={page.width} height={page.height} margin={page.margin} key={pageKey}>
 										{[
 											(title, titleKey) => (
-												<Title {...title} key={titleKey} />
+												<Title {...title} titleSize={title.titleSize} titleType={title.titleType} key={titleKey} />
 											),
 											(image, imageKey) => (
 												<ImageContainer image={image} key={imageKey}>

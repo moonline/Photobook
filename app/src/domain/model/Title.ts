@@ -1,6 +1,6 @@
 import { Title as TitleInterface } from '../dto/Title';
 
-import { AbsolutePosition } from './position/AbsolutePosition';
+import { AbsolutePosition } from './AbsolutePosition';
 
 
 export enum TitleType {
@@ -37,6 +37,14 @@ export class Title {
 	public readonly type: TitleType;
 	public readonly size: TitleSize;
 	public readonly width: number;
+
+	public get titleType(): string {
+		return TitleType[this.type];
+	}
+
+	public get titleSize(): string {
+		return TitleSize[this.size];
+	}
 
 	constructor(
 		text: string = 'New Title',

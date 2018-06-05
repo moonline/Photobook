@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { Title as TitleInterface } from '../../domain/dto/Title';
 
-import { AbsolutePosition } from '../../domain/model/position/AbsolutePosition';
+import { AbsolutePosition } from '../../domain/model/AbsolutePosition';
 import { TitleSize, TitleType } from '../../domain/model/Title';
 
 import './Title.scss';
@@ -11,14 +10,16 @@ interface TitleProps {
 	text: string;
 	position: AbsolutePosition;
 	type: TitleType;
+	titleType: string;
+	titleSize: string;
 	size: TitleSize;
 	width: number;
 }
 
-export const Title: React.SFC<TitleProps> = ({ text, position, type, size, width }) => (
+export const Title: React.SFC<TitleProps> = ({ text, position, titleType, titleSize, width }) => (
 	<div className="title"
-		data-type={TitleType[type]}
-		data-size={TitleSize[size]}
+		data-type={titleType}
+		data-size={titleSize}
 		style={{
 			left: `${position.x}cm`,
 			top: `${position.y}cm`,

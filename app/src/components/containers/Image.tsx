@@ -7,12 +7,12 @@ import { observer } from 'mobx-react';
 
 import { PhotoBookStore } from '../../domain/store/PhotoBookStore';
 
-import { Image as ImageInterface } from '../../domain/dto/Image';
+import { Image as ImageModel } from '../../domain/model/Image';
 
 import { ImageProps as ImageRendererProps } from '../molecules/Image';
 
 interface ImageProps {
-	image: ImageInterface;
+	image: ImageModel;
 	children: (imageProps: ImageRendererProps) => React.ReactNode;
 }
 
@@ -91,7 +91,7 @@ export class Image extends React.Component<ImageProps, ImageState> {
 		}
 	}
 
-	private getSourcePath = (image: ImageInterface, directory): string => {
+	private getSourcePath = (image: ImageModel, directory): string => {
 		let imageAbsPath;
 		if (image.path.indexOf('file://') === 0) {
 			const oldPath = image.path.replace('file://', '');
