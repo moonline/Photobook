@@ -5,7 +5,7 @@ import * as React from 'react';
 const { nativeImage: NativeImage } = require('electron');
 import { observer } from 'mobx-react';
 
-import { PhotoBookStore } from '../../domain/store/PhotoBookStore';
+import { RootStore } from '../../domain/store/RootStore';
 
 import { Image as ImageModel } from '../../domain/model/Image';
 
@@ -24,7 +24,7 @@ interface ImageState {
 @observer
 export class Image extends React.Component<ImageProps, ImageState> {
 	public static contextTypes = {
-		store: PropTypes.instanceOf(PhotoBookStore),
+		store: PropTypes.instanceOf(RootStore),
 		thumbnail: PropTypes.shape({
 			compressionRate: PropTypes.number,
 			name: PropTypes.func,
@@ -39,13 +39,13 @@ export class Image extends React.Component<ImageProps, ImageState> {
 			scalingFactor: number,
 			name: (name: string, width: number, height: number, extension: string) => string
 		},
-		store: PhotoBookStore
+		store: RootStore
 	};
 
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
-			source: this.getSourcePath(props.image, context.store.photoBook.directory),
+			source: this.getSourcePath(props.image, context.store.photoBookStore.photoBook.directory),
 			thumbnail: null
 		};
 	}
@@ -58,7 +58,7 @@ export class Image extends React.Component<ImageProps, ImageState> {
 	}
 
 	private createThumbnail = (maxContainerExtent: number) => {
-		const { store: { photoBook: { thumbnailDirectory }}} = this.context;
+		const thumbnailDirectory = this.context.store.photoBookStore.photoBook.thumbnailDirectory;
 		const { compressionRate, scalingFactor, name } = this.context.thumbnail;
 
 		if (thumbnailDirectory) {
@@ -109,7 +109,7 @@ export class Image extends React.Component<ImageProps, ImageState> {
 	public componentWillReceiveProps(nextProps: ImageProps): void {
 		if (nextProps.image !== this.props.image) {
 			this.setState({
-				source: this.getSourcePath(nextProps.image, this.context.store.photoBook.directory)
+				source: this.getSourcePath(nextProps.image, this.context.store.photoBookStore.photoBook.directory)
 			});
 		}
 	}

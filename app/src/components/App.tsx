@@ -9,7 +9,7 @@ const { registerOpen, messageBus } = remote.require('./application/appMenu');
 
 import { loadFromFile } from '../service/File';
 
-import { PhotoBookStore } from '../domain/store/PhotoBookStore';
+import { RootStore } from '../domain/store/RootStore';
 
 import { PhotoBook as PhotoBookInterface } from '../domain/dto/PhotoBook';
 
@@ -28,7 +28,7 @@ import './App.scss';
 
 
 interface AppProps {
-	store: PhotoBookStore;
+	store: RootStore;
 }
 export interface AppContext {
 	thumbnail: {
@@ -37,13 +37,13 @@ export interface AppContext {
 		scalingFactor: number,
 		name: (name: string, width: number, height: number, extension: string) => string
 	};
-	store: PhotoBookStore;
+	store: RootStore;
 }
 
 @observer
 export class App extends React.Component<AppProps, {}> {
 	public static childContextTypes = {
-		store: PropTypes.instanceOf(PhotoBookStore),
+		store: PropTypes.instanceOf(RootStore),
 		thumbnail: PropTypes.shape({
 			compressionRate: PropTypes.number,
 			name: PropTypes.func,
@@ -64,7 +64,7 @@ export class App extends React.Component<AppProps, {}> {
 				if (thumbnailDirectory && !FS.existsSync(thumbnailDirectory)) {
 					FS.mkdirSync(thumbnailDirectory);
 				}
-				this.props.store.import(photoBook);
+				this.props.store.photoBookStore.import(photoBook);
 			});
 		} catch (e) {
 			console.error(e);

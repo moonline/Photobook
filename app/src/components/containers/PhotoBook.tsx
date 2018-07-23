@@ -2,7 +2,7 @@ import { observer } from 'mobx-react';
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 
-import { PhotoBookStore } from '../../domain/store/PhotoBookStore';
+import { RootStore } from '../../domain/store/RootStore';
 
 import { Page as PageModel } from '../../domain/model/Page';
 import { PhotoBook as PhotoBookModel } from '../../domain/model/PhotoBook';
@@ -15,11 +15,11 @@ interface PhotoBookProps {
 @observer
 export class PhotoBook extends React.Component<PhotoBookProps, {}> {
 	public static contextTypes = {
-		store: PropTypes.instanceOf(PhotoBookStore)
+		store: PropTypes.instanceOf(RootStore)
 	};
 
 	public context: {
-		store: PhotoBookStore
+		store: RootStore
 	};
 
 	constructor(props) {
@@ -27,10 +27,10 @@ export class PhotoBook extends React.Component<PhotoBookProps, {}> {
 	}
 
 	public render() {
-		const { store, store: { photoBook } } = this.context;
+		const photoBookStore = this.context.store.photoBookStore;
 		const { children: renderPhotoBook } = this.props;
-		return store.loaded
-			? renderPhotoBook(photoBook)
+		return photoBookStore.loaded
+			? renderPhotoBook(photoBookStore.photoBook)
 			: <span>Please open a file</span>;
 	}
 }

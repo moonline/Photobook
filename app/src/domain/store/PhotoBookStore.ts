@@ -7,9 +7,12 @@ import { PhotoBook as PhotoBookInterface } from '../dto/PhotoBook';
 import { PhotoBook as PhotoBookModel } from '../model/PhotoBook';
 
 import { THUMBNAIL_DIRECTORY } from '../../config/app';
+import { RootStore } from './RootStore';
 
 
 export class PhotoBookStore {
+	private rootStore: RootStore;
+
 	@observable
 	public photoBook: PhotoBookModel = null;
 
@@ -18,53 +21,17 @@ export class PhotoBookStore {
 		return Boolean(this.photoBook);
 	}
 
+	constructor(rootStore: RootStore) {
+		this.rootStore = rootStore;
+	}
 
 	public import = (photoBook: PhotoBookModel): void => {
-		// TODO: use logging service
-		console.log('import photobook', (new Date()).toLocaleString());
+		this.rootStore.logger('import photobook', (new Date()).toLocaleString());
+		this.createPhotoBook(photoBook);
+	}
+
+	public createPhotoBook(photoBook: PhotoBookModel): void {
 		this.photoBook = photoBook;
+		this.photoBook.pages = this.rootStore.pageStore.createPages(photoBook.pages);
 	}
-
-	/* TODO: move to page store or page model
-	public findPrevious = (page: PageInterface) => {
-		let position: number = this.pages.indexOf(page);
-		if (position > 0) {
-			return this.pages[position-1]
-		} else if (position === 0) {
-			return this.pages.slice(-1)[0];
-		} else {
-			null;
-		}
-	}
-
-	public findNext = (page: PageInterface) => {
-		let position: number = this.pages.indexOf(page);
-		if (position = this.pages.length-1) {
-			return this.pages[0];
-		} else if (position >= 0) {
-			return this.pages[position+1]
-		} else {
-			null;
-		}
-	}
-
-
-	public add = (page: Page, position: number = this.pages.length): void => {
-		this.pages.splice(position, 0, page);
-	}
-
-	public addBefore = (page: Page, beforePage: Page) => {
-		let position: number = this.pages.indexOf(beforePage);
-		if (position >= 0) {
-			this.add(page, position);
-		}
-	}
-
-	public addAfter = (page: Page, afterPage: Page) => {
-		let position: number = this.pages.indexOf(afterPage);
-		if (position >= 0) {
-			this.add(page, position + 1);
-		}
-	}
-	*/
 }
