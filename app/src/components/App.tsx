@@ -93,6 +93,10 @@ export class App extends React.Component<AppProps, {}> {
 			window.print();
 		});
 		messageBus.notify('clientReady');
+		messageBus.listen('save', 'app', () => {
+			// TODO: save as file
+			console.log(JSON.stringify(this.props.store.photoBookStore.export()));
+		});
 	}
 
 	public render() {

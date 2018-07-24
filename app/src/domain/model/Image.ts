@@ -32,4 +32,15 @@ export class Image {
 		this.position = position;
 		this.size = size;
 	}
+
+	public toDto(): ImageInterface {
+		return {
+			path: this.path,
+			properties: {
+				...this.size.toDto(),
+				...this.position.toDto()
+			},
+			...this.caption && { caption: this.caption }
+		};
+	}
 }

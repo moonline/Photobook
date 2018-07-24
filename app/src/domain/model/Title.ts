@@ -59,4 +59,17 @@ export class Title {
 		this.size = size;
 		this.width = width;
 	}
+
+	public toDto(): TitleInterface {
+		return {
+			properties: {
+				left: this.position.x,
+				size: this.titleSize,
+				top: this.position.y,
+				type: this.titleType,
+				width: this.width
+			},
+			value: this.text
+		};
+	}
 }

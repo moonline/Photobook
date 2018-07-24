@@ -1,3 +1,4 @@
+import { ImageAlignment as ImageAlignmentInterface } from '../dto/Image';
 import { AbsolutePosition } from './AbsolutePosition';
 
 export enum SlotAlignment {
@@ -31,5 +32,16 @@ export class SlotPosition {
     constructor(aligment: SlotAlignment = SlotAlignment.center, offset?: AbsolutePosition) {
         this.alignment = aligment;
         this.offset = aligment === SlotAlignment.custom ? offset : null;
+    }
+
+
+    public toDto(): ImageAlignmentInterface {
+        return {
+            position: this.slotAlignment,
+            ...this.hasCustomOffset && {
+                offsetLeft: this.offset.x,
+                offsetTop: this.offset.y
+            }
+        };
     }
 }

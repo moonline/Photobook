@@ -1,3 +1,5 @@
+import { ImageSize as ImageSizeInterface } from '../dto/Image';
+
 export enum SlotWidth {
     slim, // 25%
     half, // 50%
@@ -48,5 +50,16 @@ export class SlotSize {
         vertical: SlotWidth = SlotWidth.standard) {
             this.horizontal = horizontal;
             this.vertical = vertical;
+    }
+
+    public toDto(): ImageSizeInterface {
+        return {
+            display: Object.keys(horizontalDisplayToSlotWidth).find((key) =>
+                this.horizontal === horizontalDisplayToSlotWidth[key]
+            ),
+            verticalStyle: Object.keys(verticalStyleToSlowWidth).find((key) =>
+                this.vertical === verticalStyleToSlowWidth[key]
+            )
+        };
     }
 }

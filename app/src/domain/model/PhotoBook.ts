@@ -32,10 +32,23 @@ export class PhotoBook {
 		return Path.join(this.directory, THUMBNAIL_DIRECTORY);
 	}
 
+	// get file name without extension
+	get name(): string {
+		return Path.basename(this.path, Path.extname(this.path));
+	}
+
 
 	constructor(path: string, pages: Page[] = [], type: BookType = BookType.SinglePage) {
 		this.path = path;
 		this.pages = pages;
 		this.type = type;
+	}
+
+
+	public toDto(): PhotoBookInterface {
+		return {
+			pages: this.pages.map((page) => page.toDto()),
+			title: this.name
+		};
 	}
 }

@@ -30,6 +30,10 @@ export class PhotoBookStore {
 		this.createPhotoBook(photoBook);
 	}
 
+	public export(): PhotoBookInterface {
+		return this.photoBook.toDto();
+	}
+
 	public createPhotoBook(photoBook: PhotoBookModel): void {
 		this.photoBook = photoBook;
 		this.photoBook.pages = this.rootStore.pageStore.createPages(photoBook.pages);

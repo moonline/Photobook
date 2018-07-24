@@ -56,6 +56,21 @@ export class Page {
 		this.layout = layout;
 	}
 
+
+	public toDto(): PageInterface {
+		const titles = this.titles.map((title) => title.toDto());
+		return {
+			images: this.images.map((image) => image.toDto()),
+			properties: {
+				layout: this.layout instanceof RowLayout ? 'standard' : null,
+				sections: this.layout instanceof RowLayout
+					? (this.layout as RowLayout).sections
+					: null
+			},
+			...titles.length > 0 && { titles }
+		};
+	}
+
 	/*
 	addImage(image: Image):void {
 		this.images.push(image);

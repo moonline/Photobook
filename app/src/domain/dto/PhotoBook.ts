@@ -2,6 +2,6 @@ import { Page } from './Page';
 
 
 export interface PhotoBook {
-	name: string;
+	title: string;
 	pages: Page[];
 }
