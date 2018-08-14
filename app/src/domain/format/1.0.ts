@@ -59,12 +59,12 @@ const title = shape({
 
 const page = shape({
 	$$hashKey: string,
-	images: arrayOf(image).isRequired,
+	images: arrayOf(image),
 	properties: shape({
 		layout: oneOf([ 'standard' ]).isRequired,
 		sections: oneOf([ 1, 2, 3, 4 ]).isRequired
 	}).isRequired,
-	titles: arrayOf(title).isRequired
+	titles: arrayOf(title)
 });
 
 export const format = {

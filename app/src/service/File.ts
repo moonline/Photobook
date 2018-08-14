@@ -17,3 +17,12 @@ export const loadFromFile = (fileName: string, callback: (photoBook: PhotoBookIn
 		}
 	});
 };
+
+export const writeFile = (fileName: string, content: PhotoBookInterface, callback: () => void) => {
+	FS.writeFile(fileName, JSON.stringify(content), 'utf8', (error) => {
+		if (error) {
+			throw error;
+		}
+		callback();
+	});
+};

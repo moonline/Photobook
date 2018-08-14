@@ -17,8 +17,8 @@ export class Page {
 			? new RowLayout(dto.properties.sections)
 			: new RowLayout();
 		const page = new Page(layout);
-		page.titles = dto.titles.map(Title.createFromDto);
-		page.images = dto.images.map(Image.createFromDto);
+		page.titles = (dto.titles || []).map(Title.createFromDto);
+		page.images = (dto.images || []).map(Image.createFromDto);
 		return page;
 	}
 

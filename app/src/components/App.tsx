@@ -6,8 +6,9 @@ import * as PropTypes from 'prop-types';
 import * as React from 'react';
 
 const { registerOpen, messageBus } = remote.require('./application/appMenu');
+const { dialog } = remote;
 
-import { loadFromFile } from '../service/File';
+import { loadFromFile, writeFile } from '../service/File';
 
 import { RootStore } from '../domain/store/RootStore';
 
@@ -94,8 +95,39 @@ export class App extends React.Component<AppProps, {}> {
 		});
 		messageBus.notify('clientReady');
 		messageBus.listen('save', 'app', () => {
-			// TODO: save as file
-			console.log(JSON.stringify(this.props.store.photoBookStore.export()));
+			const fileName = this.props.store.photoBookStore.photoBook.path;
+			const fileContent = this.props.store.photoBookStore.export();
+			try {
+				writeFile(fileName, fileContent, () => {
+					console.log(`Saved to ${fileName}`);
+				});
+			} catch (e) {
+				console.error(e);
+			}
+		});
+		messageBus.listen('save-as', 'app', () => {
+			const originalFileName = this.props.store.photoBookStore.photoBook.path;
+			dialog.showOpenDialog({
+				defaultPath: Path.dirname(originalFileName),
+				filters: [
+					{ name: 'JSON files', extensions: ['json'] }
+				],
+				properties: ['openFile'],
+				title: 'Save as'
+			}, (filePaths: string[]) => {
+				if (filePaths[0]) {
+					const fileContent = this.props.store.photoBookStore.export();
+					try {
+						writeFile(filePaths[0], fileContent, () => {
+							console.log(`Saved to ${filePaths[0]}`);
+						});
+					} catch (e) {
+						console.error(e);
+					}
+				} else {
+					console.log('No file choosen');
+				}
+			});
 		});
 	}
 
