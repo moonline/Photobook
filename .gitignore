@@ -1,12 +1,11 @@
 # ignore js files in model -> will be generated from ts files
-*.js
-*/Model/*.js
-*/Application/*.js
-*/Service/*.js
-*/Main.js
+v0.4.0/**/*.js
+v0.4.0/**/Model/*.js
+v0.4.0/**/Service/*.js
+v0.4.0/**/Main.js
 rasterVorlage.html
 rasterVorlage.odg
-*/**/Resources/Styles/styles.css
+v0.4.0/**/Resources/Styles/styles.css
 
 # documentation
 issues.rst

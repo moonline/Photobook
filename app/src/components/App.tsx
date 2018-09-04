@@ -1,18 +1,8 @@
-import { remote } from 'electron';
-import * as FS from 'fs';
 import { observer } from 'mobx-react';
-import * as Path from 'path';
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 
-const { registerOpen, messageBus } = remote.require('./application/appMenu');
-const { dialog } = remote;
-
-import { loadFromFile, writeFile } from '../service/File';
-
 import { RootStore } from '../domain/store/RootStore';
-
-import { PhotoBook as PhotoBookInterface } from '../domain/dto/PhotoBook';
 
 import { Page as PageModel } from '../domain/model/Page';
 import { PhotoBook as PhotoBookModel } from '../domain/model/PhotoBook';
@@ -57,21 +47,6 @@ export class App extends React.Component<AppProps, {}> {
 		super(props);
 	}
 
-	private onOpenFile(fileName) {
-		try {
-			loadFromFile(fileName, (photoBookDto: PhotoBookInterface) => {
-				const photoBook: PhotoBookModel = PhotoBookModel.createFromDto(photoBookDto, fileName);
-				const thumbnailDirectory = photoBook.thumbnailDirectory;
-				if (thumbnailDirectory && !FS.existsSync(thumbnailDirectory)) {
-					FS.mkdirSync(thumbnailDirectory);
-				}
-				this.props.store.photoBookStore.import(photoBook);
-			});
-		} catch (e) {
-			console.error(e);
-		}
-	}
-
 	public getChildContext = (): AppContext => {
 		return {
 			store: this.props.store,
@@ -86,49 +61,6 @@ export class App extends React.Component<AppProps, {}> {
 
 	public componentDidMount() {
 		console.log('App ready ' + (new Date()).toLocaleString());
-
-		messageBus.listen('openFile', 'app', (filePath: string) => {
-			this.onOpenFile(filePath);
-		});
-		messageBus.listen('print', 'app', () => {
-			window.print();
-		});
-		messageBus.notify('clientReady');
-		messageBus.listen('save', 'app', () => {
-			const fileName = this.props.store.photoBookStore.photoBook.path;
-			const fileContent = this.props.store.photoBookStore.export();
-			try {
-				writeFile(fileName, fileContent, () => {
-					console.log(`Saved to ${fileName}`);
-				});
-			} catch (e) {
-				console.error(e);
-			}
-		});
-		messageBus.listen('save-as', 'app', () => {
-			const originalFileName = this.props.store.photoBookStore.photoBook.path;
-			dialog.showOpenDialog({
-				defaultPath: Path.dirname(originalFileName),
-				filters: [
-					{ name: 'JSON files', extensions: ['json'] }
-				],
-				properties: ['openFile'],
-				title: 'Save as'
-			}, (filePaths: string[]) => {
-				if (filePaths[0]) {
-					const fileContent = this.props.store.photoBookStore.export();
-					try {
-						writeFile(filePaths[0], fileContent, () => {
-							console.log(`Saved to ${filePaths[0]}`);
-						});
-					} catch (e) {
-						console.error(e);
-					}
-				} else {
-					console.log('No file choosen');
-				}
-			});
-		});
 	}
 
 	public render() {
