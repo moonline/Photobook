@@ -4,7 +4,7 @@ import { PhotoBook as PhotoBookInterface } from '../dto/PhotoBook';
 
 import { Page } from './Page';
 
-import { THUMBNAIL_DIRECTORY } from '../../config/app';
+import { THUMBNAIL } from '../../config/app';
 
 
 export enum BookType {
@@ -29,7 +29,7 @@ export class PhotoBook {
 
 	// get absolute directory path of the thumbnail directory
 	get thumbnailDirectory(): string {
-		return Path.join(this.directory, THUMBNAIL_DIRECTORY);
+		return Path.join(this.directory, THUMBNAIL.directory);
 	}
 
 	// get file name without extension

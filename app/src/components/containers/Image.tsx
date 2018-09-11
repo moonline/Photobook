@@ -1,17 +1,20 @@
 import * as FS from 'fs';
 import * as Path from 'path';
-import * as PropTypes from 'prop-types';
 import * as React from 'react';
 const { nativeImage: NativeImage } = require('electron');
-import { observer } from 'mobx-react';
+import { inject, observer } from 'mobx-react';
 
+import { PhotoBookStore } from '../../domain/store/PhotoBookStore';
 import { RootStore } from '../../domain/store/RootStore';
 
 import { Image as ImageModel } from '../../domain/model/Image';
 
 import { ImageProps as ImageRendererProps } from '../molecules/Image';
 
+
 interface ImageProps {
+	rootStore?: RootStore;
+	photoBookStore?: PhotoBookStore;
 	image: ImageModel;
 	children: (imageProps: ImageRendererProps) => React.ReactNode;
 }
@@ -21,31 +24,13 @@ interface ImageState {
 	thumbnail: string;
 }
 
+@inject('rootStore', 'photoBookStore')
 @observer
 export class Image extends React.Component<ImageProps, ImageState> {
-	public static contextTypes = {
-		store: PropTypes.instanceOf(RootStore),
-		thumbnail: PropTypes.shape({
-			compressionRate: PropTypes.number,
-			name: PropTypes.func,
-			quality: PropTypes.string,
-			scalingFactor: PropTypes.number
-		})
-	};
-	public context: {
-		thumbnail: {
-			compressionRate: number,
-			quality: string,
-			scalingFactor: number,
-			name: (name: string, width: number, height: number, extension: string) => string
-		},
-		store: RootStore
-	};
-
-	constructor(props, context) {
-		super(props, context);
+	constructor(props) {
+		super(props);
 		this.state = {
-			source: this.getSourcePath(props.image, context.store.photoBookStore.photoBook.directory),
+			source: this.getSourcePath(props.image, props.photoBookStore.photoBook.directory),
 			thumbnail: null
 		};
 	}
@@ -58,8 +43,8 @@ export class Image extends React.Component<ImageProps, ImageState> {
 	}
 
 	private createThumbnail = (maxContainerExtent: number) => {
-		const thumbnailDirectory = this.context.store.photoBookStore.photoBook.thumbnailDirectory;
-		const { compressionRate, scalingFactor, name } = this.context.thumbnail;
+		const thumbnailDirectory = this.props.photoBookStore.photoBook.thumbnailDirectory;
+		const { compressionRate, scalingFactor, name } = this.props.rootStore.config.thumbnail;
 
 		if (thumbnailDirectory) {
 			const image = NativeImage.createFromPath(this.state.source);
@@ -82,7 +67,7 @@ export class Image extends React.Component<ImageProps, ImageState> {
 			} else {
 				FS.writeFile(thumbnailPath, thumbnail.toJPEG(compressionRate), (error) => {
 					if (error) {
-						console.error(error);
+						this.props.rootStore.logger(error);
 					} else {
 						this.setState({ thumbnail: thumbnailPath });
 					}
@@ -109,7 +94,7 @@ export class Image extends React.Component<ImageProps, ImageState> {
 	public componentWillReceiveProps(nextProps: ImageProps): void {
 		if (nextProps.image !== this.props.image) {
 			this.setState({
-				source: this.getSourcePath(nextProps.image, this.context.store.photoBookStore.photoBook.directory)
+				source: this.getSourcePath(nextProps.image, this.props.photoBookStore.photoBook.directory)
 			});
 		}
 	}

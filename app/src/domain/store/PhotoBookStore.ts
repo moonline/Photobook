@@ -1,12 +1,9 @@
 import { computed, observable } from 'mobx';
-import * as Path from 'path';
 
-import { Page as PageInterface } from '../dto/Page';
 import { PhotoBook as PhotoBookInterface } from '../dto/PhotoBook';
 
 import { PhotoBook as PhotoBookModel } from '../model/PhotoBook';
 
-import { THUMBNAIL_DIRECTORY } from '../../config/app';
 import { RootStore } from './RootStore';
 
 

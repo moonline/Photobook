@@ -1,5 +1,4 @@
-import { observer } from 'mobx-react';
-import * as PropTypes from 'prop-types';
+import { inject } from 'mobx-react';
 import * as React from 'react';
 
 import { RootStore } from '../domain/store/RootStore';
@@ -19,48 +18,13 @@ import './App.scss';
 
 
 interface AppProps {
-	store: RootStore;
-}
-export interface AppContext {
-	thumbnail: {
-		compressionRate: number,
-		quality: string,
-		scalingFactor: number,
-		name: (name: string, width: number, height: number, extension: string) => string
-	};
-	store: RootStore;
+	rootStore?: RootStore;
 }
 
-@observer
+@inject('rootStore')
 export class App extends React.Component<AppProps, {}> {
-	public static childContextTypes = {
-		store: PropTypes.instanceOf(RootStore),
-		thumbnail: PropTypes.shape({
-			compressionRate: PropTypes.number,
-			name: PropTypes.func,
-			quality: PropTypes.string,
-			scalingFactor: PropTypes.number
-		})
-	};
-
-	constructor(props) {
-		super(props);
-	}
-
-	public getChildContext = (): AppContext => {
-		return {
-			store: this.props.store,
-			thumbnail: {
-				compressionRate: 50,
-				name: (name, width, height, extension) => `${name}-${width}-${height}.${extension}`,
-				quality: 'good',
-				scalingFactor: 2
-			}
-		};
-	}
-
 	public componentDidMount() {
-		console.log('App ready ' + (new Date()).toLocaleString());
+		this.props.rootStore.logger('App ready ' + (new Date()).toLocaleString());
 	}
 
 	public render() {
