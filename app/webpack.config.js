@@ -6,11 +6,13 @@ const BUILD_DIR = path.resolve(__dirname, 'build');
 const APP_DIR = path.resolve(__dirname, 'src');
 
 module.exports = {
+	mode: 'development',
 	entry: APP_DIR + '/index',
 	output: {
 		path: BUILD_DIR,
 		filename: 'bundle.js'
 	},
+	target: 'electron-renderer',
 	module: {
 		rules: [
 			{ test: /\.tsx?$/, use: 'ts-loader' },
@@ -26,6 +28,5 @@ module.exports = {
 			filename: 'index.html',
 			inject: 'body'
 		})
-	],
-	target: "electron"
+	]
 };
