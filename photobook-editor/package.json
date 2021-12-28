@@ -1,21 +1,31 @@
 {
-  "name": "Photobook",
+  "name": "photobook-editor",
   "version": "0.4.0",
   "description": "A simple photobook application build of web technology",
   "repository": "https://github.com/moonline/Photobook",
   "author": "Moonline <moonline@users.noreply.github.com>",
   "license": "GPL-3.0",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron index.js",
     "build": "yarn build-styles && yarn build-server && yarn build-app",
     "build-styles": "lessc ./src/Resources/Styles/styles.less ./src/Resources/Styles/styles.css",
-    "build-server": "tsc ./server.ts",
-    "build-app": "tsc --target ES5 ./src/Main.ts --module amd --out ./src/Main.js"
+    "build-server": "tsc ./index.ts",
+    "build-app": "tsc --target ES5 ./src/Main.ts --module amd --out ./src/Main.js",
+    "postinstall": "electron-builder install-app-deps"
+  },
+  "build": {
+    "appId": "photobook-editor",
+    "mac": {
+      "category": "work"
+    }
   },
   "dependencies": {
     "body-parser": "~1.14.2",
     "easyimage": "~2.1.0",
+    "electron": "^16.0.5",
+    "electron-builder": "^22.14.5",
     "express": "~4.13.3",
     "fs": "0.0.2",
     "image-size": "~0.4.0",
@@ -24,6 +34,9 @@
     "tsconfig": "~2.2.0"
   },
   "devDependencies": {
+    "@types/body-parser": "^1.19.2",
+    "@types/express": "^4.17.13",
+    "@types/mime": "^2.0.3",
     "less": "^4.1.2",
     "typescript": "^4.5.4"
   }

@@ -64,6 +64,7 @@ module app.domain.model {
 		}
 
 		public createImage(path: string = prompt('Image path')):void {
+			// TODO use other dialog
 			if(path && path.length > 1) {
 				this.images.push(new Image(path));
 			}

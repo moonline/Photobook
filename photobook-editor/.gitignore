@@ -1,0 +1,5 @@
+/src/Classes/*.js
+/src/*.js
+/*.js
+/helper/*.js
+# Do not exclude Configuration!
