@@ -1,4 +1,4 @@
-/// <reference path="../../Domain/Model/Element.ts"/>
+/// <reference path="./Element.ts"/>
 
 module app.domain.model {
 	'use strict';

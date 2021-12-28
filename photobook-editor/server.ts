@@ -1,9 +1,9 @@
-/// <reference path="./Declarations/node/node.d.ts" />
-/// <reference path="./Declarations/express/express.d.ts" />
-/// <reference path="./Declarations/body-parser/body-parser.d.ts" />
-/// <reference path="./Declarations/mime/mime.d.ts" />
-/// <reference path="./Declarations/easyimage/easyimage.d.ts" />
-/// <reference path="./Declarations/image-size/image-size.d.ts" />
+/// <reference path="./declarations/node/node.d.ts" />
+/// <reference path="./declarations/express/express.d.ts" />
+/// <reference path="./declarations/body-parser/body-parser.d.ts" />
+/// <reference path="./declarations/mime/mime.d.ts" />
+/// <reference path="./declarations/easyimage/easyimage.d.ts" />
+/// <reference path="./declarations/image-size/image-size.d.ts" />
 // thanks @ https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import FS = require('fs');
@@ -14,7 +14,7 @@ import Mime = require('mime');
 import EasyImage = require('easyimage');
 import ImageSize = require('image-size');
 
-import makeDirectoryRecursive = require('./Helper/FileHelper');
+import makeDirectoryRecursive = require('./helper/FileHelper');
 
 var configuration: any = JSON.parse(FS.readFileSync('./config.json', 'utf8'));
 
@@ -36,7 +36,7 @@ makeDirectoryRecursive(configuration.imagesCache);
 var app = Express();
 app.use(allowCrossDomain);
 app.use(BodyParser.json())
-app.use('/', Express.static(__dirname + '/Webapp'));
+app.use('/', Express.static(__dirname + '/src'));
 
 
 function respondImage(response: any, imagePath: string): void {

@@ -2,20 +2,29 @@
   "name": "Photobook",
   "version": "0.4.0",
   "description": "A simple photobook application build of web technology",
+  "repository": "https://github.com/moonline/Photobook",
+  "author": "Moonline <moonline@users.noreply.github.com>",
+  "license": "GPL-3.0",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "yarn build-styles && yarn build-server && yarn build-app",
+    "build-styles": "lessc ./src/Resources/Styles/styles.less ./src/Resources/Styles/styles.css",
+    "build-server": "tsc ./server.ts",
+    "build-app": "tsc --target ES5 ./src/Main.ts --module amd --out ./src/Main.js"
   },
-  "author": "Moonline",
-  "license": "GPL3",
   "dependencies": {
-    "express": "~4.13.3",
     "body-parser": "~1.14.2",
-    "path": "~0.12.7",
-    "fs": "0.0.2",
-    "tsconfig": "~2.2.0",
     "easyimage": "~2.1.0",
+    "express": "~4.13.3",
+    "fs": "0.0.2",
+    "image-size": "~0.4.0",
     "mime": "~1.3.4",
-    "image-size": "~0.4.0"
+    "path": "~0.12.7",
+    "tsconfig": "~2.2.0"
+  },
+  "devDependencies": {
+    "less": "^4.1.2",
+    "typescript": "^4.5.4"
   }
 }
