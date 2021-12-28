@@ -1,9 +1,5 @@
-/// <reference path="./declarations/node/node.d.ts" />
-/// <reference path="./declarations/express/express.d.ts" />
-/// <reference path="./declarations/body-parser/body-parser.d.ts" />
+
 /// <reference path="./declarations/mime/mime.d.ts" />
-/// <reference path="./declarations/easyimage/easyimage.d.ts" />
-/// <reference path="./declarations/image-size/image-size.d.ts" />
 // thanks @ https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import FS = require('fs');
@@ -16,90 +12,106 @@ import ImageSize = require('image-size');
 
 import makeDirectoryRecursive = require('./helper/FileHelper');
 
-var configuration: any = JSON.parse(FS.readFileSync('./config.json', 'utf8'));
+const configuration: any = JSON.parse(FS.readFileSync('./config.json', 'utf8'));
 
 
-var allowCrossDomain = function(request: any, response: any, next: any) {
-	response.header('Access-Control-Allow-Origin', '*');
-	response.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-	response.header('Access-Control-Allow-Headers', 'Content-Type');
-	next();
-};
+class AppServer {
+	// TODO param
+	server: any;
 
+	constructor() {
+		makeDirectoryRecursive(configuration.imagesCache);
+	}
 
-makeDirectoryRecursive(configuration.imagesCache);
-
-
-/**
- * Basic server
- */
-var app = Express();
-app.use(allowCrossDomain);
-app.use(BodyParser.json())
-app.use('/', Express.static(__dirname + '/src'));
-
-
-function respondImage(response: any, imagePath: string): void {
-	response.writeHead(200, { 'Content-Type': Mime.lookup(imagePath) });
-	response.end(FS.readFileSync(imagePath), 'binary');
-}
-
-function renderAndReturnThumbnail(imagePath: string, thumbnailPath: string, thumbnailSize: number, response: any): void {
-	var thumbnailConfiguration: any = {
-		src: imagePath,
-		dst: thumbnailPath,
-		width: thumbnailSize
+	allowCrossDomain = (request: any, response: any, next: any) => {
+		response.header('Access-Control-Allow-Origin', '*');
+		response.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+		response.header('Access-Control-Allow-Headers', 'Content-Type');
+		next();
 	};
-	EasyImage.resize(thumbnailConfiguration).then(function (error, stdout, stderr) {
-			if (error) {
-				console.error(error);
-			}
-			respondImage(response, thumbnailPath);
-	});
-}
 
+	respondImage = (response: any, imagePath: string): void => {
+		response.writeHead(200, { 'Content-Type': Mime.lookup(imagePath) });
+		response.end(FS.readFileSync(imagePath), 'binary');
+	}
+	
+	renderAndReturnThumbnail = (imagePath: string, thumbnailPath: string, thumbnailSize: number, response: any): void => {
+		var thumbnailConfiguration: any = {
+			src: imagePath,
+			dst: thumbnailPath,
+			width: thumbnailSize
+		};
+		// TOOD params
+		EasyImage.resize(thumbnailConfiguration).then((error: any, stdout: any, stderr: any) => {
+				if (error) {
+					console.error(error);
+				}
+				this.respondImage(response, thumbnailPath);
+		});
+	}
 
-app.get('/api/image', function(request, response){
-	if (request.query.path) {
-		// legacy support for old photobooks
-		var imagePath = (request.query.path.indexOf('file://') === 0) ? request.query.path.substring(7) : request.query.path;
+	setup = () => {
+		this.server = Express();
+		this.server.use(this.allowCrossDomain);
+		this.server.use(BodyParser.json())
+		this.server.use('/', Express.static(__dirname + '/src'));
 
-		FS.stat(imagePath, function(error: any, imageStatistics: any) {
-			if(error) {
-				response.status(400).send('Image not found!');
-			} else {
-				var thumbnailDirectoryPath = Path.join(Path.dirname(imagePath), configuration.thumbnail.directory);
-
-				FS.stat(thumbnailDirectoryPath, function(error, thumbnailDirectoryStatistics) {
-					if(error) { FS.mkdirSync(thumbnailDirectoryPath); }
-
-					var thumbnailPath = Path.join(thumbnailDirectoryPath, Path.basename(imagePath));
-					var thumbnailSize = request.query.size || configuration.thumbnail.size;
-
-					FS.stat(thumbnailPath, function(error, thumbnailStatistics) {
-						if(error) {
-							renderAndReturnThumbnail(imagePath, thumbnailPath, thumbnailSize, response)
-						} else {
-							ImageSize(thumbnailPath, function(error, dimensions) {
-								if(dimensions.width != thumbnailSize) {
-									renderAndReturnThumbnail(imagePath, thumbnailPath, thumbnailSize, response);
+		/**
+		 * Server start
+		 * const server = new AppServer();
+		 * server.setup();
+		 * server.start(8080);
+		 * ...
+		 * server.stop();
+		 */
+		// TODO params
+		this.server.get('/api/image', (request: any, response: any) => {
+			if (request.query.path) {
+				const requestPath:string = String(Array.isArray(request.query.path) ? request.query.path[0] : request.query.path);
+				// legacy support for old photobooks
+				const imagePath: string = (requestPath.indexOf('file://') === 0) ? requestPath.replace('file://', '') : requestPath;
+		
+				FS.stat(imagePath, (error: any, imageStatistics: any) => {
+					if(error) {
+						response.status(400).send('Image not found!');
+					} else {
+						var thumbnailDirectoryPath = Path.join(Path.dirname(imagePath), configuration.thumbnail.directory);
+		
+						FS.stat(thumbnailDirectoryPath, (error, thumbnailDirectoryStatistics) => {
+							if(error) { FS.mkdirSync(thumbnailDirectoryPath); }
+		
+							var thumbnailPath = Path.join(thumbnailDirectoryPath, Path.basename(imagePath));
+							var thumbnailSize = request.query.size || configuration.thumbnail.size;
+		
+							FS.stat(thumbnailPath, (error, thumbnailStatistics) => {
+								if(error) {
+									this.renderAndReturnThumbnail(imagePath, thumbnailPath, thumbnailSize, response)
+								} else {
+									// TODO params
+									ImageSize(thumbnailPath, (error: any, dimensions: any) => {
+										if(dimensions.width != thumbnailSize) {
+											this.renderAndReturnThumbnail(imagePath, thumbnailPath, thumbnailSize, response);
+										}
+									});
+									this.respondImage(response, thumbnailPath);
 								}
 							});
-							respondImage(response, thumbnailPath);
-						}
-					});
+						});
+					}
 				});
+			} else {
+				response.status(400).send('Path missing!');
 			}
 		});
-	} else {
-		response.status(400).send('Path missing!');
 	}
-});
 
+	start = (port: number = 8562) => {
+		this.server.listen(port);
+	}
 
-/**
- * Server start
- */
-var appPort = 8080;
-app.listen(appPort);
-console.log('Server running on port '+appPort);
+	stop = () => {
+		this.server.close();
+	}
+}
+
+export default AppServer;

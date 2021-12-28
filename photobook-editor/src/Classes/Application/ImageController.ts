@@ -8,7 +8,7 @@
 
 /// <reference path="../../Resources/Libraries/FileSaver/FileSaver.d.ts"/>
 
-/// <reference path="../../Configuration/LayoutConfiguration.ts"/>
+/// <reference path="../Domain/LayoutConfiguration.ts"/>
 
 module app.application {
 	'use strict';
