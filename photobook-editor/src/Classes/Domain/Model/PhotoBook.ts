@@ -1,5 +1,5 @@
-/// <reference path="../../Domain/Model/Page.ts"/>
-/// <reference path="../../Domain/Model/RelativePosition.ts"/>
+/// <reference path="./Page.ts"/>
+/// <reference path="./RelativePosition.ts"/>
 
 module app.domain.model {
 	'use strict';

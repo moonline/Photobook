@@ -1,9 +1,9 @@
-/// <reference path="../../Domain/Model/Image.ts"/>
-/// <reference path="../../Domain/Model/Title.ts"/>
-/// <reference path="../../Domain/Model/PhotoBook.ts"/>
-/// <reference path="../../Domain/Model/RelativePosition.ts"/>
+/// <reference path="./Image.ts"/>
+/// <reference path="./Title.ts"/>
+/// <reference path="./PhotoBook.ts"/>
+/// <reference path="./RelativePosition.ts"/>
 
-/// <reference path="../../Domain/Model/Element.ts"/>
+/// <reference path="./Element.ts"/>
 
 module app.domain.model {
 	'use strict';

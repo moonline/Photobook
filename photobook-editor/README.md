@@ -1,6 +1,6 @@
 # Photobook
 
-"Photobook" is an HTML5 Application to create a photobook using the printer function of the browser.
+"Photobook Editor" is an HTML5 Application to create a photobook using the printer function of the browser.
 
 
 ![Main Screen](./docs/mainScreen.jpg)
@@ -54,18 +54,12 @@ cd photobook-editor
 yarn install
 ```
 
-
-### Start the application
-
-```sh
-yarn start
-```
-
 ### Build
 
 ```sh
-build.sh
+yarn build
 ```
+
 
 ### Start the application
 
