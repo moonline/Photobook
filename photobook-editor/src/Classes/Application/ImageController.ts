@@ -97,21 +97,22 @@ module app.application {
 		save(): void {
 			var scope = this.scope;
 
-			while(!this.scope.photoBook.title || this.scope.photoBook.title == "") {
-				this.scope.photoBook.title = prompt("Please enter the title of your photobook");
-			}
-			var serializedObjects: any[] = [];
-			var blob = new Blob([JSON.stringify(
-				scope.photoBook,
-				function(key: any, value: any) {
-					// don't serialize parent relations of pages -> cyclic
-					if (key=="parentPhotoBook") {
-						return undefined;
+			if (!this.scope.photoBook.title || this.scope.photoBook.title == "") {
+				alert('Please choose a title for your photobook');
+			} else {
+				var serializedObjects: any[] = [];
+				var blob = new Blob([JSON.stringify(
+					scope.photoBook,
+					function(key: any, value: any) {
+						// don't serialize parent relations of pages -> cyclic
+						if (key=="parentPhotoBook") {
+							return undefined;
+						}
+						else return value;
 					}
-					else return value;
-				}
-			)], {type: 'application/json'});
-			var fileSaver = saveAs(blob,this.scope.photoBook.title.replace(" ","-")+".json");
+				)], {type: 'application/json'});
+				var fileSaver = saveAs(blob,this.scope.photoBook.title.replace(" ","-")+".json");
+			}
 		}
 
 		/**
