@@ -76,16 +76,20 @@
 				<div class="controlsSection" data-size="small">
 					<h3><span class="icon icon-liga">&#xe030;</span> Insert</h3>
 					<div class="controlsSectionContent buttonGrid" data-columns="2">
-						<div class="control" data-size="single">
+						<div class="control" data-size="double">
 							<button class="button" data-ng-click="currentElement.createTitle(); setCurrentElement(currentPage.titles[currentPage.titles.length-1], currentPage);" title="Create a new title">
 								<span class="icon icon-liga">&#xe034;</span><span class="caption">&nbsp;Title</span>
 							</button>
 						</div>
-						<div class="control" data-size="single">
-							<button class="button" data-ng-click="currentElement.createImage(); setCurrentElement(currentPage.images[currentPage.images.length-1], currentPage);" title="Add new image to page">
-								<span class="icon icon-liga">&#xe074;</span><span class="caption">&nbsp;Image</span>
-							</button>
+
+						<div class="control" data-size="double">
+							<input
+								type="text" id="newImagePath" name="newImagePath"
+								placeholder="Paste image path here" data-ng-input="true"
+								data-callback="currentElement.createImage(value); setCurrentElement(currentPage.images[currentPage.images.length-1], currentPage);"
+							/>
 						</div>
+						
 						<div class="control" data-size="double">
 							<textarea class="dragArea" placeholder="drag images here" data-ng-input="true" data-callback="currentElement.addImagePaths(value); setCurrentElement(currentPage.images[currentPage.images.length-1], currentPage);"></textarea>
 						</div>
