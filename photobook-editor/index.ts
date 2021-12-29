@@ -29,11 +29,9 @@ class App {
 		});
 
 		app.on('window-all-closed', function () {
-			// !mac
-			if (process.platform !== 'darwin') {
-				this.server.stop();
-				app.quit();
-			}
+			// TODO fix
+			this.server.stop();
+			app.quit();
 		});
 	}
 

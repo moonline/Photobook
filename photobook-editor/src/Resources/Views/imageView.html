@@ -81,17 +81,12 @@
 								<span class="icon icon-liga">&#xe034;</span><span class="caption">&nbsp;Title</span>
 							</button>
 						</div>
-
+				
 						<div class="control" data-size="double">
-							<input
-								type="text" id="newImagePath" name="newImagePath"
-								placeholder="Paste image path here" data-ng-input="true"
-								data-callback="currentElement.createImage(value); setCurrentElement(currentPage.images[currentPage.images.length-1], currentPage);"
-							/>
-						</div>
-						
-						<div class="control" data-size="double">
-							<textarea class="dragArea" placeholder="drag images here" data-ng-input="true" data-callback="currentElement.addImagePaths(value); setCurrentElement(currentPage.images[currentPage.images.length-1], currentPage);"></textarea>
+							<textarea 
+								class="dragArea" placeholder="Paste image path here" data-ng-input="true"
+								data-callback="currentElement.addImagePaths(value); setCurrentElement(currentPage.images[currentPage.images.length-1], currentPage);"
+							></textarea>
 						</div>
 					</div>
 				</div>
