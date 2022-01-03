@@ -235,7 +235,7 @@
 								data-position="{{image.properties['position']}}" data-vertical-style="{{image.properties['verticalStyle']}}"
 								data-ng-current="{{currentElement == image && 'true' || 'false'}}"
 								class="imageContainer"
-								style="background-image: url('http://localhost:8080/api/image?path={{image.path}}&size={{imageQuality}}');
+								style="background-image: url('http://localhost:8374/api/image?path={{image.path}}&size={{imageQuality}}');
 							{{image.properties['position'] == 'custom' &&
 							'background-position: '+ (image.properties['offsetLeft'] || 0) + 'cm '+ (image.properties['offsetTop'] || 0)+'cm;' || '' }}"
 								data-ng-click="setCurrentElement(image, page); $event.stopPropagation();">

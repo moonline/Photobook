@@ -5,46 +5,51 @@ import AppServer from './server';
 
 const APP_PORT = 8374;
 
-const server = new AppServer();
-server.setup();
-server.start(8080);
-
 class App {
 	server: AppServer;
 
 	constructor() {
 		this.server = new AppServer();
-		server.setup();
-		server.start(APP_PORT);
+		this.server.setup();
+		this.server.start(APP_PORT);
 
 		app.whenReady().then(() => {
 			this.createWindow();
 
 			// mac
-			app.on('activate', function () {
+			app.on('activate', () => {
 				if (BrowserWindow.getAllWindows().length === 0) {
 					this.createWindow();
 				}
 			});
 		});
 
-		app.on('window-all-closed', function () {
-			// TODO fix
-			this.server.stop();
-			app.quit();
+		app.on('window-all-closed', () => {
+			console.log('window-all-closed');
+			if (process.platform !== 'darwin') {
+				app.quit();
+			}
 		});
 	}
 
 	createWindow = () => {
 		const dimensions = screen.getPrimaryDisplay().workAreaSize;
-		const mainWindow = new BrowserWindow({
+		let mainWindow = new BrowserWindow({
 			width: dimensions.width,
 			height: dimensions.height,
-			icon: Path.join(__dirname, 'Resources/Img/appIcon.png')
+			autoHideMenuBar: true,
+			icon: Path.join(__dirname, 'Resources/Img/appIcon.png'),
+			webPreferences: {
+				nodeIntegration: true
+			}
 		});
-		mainWindow.setMenu(null);
-		// TODO remove
-		mainWindow.webContents.openDevTools();
+		mainWindow.on('close', () => {
+			this.server.stop();
+		});
+		mainWindow.on('closed', () => {
+			mainWindow = null;
+		});
+		// mainWindow.webContents.openDevTools();
 		mainWindow.loadURL(`http://localhost:${APP_PORT}`);
 	}
 }

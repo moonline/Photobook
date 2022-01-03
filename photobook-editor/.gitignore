@@ -2,7 +2,7 @@
 /src/*.js
 /*.js
 /helper/*.js
-/Resources/Styles/styles.css
+/src/Resources/Styles/styles.css
 /*.tgz
 
 # Do not exclude Configuration!

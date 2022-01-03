@@ -43,9 +43,6 @@ module app.application {
 			this.scope.imageQuality = 500;
 
 			window['currentElement'] = this.scope.currentElement;
-
-			// prevent user from closing the browser accidentially
-			window.onbeforeunload = function() { return true; };
 		}
 
 		// TODO: improove

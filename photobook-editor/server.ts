@@ -2,6 +2,7 @@
 /// <reference path="./declarations/mime/mime.d.ts" />
 // thanks @ https://github.com/DefinitelyTyped/DefinitelyTyped
 
+import * as http from 'http';
 import FS = require('fs');
 import Path = require('path');
 import Express = require('express');
@@ -17,25 +18,26 @@ const configuration: any = JSON.parse(FS.readFileSync('./config.json', 'utf8'));
 
 class AppServer {
 	// TODO param
-	server: any;
+	server: Express.Express;
+	handle: http.Server;
 
 	constructor() {
 		makeDirectoryRecursive(configuration.imagesCache);
 	}
 
-	allowCrossDomain = (request: any, response: any, next: any) => {
+	allowCrossDomain = (request: Express.Request, response: Express.Response, next: Express.NextFunction) => {
 		response.header('Access-Control-Allow-Origin', '*');
 		response.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
 		response.header('Access-Control-Allow-Headers', 'Content-Type');
 		next();
 	};
 
-	respondImage = (response: any, imagePath: string): void => {
+	respondImage = (response: Express.Response, imagePath: string): void => {
 		response.writeHead(200, { 'Content-Type': Mime.lookup(imagePath) });
 		response.end(FS.readFileSync(imagePath), 'binary');
 	}
 	
-	renderAndReturnThumbnail = (imagePath: string, thumbnailPath: string, thumbnailSize: number, response: any): void => {
+	renderAndReturnThumbnail = (imagePath: string, thumbnailPath: string, thumbnailSize: number, response: Express.Response): void => {
 		var thumbnailConfiguration: any = {
 			src: imagePath,
 			dst: thumbnailPath,
@@ -43,10 +45,10 @@ class AppServer {
 		};
 		// TOOD params
 		EasyImage.resize(thumbnailConfiguration).then((error: any, stdout: any, stderr: any) => {
-				if (error) {
-					console.error(error);
-				}
-				this.respondImage(response, thumbnailPath);
+			if (error) {
+				console.error(error);
+			}
+			this.respondImage(response, thumbnailPath);
 		});
 	}
 
@@ -65,7 +67,7 @@ class AppServer {
 		 * server.stop();
 		 */
 		// TODO params
-		this.server.get('/api/image', (request: any, response: any) => {
+		this.server.get('/api/image', (request: Express.Request, response: Express.Response) => {
 			if (request.query.path) {
 				const requestPath:string = String(Array.isArray(request.query.path) ? request.query.path[0] : request.query.path);
 				// legacy support for old photobooks
@@ -106,11 +108,13 @@ class AppServer {
 	}
 
 	start = (port: number = 8562) => {
-		this.server.listen(port);
+		this.handle = this.server.listen(port);
+		console.info(`Server started at port ${port}`)
 	}
 
 	stop = () => {
-		this.server.close();
+		this.handle.close();
+		console.info('Server stopped');
 	}
 }
 
