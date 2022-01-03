@@ -5,10 +5,12 @@
 /// <reference path="../Domain/Model/Element.ts"/>
 
 /// <reference path="../Service/FileService.ts"/>
+/// <reference path="../Service/PPIService.ts"/>
 
 /// <reference path="../../Resources/Libraries/FileSaver/FileSaver.d.ts"/>
 
 /// <reference path="../Domain/LayoutConfiguration.ts"/>
+
 
 module app.application {
 	'use strict';
@@ -30,6 +32,7 @@ module app.application {
 			this.scope.isPageInGroup = this.isPageInGroup.bind(this);
 			this.scope.getNumberList = this.getNumberList.bind(this);
 			this.scope.save = this.save.bind(this);
+			this.scope.print = this.print.bind(this);
 			this.scope.loadFile = this.loadFile.bind(this);
 
 			this.scope.title = "Image Manager";
@@ -110,6 +113,12 @@ module app.application {
 				)], {type: 'application/json'});
 				var fileSaver = saveAs(blob,this.scope.photoBook.title.replace(" ","-")+".json");
 			}
+		}
+
+		print(): void {
+			const pxPerCm: number = app.service.PPIService.calcPPI();
+			window.printPage(pxPerCm);
+			alert('PDF export started. Check your PDF printer directory');
 		}
 
 		/**

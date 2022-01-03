@@ -1,5 +1,6 @@
-import { app, screen, BrowserWindow } from 'electron';
 import * as Path from 'path';
+import { app, screen, BrowserWindow, ipcMain } from 'electron';
+
 import AppServer from './server';
 
 
@@ -32,6 +33,29 @@ class App {
 		});
 	}
 
+	print = (window: BrowserWindow, pxPerCm: number) => {
+		const options = {
+			silent: true,
+			printBackground: true,
+			margin: {
+				marginType: 'custom',
+				top: pxPerCm,
+				left: pxPerCm,
+				right: pxPerCm,
+				bottom: pxPerCm
+			},
+			landscape: true,
+			pagesPerSheet: 1,
+			copies: 1
+		}
+
+		window.webContents.print(options, (success, failureReason) => {
+			if (!success) { console.log(failureReason); }
+
+			console.log('Print Initiated');
+		});
+	};
+
 	createWindow = () => {
 		const dimensions = screen.getPrimaryDisplay().workAreaSize;
 		let mainWindow = new BrowserWindow({
@@ -40,7 +64,8 @@ class App {
 			autoHideMenuBar: true,
 			icon: Path.join(__dirname, 'Resources/Img/appIcon.png'),
 			webPreferences: {
-				nodeIntegration: true
+				contextIsolation: true,
+				preload: Path.join(__dirname, 'preload.js'),
 			}
 		});
 		mainWindow.on('close', () => {
@@ -48,6 +73,9 @@ class App {
 		});
 		mainWindow.on('closed', () => {
 			mainWindow = null;
+		});
+		ipcMain.on('print', (event, pxPerCm) => {
+			this.print(mainWindow, pxPerCm);
 		});
 		// mainWindow.webContents.openDevTools();
 		mainWindow.loadURL(`http://localhost:${APP_PORT}`);

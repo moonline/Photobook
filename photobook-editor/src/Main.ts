@@ -1,4 +1,5 @@
 /// <reference path='./Resources/Libraries/AngularJS/angular.d.ts' />
+/// <reference path='./Resources/Libraries/global.d.ts' />
 /// <reference path='./Classes/Module/MainModule.ts' />
 
 module app {

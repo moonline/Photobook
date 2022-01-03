@@ -1,12 +1,7 @@
 <div class="view" id="imageView">
 	<div class="controls toolBar theme dark">
 		<img class="icon" src="./Resources/Img/appIcon.png" alt="Photobook Designer Icon" />
-		<div class="control">
-			<span class="button" data-ng-click="save()" title="Save photobook to file on computer">
-				<span class="icon icon-liga">&#xe115;</span>
-				<span class="label">Save</span>
-			</span>
-		</div>
+
 		<div class="control">
 			<span class="inputFileWrapper button" title="Open file from computer">
 				<input type="file" accept="application/json" name="loadFile" value="Open File" title="Open photobook from file"
@@ -16,13 +11,27 @@
 			</span>
 		</div>
 
+		<div class="control">
+			<span class="button" data-ng-click="save()" title="Save photobook to file on computer">
+				<span class="icon icon-liga">&#xe115;</span>
+				<span class="label">Save</span>
+			</span>
+		</div>
+		
+		<div class="control">
+			<span class="button" data-ng-click="print()" title="Print Photobook">
+				<span class="icon icon-liga">&#xe10a;</span>
+				<span class="label">Print</span>
+			</span>
+		</div>
+
 		<input class="blue" type="text" id="photobookTitle" name="photobookTitle" data-ng-model="photoBook.title" placeholder="Photobook name" />
 
 		<div class="control">
 			<label for="pagesPerGroup">Pages per group:</label>
 			<select name="pagesPerGroup" id="pagesPerGroup" data-ng-model="pagesPerGroup" data-ng-options="option for option in [2,4,8,16,32,64,128, 256, 512,1024]">
 			</select>
-			<label for="numberOfTitlePages">Number of title pages:</label>
+			<label for="numberOfTitlePages">Title pages:</label>
 			<select name="numberOfTitlePages" id="numberOfTitlePages" data-ng-model="numberOfTitlePages" data-ng-options="option for option in [0,1,2,3]"></select>
 			<label for="imageQuality">Image quality:</label>
 			<input type="range" name="imageQuality" id="imageQuality" min="250" max="5000" step="250" data-ng-model="imageQuality" />
