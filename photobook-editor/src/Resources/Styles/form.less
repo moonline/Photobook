@@ -65,30 +65,4 @@ textarea.dragArea {
 
 input[type="range"] {
 	height: 2rem; vertical-align: middle;
-	-webkit-appearance: none; // Hide slider
-
-	&:focus {
-	  outline: none; // remove blue border
-	}
-	&::-ms-track {
-		.sliderTrack(@blue500);
-	}
-	&::-moz-range-track {
-		.sliderTrack(@blue500);
-	}
-	&::-webkit-slider-runnable-track {
-		.sliderTrack(@blue500);
-	}
-
-	&::-webkit-slider-thumb {
-		-webkit-appearance: none;
-		margin-top: -14px; // need to specify a margin in Chrome
-		.sliderThumb(@blue500);
-	}
-	&::-moz-range-thumb {
-		.sliderThumb(@blue500);
-	}
-	&::-ms-thumb {
-		.sliderThumb(@blue500);
-	}
 }
