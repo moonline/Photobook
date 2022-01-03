@@ -1,0 +1,1 @@
+declare function printPage(pxPerCm: number);

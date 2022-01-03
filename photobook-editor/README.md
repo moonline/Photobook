@@ -24,12 +24,20 @@ See section Development
 
 ## Usage
 
-### Print with Firefox
+### Print
 
-1. about:config -> margin. Set margin_left, margin_right, margin_bottom, margin_top to 0.
-2. "Firefox Menu"->"Print"->"Page Setup"->"Custom Size".
-3. Create a Page with Size of A4 and Border 1cm. The print layout will remove the white border so the pdf printer can add it.
-4. Print with "Print to file". Uncheck "Ignore Size and shrink...", allow printing background images and remove all headers and titles. Use a landscape paper of the type you created above.
+// TODO review
+
+In the print dialog:
+
+1. Enter tab `Page Setup`.
+2. Open `Paper Size` menu.
+3. Scroll down to `Manage Custom Sizes`.
+4. Create a new `Photobook` custom size of size of A4 and border 1cm. (The print layout will remove the white border of the pages so the pdf printer can add it)
+5. Close the dialog
+6. Select Paper Size `Photobook` and Orientation `Landscape`
+7. If the options exist, uncheck "Ignore Size and shrink...", allow printing background images and remove all headers and titles. 
+8. Print
 
 ![Print](./docs/print1.jpg)
 ![Print](./docs/print2.jpg)

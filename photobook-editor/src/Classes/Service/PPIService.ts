@@ -9,7 +9,6 @@ module app.service.PPIService {
 			element.setAttribute('style', 'display: block; width: 1cm!important; padding: 0; margin: 0;');
 			document.getElementsByTagName('body')[0].appendChild(element);
 			PPIService.ppi = element['offsetWidth'];
-			//element.parentNode.removeChild(element);
 		}
 		return PPIService.ppi;
 	}
