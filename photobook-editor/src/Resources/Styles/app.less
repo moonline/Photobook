@@ -2,13 +2,43 @@
 @elementMargin: 0.5rem;
 
 * {
-	.box-sizing(border-box); margin: 0; padding: 0; text-indent: 0;
+	.box-sizing(border-box);
+	margin: 0;
+	padding: 0;
+	text-indent: 0;
 }
-html { font-size: 0.9rem; }
-html, body { height: 100%; overflow: hidden; }
-body { padding-top: 2cm; font-family: Ubuntu, Arial, Helvetica, sans-serif; }
+html {
+	font-size: 0.9rem;
+}
+html, body {
+	overflow: hidden;
+	height: 100%;
+}
+body {
+	padding-top: 2cm;
+	font-family: Ubuntu, Arial, Helvetica, sans-serif;
+}
+@media not print {
+	html {
+		font-size: 1rem;
+		height: 100%;
+		width: 100%;
+	}
+	body {
+		// zoom app content to 90%
+		transform: scale(0.9);
+		width: 111.11111111%;
+		height: 111.11111111%;
+		position: relative;
+		left: -5.555555556%;
+		top: -5.555555556%;
+	}
+}
 
-.view { height: 100%; overflow: hidden; }
+.view {
+	height: 100%;
+	overflow: hidden;
+}
 
 @media screen {
 	.applicationFrame {
