@@ -57,7 +57,17 @@ figure.imageContainer {
 @media print {
 	body { padding: 0; background: white; height: auto; overflow: auto; }
 	.controls { display: none!important; }
-	.page { padding: 0; width: 27.7cm; height: 19cm;  margin: 0; box-shadow: none; }
+	// use width and height 100vw/vh instead of width: 27.7cm; height: 19cm to fix printing issues
+	.page {
+		padding: 1cm;
+		margin: 0;		
+		width: calc(100vw-1cm);
+		height: calc(100vh-1cm);
+		box-shadow: none; 
+	}
+	.page:not(:last-child) {
+		page-break-after: always;
+	}
 	.page > .content { background: none; }
 	figure.imageContainer { justify-content: flex-end; }
 	figcaption:before { content: ""; margin: 0; padding: 0; width: 0; height: 0; display: auto;	}
