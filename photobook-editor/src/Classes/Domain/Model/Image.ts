@@ -18,13 +18,13 @@ module app.domain.model {
 			this.caption = null;
 		}
 
-		public importFromObject(image: any):void {
+		public importFromObject(image: any): void {
 			this.path = image.path;
 			this.properties = image.properties;
 			// set if not set -> backward compatibility
-			if(!this.properties['display']) { this.properties['display'] = "horizontal"; }
-			if(!this.properties['position']) { this.properties['position'] = "center"; }
-			if(!this.properties['verticalStyle']) { this.properties['verticalStyle'] = "standard"; }
+			if (!this.properties['display']) { this.properties['display'] = "horizontal"; }
+			if (!this.properties['position']) { this.properties['position'] = "center"; }
+			if (!this.properties['verticalStyle']) { this.properties['verticalStyle'] = "standard"; }
 			this.caption = image.caption;
 		}
 
