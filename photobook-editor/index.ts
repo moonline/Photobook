@@ -1,4 +1,7 @@
+import * as OS from 'os';
 import * as Path from 'path';
+import * as FS from 'fs';
+import * as Open from 'open';
 import { app, screen, BrowserWindow, ipcMain } from 'electron';
 
 import AppServer from './server';
@@ -33,26 +36,37 @@ class App {
 		});
 	}
 
-	print = (window: BrowserWindow, pxPerCm: number) => {
-		const options = {
-			silent: true,
-			printBackground: true,
-			margin: {
-				marginType: 'custom',
-				top: pxPerCm,
-				left: pxPerCm,
-				right: pxPerCm,
-				bottom: pxPerCm
-			},
+	print = (window: BrowserWindow, numberOfPages: number) => {
+		// https://www.electronjs.org/docs/latest/api/web-contents#contentsprinttopdfoptions
+		const pdfOptions = {
 			landscape: true,
-			pagesPerSheet: 1,
-			copies: 1
-		}
+			marginsType: 1,
+			pageSize: 'A4',
+			scaleFactor: 100,
+			printBackground: true,
+			pageRanges: {
+				from: 0,
+				// exclude empty tailer page
+				to: numberOfPages - 1
+			}
+		};
 
-		window.webContents.print(options, (success, failureReason) => {
-			if (!success) { console.log(failureReason); }
-
-			console.log('Print Initiated');
+		const pdfPath = Path.join(OS.homedir(), 'PDF', 'photobook.pdf')
+		window.webContents.printToPDF(pdfOptions).then(data => {
+			FS.writeFile(
+				pdfPath,
+				data,
+				(error) => {
+					if (error) {
+						throw error;
+					} else {
+						Open(pdfPath);
+						console.info(`Wrote PDF successfully to ${pdfPath}`);
+					}
+				}
+			)
+		}).catch(error => {
+			console.error(`Failed to write PDF to ${pdfPath}: `, error)
 		});
 	};
 
@@ -74,8 +88,8 @@ class App {
 		mainWindow.on('closed', () => {
 			mainWindow = null;
 		});
-		ipcMain.on('print', (event, pxPerCm) => {
-			this.print(mainWindow, pxPerCm);
+		ipcMain.on('print', (event, numberOfPages) => {
+			this.print(mainWindow, numberOfPages);
 		});
 		// mainWindow.webContents.openDevTools();
 		mainWindow.loadURL(`http://localhost:${APP_PORT}`);

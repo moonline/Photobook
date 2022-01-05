@@ -1,1 +1,1 @@
-declare function printPage(pxPerCm: number);
+declare function printPage(numberOfPages: number);

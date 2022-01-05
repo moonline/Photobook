@@ -37,6 +37,7 @@ module app.application {
 
 			this.scope.title = "Image Manager";
 			this.scope.photoBook = new app.domain.model.PhotoBook();
+			// TODO: still used? scope.photoBook.pages is used currently
 			this.scope.pages = [];
 			this.scope.availableLayouts = Object.keys(configuration.LayoutConfiguration.layouts);
 			this.scope.layouts = configuration.LayoutConfiguration.layouts;
@@ -50,10 +51,10 @@ module app.application {
 
 		// TODO: improove
 		getTypeName(element: any): string {
-			if(element instanceof app.domain.model.Page) { return 'Page'; }
-			if(element instanceof app.domain.model.Image) { return 'Image'; }
-			if(element instanceof app.domain.model.Title) { return 'Title'; }
-			if(element instanceof app.domain.model.PhotoBook) { return 'PhotoBook'; }
+			if (element instanceof app.domain.model.Page) { return 'Page'; }
+			if (element instanceof app.domain.model.Image) { return 'Image'; }
+			if (element instanceof app.domain.model.Title) { return 'Title'; }
+			if (element instanceof app.domain.model.PhotoBook) { return 'PhotoBook'; }
 			return null;
 		}
 
@@ -71,10 +72,10 @@ module app.application {
 		}
 
 		getGroupEndPage(groupStartPage: number): number {
-			if(groupStartPage > this.scope.numberOfTitlePages-1) {
-				return groupStartPage + this.scope.pagesPerGroup-1;
+			if (groupStartPage > this.scope.numberOfTitlePages - 1) {
+				return groupStartPage + this.scope.pagesPerGroup - 1;
 			} else {
-				return this.scope.numberOfTitlePages-1;
+				return this.scope.numberOfTitlePages - 1;
 			}
 		}
 
@@ -86,9 +87,9 @@ module app.application {
 			return page >= this.scope.visiblePagesStart && page <= this.getGroupEndPage(this.scope.visiblePagesStart);
 		}
 
-		getNumberList(start:number = 0, end:number = 10, step:number = 1): number[] {
-			var numbers:number[] = [];
-			for(var i:number = start; i<=end ;i+=step) {
+		getNumberList(start: number = 0, end: number = 10, step: number = 1): number[] {
+			var numbers: number[] = [];
+			for (var i: number = start; i <= end; i += step) {
 				numbers.push(i);
 			}
 			return numbers;
@@ -103,22 +104,20 @@ module app.application {
 				var serializedObjects: any[] = [];
 				var blob = new Blob([JSON.stringify(
 					scope.photoBook,
-					function(key: any, value: any) {
+					function (key: any, value: any) {
 						// don't serialize parent relations of pages -> cyclic
-						if (key=="parentPhotoBook") {
+						if (key == "parentPhotoBook") {
 							return undefined;
 						}
 						else return value;
 					}
-				)], {type: 'application/json'});
-				var fileSaver = saveAs(blob,this.scope.photoBook.title.replace(" ","-")+".json");
+				)], { type: 'application/json' });
+				var fileSaver = saveAs(blob, this.scope.photoBook.title.replace(" ", "-") + ".json");
 			}
 		}
 
 		print(): void {
-			const pxPerCm: number = app.service.PPIService.calcPPI();
-			window.printPage(pxPerCm);
-			alert('PDF export started. Check your PDF printer directory');
+			window.printPage(this.scope.photoBook.pages.length);
 		}
 
 		/**
@@ -129,7 +128,7 @@ module app.application {
 		loadFile(files) {
 			var scope = this.scope;
 
-			app.service.FileService.readFile(files[0], function(fileContent) {
+			app.service.FileService.readFile(files[0], function (fileContent) {
 				var photobook = new app.domain.model.PhotoBook();
 				photobook.importFromObject(JSON.parse(fileContent));
 				scope.photoBook = photobook;
