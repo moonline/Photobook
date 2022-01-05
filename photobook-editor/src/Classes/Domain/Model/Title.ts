@@ -7,7 +7,7 @@ module app.domain.model {
 		value: string;
 		properties: Object;
 
-		constructor(title:string = "New Title") {
+		constructor(title: string = "New Title") {
 			this.value = title;
 			this.properties = {
 				type: "standard",

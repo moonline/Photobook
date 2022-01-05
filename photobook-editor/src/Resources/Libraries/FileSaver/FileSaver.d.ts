@@ -1,1 +1,1 @@
-declare function saveAs(blobb, name: string):void;
+declare function saveAs(blobb, name: string): void;
