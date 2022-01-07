@@ -1,13 +1,53 @@
 # Photobook
 
-"Photobook Editor" is an HTML5 Application to create a photobook and "Photobook Viewer" is an Electron-based application to view such photobooks.
+"Photobook Editor" is an Electron and Angular based Application to create photobooks.
 
-![Main Screen](Documentation/mainScreen.jpg)
+![Main Screen](Documentation/main-screen.png)
+![Main Screen](Documentation/page-titles.png)
+![Main Screen](Documentation/image-titles.png)
+![Main Screen](Documentation/image-controls.png)
+![Main Screen](Documentation/printed-pdf.png)
 
-![Photobook viewer screenshot](app/docs/photobook-viewer.jpg)
+## Installation
 
-* [Photobook Editor](./photobook-editor/README.md)
-* [Photobook Viewer](./photobook-viewer/README.md)
+### Linux (Appimage/Snap)
+
+Download installation package of the [latest release](https://github.com/moonline/Photobook/releases).
+
+#### Create application launcher
+
+1. Copy AppImage file to `.local/bin/photobook-editor.AppImage` in your home directory.
+
+```sh
+cp photobook-editor-*.AppImage ~/.local/bin/photobook-editor.AppImage
+```
+
+2. Make it executable 
+
+```sh
+sudo chmod+x ~/.local/bin/photobook-editor.AppImage
+```
+
+3. Copy the launcher `photobook-editor.desktop` to `.local/share/applications/`.
+
+```sh
+cp photobook-editor.desktop ~/.local/share/applications/
+```
+
+
+## Uninstall
+
+Remove appimage and launcher:
+
+```sh
+rm ~/.local/share/applications/photobook-editor.desktop
+rm ~/.local/bin/photobook-editor.AppImage
+```
+
+## Development
+
+See [Photobook Editor > Development](./photobook-editor/README.md)
+
 
 ## License
 
