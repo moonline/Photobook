@@ -40,7 +40,6 @@ dist
 .DS_Store
 
 # linux trash
-*.lock
 *.bak
 .directory
 
