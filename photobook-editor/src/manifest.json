@@ -1,0 +1,15 @@
+{
+	"name": "Photobook designer",
+	"version": "0.3",
+	"description": "Design and print a photobook",
+	"launch_path": "index.html",
+	"icons": {
+		"256": "/Resources/Img/appIcon.png",
+		"128": "/Resources/Img/appIcon-128.png"
+	},
+	"developer": {
+		"name": "moonline",
+		"url": "https://github.com/moonline/Photobook"
+	},
+	"default_locale": "en"
+}

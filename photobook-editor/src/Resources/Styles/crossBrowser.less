@@ -1,0 +1,95 @@
+.box-sizing(@sizing: border-box) {
+	-khtml-box-sizing: @sizing;
+	-moz-box-sizing: @sizing;
+	-ms-box-sizing: @sizing;
+	-o-box-sizing: @sizing;
+	-webkit-box-sizing: @sizing;
+	box-sizing: @sizing;
+}
+
+.background-linear-gradient(@color1:silver,@color2:gray) {
+	background: @color1;
+	background: -khtml-linear-gradient(@color1, @color2);
+	background: -moz-linear-gradient(@color1, @color2);
+	background: -ms-linear-gradient(@color1, @color2);
+	background: -o-linear-gradient(@color1, @color2);
+	background: -webkit-linear-gradient(@color1, @color2);
+	background: linear-gradient(@color1, @color2);
+}
+.box-shadow (@shadow: 0 0 0.5em black) {
+	-khtml-box-shadow: @shadow;
+	-moz-box-shadow: @shadow;
+	-ms-box-shadow: @shadow;
+	-o-box-shadow: @shadow;
+	-webkit-box-shadow: @shadow;
+	box-shadow: @shadow;
+}
+
+.flex {
+	display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+	display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+	display: -ms-flexbox;      /* TWEENER - IE 10 */
+	display: -webkit-flex;     /* NEW - Chrome */
+	display: flex;             /* NEW, Spec - Opera 12.1, Firefox 20+ */
+}
+.flex-flow(@flexFlow:column) {
+	-moz-flex-flow: @flexFlow;
+	-ms-flex-flow: @flexFlow;
+	-webkit-flex-flow: @flexFlow;
+	flex-direction: @flexFlow;
+	flex-flow: @flexFlow;
+}
+.justify-content(@justify: space-between) {
+	-khtml-justify-content: @justify;
+	-moz-justify-content: @justify;
+	-ms-justify-content: @justify;
+	-o-justify-content: @justify;
+	-webkit-justify-content: @justify;
+	justify-content: @justify;
+}
+.align-items(@align: center) {
+	-khtml-align-items: @align;
+	-moz-align-items: @align;
+	-ms-align-items: @align;
+	-o-align-items: @align;
+	-webkit-align-items: @align;
+	align-items: @align;
+}
+.align-content(@align: stretch) {
+	-khtml-align-items: @align;
+	-moz-align-items: @align;
+	-ms-align-items: @align;
+	-o-align-items: @align;
+	-webkit-align-items: @align;
+	align-items: @align;
+}
+.column-count(@count) {
+	-webkit-column-count: @count;
+	-moz-column-count: @count;
+	-ms-column-count: @count;
+	column-count: @count;
+}
+.column-gap(@gap) {
+	-webkit-column-gap: @gap;
+	-moz-column-gap: @gap;
+	-ms-column-gap: @gap;
+	column-gap: @gap;
+}
+.flex-grow(@growing) {
+	-webkit-flex-grow: @growing;
+	-moz-flex-grow: @growing;
+	-ms-flex-grow: @growing;
+	flex-grow: @growing;
+}
+.align-self(@alignment) {
+	-webkit-align-self: @alignment;
+	-moz-align-self: @alignment;
+	-ms-align-self: @alignment;
+	align-self: @alignment;
+}
+.flex-wrap(@wrap) {
+	-webkit-flex-wrap: @wrap;
+	-moz-flex-wrap: @wrap;
+	-ms-flex-wrap: @wrap;
+	flex-wrap: @wrap;
+}
