@@ -3,10 +3,10 @@
 "Photobook Editor" is an Electron and Angular based Application to create photobooks.
 
 ![Main Screen](photobook-editor/docs/main-screen.png)
-![Main Screen](photobook-editor/docsDocumentation/page-titles.png)
-![Main Screen](photobook-editor/docsDocumentation/image-titles.png)
-![Main Screen](photobook-editor/docsDocumentation/image-controls.png)
-![Main Screen](photobook-editor/docsDocumentation/printed-pdf.png)
+![Main Screen](photobook-editor/docs/page-titles.png)
+![Main Screen](photobook-editor/docs/image-titles.png)
+![Main Screen](photobook-editor/docs/image-controls.png)
+![Main Screen](photobook-editor/docs/printed-pdf.png)
 
 ## Installation
 
