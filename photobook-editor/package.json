@@ -1,6 +1,6 @@
 {
   "name": "photobook-editor",
-  "version": "0.4.0",
+  "version": "1.0.0",
   "description": "A simple photobook application build of web technology",
   "repository": "https://github.com/moonline/Photobook",
   "author": "Moonline <moonline@users.noreply.github.com>",
@@ -13,7 +13,7 @@
     "build-styles": "lessc ./src/Resources/Styles/styles.less ./src/Resources/Styles/styles.css",
     "build-server": "tsc ./index.ts ./preload.ts",
     "build-app": "tsc --target ES5 ./src/Main.ts --module amd --out ./src/Main.js",
-    "clean-dist": "rm -rf dist && rm photobook-editor*.tgz",
+    "clean-dist": "rm -rf dist && rm -f photobook-editor*.tgz",
     "pack": "yarn clean-dist && electron-builder --dir",
     "dist": "yarn clean-dist && electron-builder",
     "postinstall": "electron-builder install-app-deps"
@@ -21,10 +21,10 @@
   "build": {
     "appId": "photobook-editor",
     "mac": {
-      "category": "Photography"
+      "category": "Graphics"
     },
     "linux": {
-      "category": "Photography"
+      "category": "Graphics"
     }
   },
   "dependencies": {
