@@ -1,1 +1,0 @@
-declare function saveAs(blobb, name: string):void;
