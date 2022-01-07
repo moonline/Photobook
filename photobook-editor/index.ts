@@ -76,7 +76,7 @@ class App {
 			width: dimensions.width,
 			height: dimensions.height,
 			autoHideMenuBar: true,
-			icon: Path.join(__dirname, 'Resources/Img/appIcon.png'),
+			icon: Path.join(__dirname, 'src/Resources/Img/appIcon.png'),
 			webPreferences: {
 				contextIsolation: true,
 				preload: Path.join(__dirname, 'preload.js'),
