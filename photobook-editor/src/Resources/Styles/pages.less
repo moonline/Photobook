@@ -1,0 +1,74 @@
+.page {
+	background: white; box-shadow: 0 0 0.5cm gray; width: 29.7cm; height: 21cm; padding: 1cm; margin: 0.5cm;
+	margin-bottom: 2.5cm; overflow: hidden;
+	position: relative;
+
+	> .content { width: 100%; height: 100%; background: rgb(245, 245, 245);
+		display: flex; flex-direction: row; flex-wrap: wrap; justify-content: space-between;
+		align-content: space-between;
+		overflow: hidden;
+	}
+
+	&[data-ng-current="true"] { outline: 0.1cm solid cornflowerblue; }
+}
+
+.content .imageContainer { display: inline-flex; background-position: center center;
+	-webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover;
+}
+
+.title[data-ng-current="true"] h2 { border: 0.1cm solid cornflowerblue; margin: -0.1cm; }
+
+
+figure.imageContainer {
+	display: flex; flex-direction: column; justify-content: flex-end;
+
+	&[data-ng-current="true"] { border: 0.1cm solid cornflowerblue; }
+}
+figure.imageContainer figcaption {
+	padding: 0.1cm; color: white; text-align: center; font-weight: bold;
+	background-color: rgba(0,0,0,0.25);
+	/*background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB94EBgkjJc53tkoAAAAZdEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIEdJTVBXgQ4XAAAADUlEQVQI12NgYGCoBwAAhACAxkwJbwAAAABJRU5ErkJggg==');
+	*/
+}
+figure.imageContainer {
+	figcaption:empty { background: none; }
+}
+
+@media screen {
+	figure.imageContainer {
+		figcaption:before {
+			content: "✎"; color: white; margin-right: @elementMargin; font-weight: bold; font-size: 0.6cm;
+			background: @blue700; border-radius: 0.5cm;
+			.box-shadow(0.1em 0.1em 0.1em @grey800);
+			width: 0.6cm; height: 0.6cm; display: inline-block; text-align: center;
+			vertical-align: middle; padding: 0.1cm;
+		}
+		figcaption:focus {
+			height: 2rem; padding: 0; padding-top: 0.5rem; margin: 0.1cm;
+			background: rgba(255,255,255,0.75); color: black;
+			border-bottom: 0.1rem solid @blue500;
+		}
+		figcaption:focus:before {
+			content: none; margin: 0; background: none; width: 0; height: 0; padding: 0;
+		}
+	}
+}
+
+@media print {
+	body { padding: 0; background: white; height: auto; overflow: auto; }
+	.controls { display: none!important; }
+	// use width and height 100vw/vh instead of width: 27.7cm; height: 19cm to fix printing issues
+	.page {
+		padding: 1cm;
+		margin: 0;		
+		width: calc(100vw-1cm);
+		height: calc(100vh-1cm);
+		box-shadow: none; 
+	}
+	.page:not(:last-child) {
+		page-break-after: always;
+	}
+	.page > .content { background: none; }
+	figure.imageContainer { justify-content: flex-end; }
+	figcaption:before { content: ""; margin: 0; padding: 0; width: 0; height: 0; display: auto;	}
+}

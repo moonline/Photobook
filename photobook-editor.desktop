@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=photobook-editor
+Icon=emblem-photos
+Exec=sh -c '~/.local/bin/photobook-editor.AppImage'
+Categories=Office;Graphics;
+Terminal=false

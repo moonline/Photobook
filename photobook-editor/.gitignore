@@ -1,0 +1,8 @@
+/src/Classes/*.js
+/src/*.js
+/*.js
+/helper/*.js
+/src/Resources/Styles/styles.css
+/*.tgz
+
+# Do not exclude Configuration!

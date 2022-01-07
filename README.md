@@ -1,26 +1,54 @@
-Photobook
-=========
+# Photobook
 
-"Photobook" is an HTML5 Application to create a photobook using the printer function of the browser.
+"Photobook Editor" is an Electron and Angular based Application to create photobooks.
 
-![Main Screen](Documentation/mainScreen.jpg)
+![Main Screen](Documentation/main-screen.png)
+![Main Screen](Documentation/page-titles.png)
+![Main Screen](Documentation/image-titles.png)
+![Main Screen](Documentation/image-controls.png)
+![Main Screen](Documentation/printed-pdf.png)
 
-![Drag & Drop](Documentation/dragAndDrop.jpg)
+## Installation
 
-![Position and crop images](Documentation/imagePositioning.jpg)
+### Linux (Appimage/Snap)
 
-![Main Screen](Documentation/mainScreen2.jpg)
+Download installation package of the [latest release](https://github.com/moonline/Photobook/releases).
 
-![Page controls](Documentation/pageControls.jpg)
+#### Create application launcher
 
-![Titles](Documentation/pageTitles.jpg)
+1. Copy AppImage file to `.local/bin/photobook-editor.AppImage` in your home directory.
+
+```sh
+cp photobook-editor-*.AppImage ~/.local/bin/photobook-editor.AppImage
+```
+
+2. Make it executable 
+
+```sh
+sudo chmod+x ~/.local/bin/photobook-editor.AppImage
+```
+
+3. Copy the launcher `photobook-editor.desktop` to `.local/share/applications/`.
+
+```sh
+cp photobook-editor.desktop ~/.local/share/applications/
+```
 
 
-Print with Firefox
-------------------
+## Uninstall
 
-1. about:config -> margin. Set margin_left, margin_right, margin_bottom, margin_top to 0.
-2. "Firefox Menu"->"Print"->"Page Setup"->"Custom Size".
-3. Create a Page with Size of A4 and Border 1cm. The print layout will remove the white border so the pdf printer can add it.
-4. Print with "Print to file". Uncheck "Ignore Size and shrink...", allow printing background images and remove all headers and titles. Use a landscape paper of the type you created above.
-	
+Remove appimage and launcher:
+
+```sh
+rm ~/.local/share/applications/photobook-editor.desktop
+rm ~/.local/bin/photobook-editor.AppImage
+```
+
+## Development
+
+See [Photobook Editor > Development](./photobook-editor/README.md)
+
+
+## License
+
+<a rel="license" href="http://www.gnu.org/copyleft/gpl.html"><img alt="GPLv3" style="border-width:0" src="http://www.gnu.org/graphics/gplv3-88x31.png" /></a><br />This work is licensed under the <a rel="license" href="http://www.gnu.org/licenses/gpl-3.0-standalone.html">GNU GENERAL PUBLIC LICENSE 3.0</a>
